@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>新增应用</title>
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="css/style.css"  media="all">
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="layui/layui.all.js" charset="utf-8"></script>
+</head>
+<body >
+ 
+	<div class="xinZcon">
+		<ul>
+			<li><span>新增应用名称</span> <input type="text" id="appname" name="appname"></li>
+			<li><span>创建人</span> <input type="text" id="creatUser" name="creatUser"></li>
+			<li><button type="button" class="layui-btn keepBtn" id="saveMain">保存</button></li>
+		</ul>
+	</div>
+
+
+</body>
+
+<script>
+    $('#saveMain').click(function() {
+        var appname = $('#appname').val();
+        var creatUser = $('#creatUser').val();
+
+        var params = {
+            appname: appname,
+            creatUser: creatUser
+        };
+
+        $.ajax({
+            type: "post",
+            url: "./main/add",
+            data: JSON.stringify(params),
+            processData: false,
+            contentType: "application/json",
+            success: function(data) {
+                if (data.success){
+                    alert(data.message);
+                }
+            },
+            error: function(data) {
+                alert(data.message);
+            }
+        })
+
+    })
+
+</script>
+
+</html>

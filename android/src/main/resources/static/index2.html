@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>版本控制</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="mobileoptimized" content="240"/>
+    <meta name="viewport"
+          content="width=device-width=1.0; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+    <link href="css/webuploader.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="js/webuploader.min.js"></script>
+    <script src="layui/layui.all.js" charset="utf-8"></script>
+    <script src="js/font.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="uploader" class="wrap">
+    <div class="top"><img src="img/topbg.png"></div>
+    <!--用来存放文件信息-->
+    <div id="thelist" class="uploader-list"></div>
+    <div class="white">
+        <ul>
+            <li>
+                <span id="picker" class="leftName"></span>
+                <input type="file" name="apk" accept="" class="apkWj" id="apkWj">
+            </li>
+
+            <li>
+                <span class="leftName">appname</span>
+                <!--<input type="text" class="nameapk" id="appname" name="appname">-->
+                <select name="appname" class="nameapk" lay-verify="required" id="appname"  lay-search>
+                     <!--<option value=""></option>
+                     <option value="0">家医生App1</option>
+                     <option value="1">问诊App2</option>
+                     <option value="2">家医生App3</option>-->
+                </select>
+            </li>
+
+            <li>
+                <span class="leftName">appCode</span>
+                <input type="text" class="nameapk" id="appcode" name="appcode">
+            </li>
+
+            <li>
+                <span class="leftName">版本号</span>
+                <input type="text" class="nameapk" id="serverVersion" name="serverVersion">
+            </li>
+
+            <li>
+                <span class="leftName">是否强制更新</span>
+                <div class="divRadio">
+                    <input id="radio-1" name="lastForce" value="1" type="radio" checked>
+                    <label for="radio-1" class="radio-label">是</label>
+
+                    <input id="radio-2" name="lastForce" value="2" type="radio">
+                    <label for="radio-2" class="radio-label">否</label>
+                </div>
+            </li>
+            <li>
+                <span class="leftName">更新描述</span>
+                <textarea name="miaoshu" cols="30" rows="4" class="miaoshu" id="miaoshu"></textarea>
+            </li>
+        </ul>
+        <p class="btnBc">
+            <input id="ctlBtn" type="button" value="" class="btnBg">
+        </p>
+    </div>
+</div>
+
+
+</body>
+<script src="js/te.js"></script>
+<script type="text/javascript">
+
+</script>
+</html>

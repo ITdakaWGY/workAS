@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>更新描述</title>
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="css/style.css"  media="all">
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="layui/layui.all.js" charset="utf-8"></script>
+</head>
+<body >
+ 
+	<div class="xinZcon">
+		<p class="titleMiaos">更新描述：</p>
+		<!--<div class="conMiaos">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</div>-->
+        <div class="conMiaos"> <textarea name="describe" cols="30" rows="4" id="describe" readonly></textarea></div>
+	</div>
+
+
+<script>
+    $(window).load( function(){
+        initDate()
+    } );
+
+        //加载初始化数据
+        function initDate(){
+            var id = window.location.href.split('?')[1].split('=')[1];
+
+            $.ajax({
+                type: "get",
+                url: "./autoupdate/upgradeinfo/"+ id,
+                success: function(data) {
+                    if (data.success){
+                        $('#describe').val(data.autoupdate.upgradeinfo);
+                    }
+                },
+                error: function(data) {
+                    alert(data.message);
+                }
+            })
+        }
+
+</script>
+
+</body>
+</html>

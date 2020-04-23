@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>appList</title>
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="css/style.css"  media="all">
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="layui/layui.all.js" charset="utf-8"></script>
+</head>
+<body >
+ 
+	<div class="xinZcon">
+		<ul>
+			
+			<li><span>选择文件</span> <button type="button" class="layui-btn shangchuanBtn" id="test3"><i class="layui-icon"></i>上传文件</button></li>
+			<li><span>选择应用</span>
+				<form class="layui-form" action=""> 
+				<div class="width200">
+				<select name="appchoose" lay-verify="required">
+					<option value=""></option>
+					<option value="0">家医生App1</option>
+					<option value="1">问诊App2</option>
+					<option value="2">家医生App3</option>
+				</select>
+			
+			</div>
+		</form>
+		</li>
+			<li><button type="button" class="layui-btn reflashBtn">更新</button></li>	
+		</ul>
+	</div>
+
+
+<script>
+	
+	layui.use(['layer', 'form', 'laydate'],function(){
+	  var form = layui.form,
+	
+  		upload = layui.upload;
+
+
+
+		  form.render();
+
+
+	 	 //指定允许上传的文件类型
+	upload.render({
+		elem: '#test3'
+		,url: 'https://httpbin.org/post' //改成您自己的上传接口
+		,accept: 'file' //普通文件
+		,done: function(res){
+		layer.msg('上传成功');
+		console.log(res);
+		}
+  }); 
+ 
+	});
+
+</script>
+
+</body>
+</html>

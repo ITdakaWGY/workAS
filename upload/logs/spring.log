@@ -1,0 +1,13 @@
+2020-04-15 15:09:04.984  INFO 53720 --- [main] com.as.upload.UploadApplicationTests     : Starting UploadApplicationTests on X6X8-20171120EG with PID 53720 (started by Administrator in D:\workspace\upload)
+2020-04-15 15:09:05.010  INFO 53720 --- [main] com.as.upload.UploadApplicationTests     : No active profile set, falling back to default profiles: default
+2020-04-15 15:09:07.206  WARN 53720 --- [main] c.a.druid.pool.DruidAbstractDataSource   : oracle.jdbc.driver.OracleDriver is deprecated.Having use oracle.jdbc.OracleDriver.
+2020-04-15 15:09:07.546  INFO 53720 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2020-04-15 15:09:09.657  INFO 53720 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-04-15 15:09:10.148  INFO 53720 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-04-15 15:09:10.487  INFO 53720 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-04-15 15:09:10.510  INFO 53720 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-04-15 15:09:10.539  INFO 53720 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-04-15 15:09:10.669  INFO 53720 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: addUsingPOST_1
+2020-04-15 15:09:10.688  INFO 53720 --- [main] com.as.upload.UploadApplicationTests     : Started UploadApplicationTests in 6.198 seconds (JVM running for 7.492)
+2020-04-15 15:09:11.159  INFO 53720 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-15 15:09:11.212  INFO 53720 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

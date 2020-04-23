@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.publichealth.dao.HealthPersonMapper">
+
+    <sql id="query_sql" >
+      <where>
+          <if test="orgno != null and orgno != ''">
+              orgno = #{orgno}
+          </if>
+          <if test="tjrq != null and tjrq != ''">
+              and tjrq=#{tjrq}
+          </if>
+          <if test="sex != null and sex != ''">
+              and sex=#{sex}
+          </if>
+          <if test='age == "65"'>
+              and  s65 IS  NOT NULL
+          </if>
+          <if test='age == "71"'>
+              and  s71 IS  NOT NULL
+          </if>
+          <if test='age == "80"'>
+              and  s80 IS  NOT NULL
+          </if>
+
+      </where>
+    </sql>
+
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+        select count(${param1}) from health_person
+        <include refid="query_sql"/>
+    </select>
+
+</mapper>

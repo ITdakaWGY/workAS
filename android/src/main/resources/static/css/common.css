@@ -1,0 +1,144 @@
+body {
+	font-family: '微软雅黑';
+	margin: 0 auto;
+	padding: 0; background: #f1f2f3
+}
+
+div,
+form,
+ul,
+ol,
+li,
+span,
+p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+img,
+a img {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+ul,
+ol,
+li {
+	list-style: none
+}
+
+a {
+	outline-style: none;
+	text-decoration: none
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:active {
+	background: #FFFFFF;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clearfix:after,
+.clearfix:before {
+	display: block;
+	clear: both;
+	content: "";
+	overflow: hidden;
+	height: 0;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-justfy {
+	text-align: justify;
+}
+
+.width100 {
+	width: 100%;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+input {
+	outline: none;
+	background-color: inherit;
+	padding: 0 0;
+}
+
+textarea {
+	outline: none;
+}
+
+input:not([type]),
+input[type="email" i],
+input[type="number" i],
+input[type="password" i],
+input[type="tel" i],
+input[type="url" i],
+input[type="text" i] {
+	padding: 0px 0px;
+}
+
+/* .wrap {
+	min-width: 300px;
+	max-width: 720px;
+	margin: 0px auto;
+	width: 100%;
+} */
+
+.border0 {
+	border: 0px !important;
+}
+
+
+/*点击出现蓝色阴影*/
+
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	margin: 0px auto;
+	max-width: 720px;
+	min-width: 300px;
+	width: 100%;
+
+	
+}
