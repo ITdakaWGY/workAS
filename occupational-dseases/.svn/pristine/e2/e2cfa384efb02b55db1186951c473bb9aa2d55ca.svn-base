@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.occupationaldseases.dao.GrjbxxMapper">
+
+
+    <!--    <resultMap id="StuBaseResultMap" type="com.as.occupationaldseases.domain.stubase.StuBase" autoMapping="true">
+            <id column="id" property="id"/>
+            &lt;!&ndash;association:完成子对象的映射&ndash;&gt;
+            &lt;!&ndash;property:子对象在父对象中的属性名&ndash;&gt;
+            &lt;!&ndash;javaType:子对象的java类型&ndash;&gt;
+            &lt;!&ndash;autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配&ndash;&gt;
+            <association property="user" javaType="com.as.occupationaldseases.domain.stubase.StuBaser" autoMapping="true">
+                <id column="sfz" property="eno"/>
+            </association>
+        </resultMap>-->
+
+
+
+
+
+
+    <!-- 分页查询-->
+    <select id="queryStuBaseByXmlPage" resultType="com.as.occupationaldseases.domain.grjbxx.Grjbxx"  parameterType="java.util.Map">
+        select id, name,sex,sfz,brdh,companyname,companycode,gzgw,tjrq,zjjcjl,personalid,tjflag,tmh from  grjbxx where 1=1
+        <if test="tjrqState!=null and tjrqState!=''">
+            and tjrq>=#{tjrqState}
+        </if>
+        <if test="tjrqEnd!=null and tjrqEnd!=''">
+            and tjrq &lt;=#{tjrqEnd}
+        </if>
+        <if test="companycode!=null and companycode!=''">
+            and companycode = #{companycode}
+        </if>
+
+        <if test="tmh!=null and tmh!=''">
+            and tmh = #{tmh}
+        </if>
+        <if test="tjrq!=null and tjrq!=''">
+            and tjrq = #{tjrq}
+        </if>
+        <if test="sfz!=null and sfz!=''">
+            and sfz = #{sfz}
+        </if>
+        <!--五官科已体检 -->
+        <if test="tjflag==1">
+            and tjflag = #{tjflag}
+        </if>
+        <!--五官科未体检 -->
+        <if test="tjflag==0">
+            and (tjflag IS NULL or tjflag='')
+        </if>
+
+        <!--症状信息已体检 -->
+        <if test="tjflagzz==1">
+            and tjflagzz = #{tjflagzz}
+        </if>
+        <!--症状信息未体检 -->
+        <if test="tjflagzz==0">
+            and (tjflagzz IS NULL or tjflagzz='')
+        </if>
+
+        <!--外科已体检 -->
+        <if test="tjflagwk==1">
+            and tjflagwk = #{tjflagwk}
+        </if>
+        <!--外科未体检 -->
+        <if test="tjflagwk==0">
+            and (tjflagwk IS NULL or tjflagwk='')
+        </if>
+
+        <!--内科已体检 -->
+        <if test="tjflagnk==1">
+            and tjflagnk = #{tjflagnk}
+        </if>
+        <!--内科未体检 -->
+        <if test="tjflagnk==0">
+            and (tjflagnk IS NULL or tjflagnk='')
+        </if>
+
+        <!--神经科已体检 -->
+        <if test="tjflagsjk==1">
+            and tjflagsjk = #{tjflagsjk}
+        </if>
+        <!--神经科未体检 -->
+        <if test="tjflagsjk==0">
+            and (tjflagsjk IS NULL or tjflagsjk='')
+        </if>
+
+
+        <!--个人已体检 -->
+        <if test="tjbs==1">
+            and tjbs = #{tjbs}
+        </if>
+        <!--个人未体检 -->
+        <if test="tjbs==0">
+            and (tjbs IS NULL or tjbs='')
+        </if>
+        <!--体检统计 -->
+        <if test="res1==2">
+            and (res1 IS NULL or res1='')
+        </if>
+        <if test="res1==1">
+            and res1 = "1"
+        </if>
+        <if test="page!=null and page!=''">
+            LIMIT  ${page}
+        </if>
+
+    </select>
+
+
+    <!--分页数据量-->
+    <select id="queryCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
+        select  count(id)  from  grjbxx where 1=1
+        <if test="tjrqState!=null and tjrqState!=''">
+            and tjrq>=#{tjrqState}
+        </if>
+        <if test="tjrqEnd!=null and tjrqEnd!=''">
+            and tjrq &lt;= #{tjrqEnd}
+        </if>
+        <if test="companycode!=null and companycode!=''">
+            and companycode = #{companycode}
+        </if>
+        <if test="tmh!=null and tmh!=''">
+            and tmh = #{tmh}
+        </if>
+        <if test="tjrq!=null and tjrq!=''">
+            and tjrq = #{tjrq}
+        </if>
+        <if test="sfz!=null and sfz!=''">
+            and sfz = #{sfz}
+        </if>
+        <!--五官科已体检 -->
+        <if test="tjflag==1">
+            and tjflag = #{tjflag}
+        </if>
+        <!--五官科未体检 -->
+        <if test="tjflag==0">
+            and (tjflag IS NULL or tjflag='')
+        </if>
+
+        <!--症状信息已体检 -->
+        <if test="tjflagzz==1">
+            and tjflagzz = #{tjflagzz}
+        </if>
+        <!--症状信息未体检 -->
+        <if test="tjflagzz==0">
+            and (tjflagzz IS NULL or tjflagzz='')
+        </if>
+
+        <!--外科已体检 -->
+        <if test="tjflagwk==1">
+            and tjflagwk = #{tjflagwk}
+        </if>
+        <!--外科未体检 -->
+        <if test="tjflagwk==0">
+            and (tjflagwk IS NULL or tjflagwk='')
+        </if>
+
+        <!--内科已体检 -->
+        <if test="tjflagnk==1">
+            and tjflagnk = #{tjflagnk}
+        </if>
+        <!--内科未体检 -->
+        <if test="tjflagnk==0">
+            and (tjflagnk IS NULL or tjflagnk='')
+        </if>
+
+        <!--神经科已体检 -->
+        <if test="tjflagsjk==1">
+            and tjflagsjk = #{tjflagsjk}
+        </if>
+        <!--神经科未体检 -->
+        <if test="tjflagsjk==0">
+            and (tjflagsjk IS NULL or tjflagsjk='')
+        </if>
+
+
+        <!--个人已体检 -->
+        <if test="tjbs==1">
+            and tjbs = #{tjbs}
+        </if>
+        <!--个人未体检 -->
+        <if test="tjbs==0">
+            and (tjbs IS NULL or tjbs='')
+        </if>
+        <!--体检统计 -->
+        <if test="res1==2">
+            and (res1 IS NULL or res1='')
+        </if>
+        <if test="res1==1">
+            and res1 = "1"
+        </if>
+
+    </select>
+
+
+
+
+</mapper>

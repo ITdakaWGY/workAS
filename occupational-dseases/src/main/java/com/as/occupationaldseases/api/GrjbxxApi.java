@@ -1,0 +1,66 @@
+package com.as.occupationaldseases.api;
+
+import com.as.occupationaldseases.common.response.ProjectState;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.common.response.QueryResultSta;
+import com.as.occupationaldseases.domain.grjbxx.Grjbxx;
+import com.as.occupationaldseases.domain.grjbxx.GrjbxxWhole;
+import com.as.occupationaldseases.domain.grjbxx.responce.GrjbxxResult;
+
+import com.baomidou.mybatisplus.extension.api.R;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Map;
+
+public interface GrjbxxApi {
+    @ApiOperation("新增个人基本信息")
+    public GrjbxxResult add(Grjbxx grjbxx);
+    @ApiOperation("新增与修改个人基本信息")
+    public GrjbxxResult insertAndUpdate(Grjbxx grjbxx);
+    @ApiOperation("修改个人基本信息")
+    public GrjbxxResult update(Long id, Grjbxx grjbxx);
+    @ApiOperation("删除个人基本信息")
+    public GrjbxxResult delete(Long id);
+    @ApiOperation("查询个人基本信息")
+    public QueryResponseResult select(Grjbxx grjbxx);
+    @ApiOperation("查询全部个人基本信息")
+    public QueryResponseResult selectWhole(Grjbxx grjbxx);
+    @ApiOperation("导入个人信息")
+    public GrjbxxResult Import(MultipartFile excelFile)throws IOException;
+    @ApiOperation("新增的原子性控制")
+    public QueryResultSta selecsta(Map<String, Object> params);
+    @ApiOperation("新增与修改")
+    public GrjbxxResult adddWhole(GrjbxxWhole grjbxxWhole);
+    @ApiOperation("下载导入模板")
+    public R downloadFile(HttpServletResponse response) throws UnsupportedEncodingException;
+
+
+
+    @ApiOperation("分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="page",value = "页码",required=true,paramType="path",dataType="int"),
+            @ApiImplicitParam(name="size",value = "每页记录数",required=true,paramType="path",dataType="int")
+    })
+    public QueryResponseResult findList(int page, int size, Map<String, Object> params);
+
+    @ApiOperation("个人体检进度分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="page",value = "页码",required=true,paramType="path",dataType="int"),
+            @ApiImplicitParam(name="size",value = "每页记录数",required=true,paramType="path",dataType="int")
+    })
+    public QueryResponseResult ProgList(int current, int size, Grjbxx grjbxx);
+
+    @ApiOperation("上传文件")
+    public String base64Url(String str);
+
+    @ApiOperation("查询项目状态")
+    public List<ProjectState> getProject(String tmh);
+
+}

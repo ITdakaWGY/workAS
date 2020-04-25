@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div  onclick="userTest()">
+    测试测试
+</div>
+
+
+</body>
+
+<script src="static/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/spuId_66.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/js.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function userTest(){
+        alert("111111");
+        var sendData ={age:"22",name:"张三"};
+        $.ajax({
+            url:'http://localhost:8080/user/add',
+            type:'post',
+            dataType:'json',
+            contentType:"application/json",
+            async:true,//异步请求
+            cache:false,
+            data:JSON.stringify(sendData),//使用变量sendData
+            success:function(data) {
+                alert("222");
+                alert(data.info)
+            },
+            error:function(data) {
+                alert("error");
+            }
+        })
+
+
+
+    }
+
+    function switchSkuId() {
+        var skuSaleAttrValueJsonStr = $("#valuesSku").val();
+        var saleAttrValueIds = $(".redborder div");
+        var k = "";
+        $(saleAttrValueIds).each(function(i,saleAttrValueId){
+            k = k +  $(saleAttrValueId).attr("value")+"|";
+        });
+        var kuSaleAttrValueJson = JSON.parse(skuSaleAttrValueJsonStr);
+        var v_skuId = kuSaleAttrValueJson[k];
+        if(v_skuId){
+            window.location.href = "http://item.gmall.com:8082/"+v_skuId+".html";
+        }
+
+    }
+</script>
+
+</html>

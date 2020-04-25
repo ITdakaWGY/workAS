@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新增体检指标</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../bootstrapvalidator/vendor/bootstrap/css/bootstrap.css"/>
+   		<link rel="stylesheet" href="../../bootstrapvalidator/dist/css/bootstrapValidator.css"/>
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+		
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+	<body>
+		<div class="x-body layui-form" id="FormVerification">
+			<div class="layui-form-item">
+				<label class="layui-form-label">指标名称</label>
+				<div class="layui-input-block form-group">
+					<input type="text" id="deviceName" names="deviceName" placeholder="请输入指标名称" maxlength="20" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item mt10">
+				<label class="layui-form-label">所属机构</label>
+					<div class="layui-input-block form-group">
+						<select name="orgcode"  id="orgcode" lay-search>
+						</select>
+					</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">最低值</label>
+				<div class="layui-input-block form-group">
+					<input type="text" id="valueLower" names="valueLower" placeholder="请输入最低值" maxlength="10" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">最高值</label>
+				<div class="layui-input-block form-group">
+					<input type="text" id="valueUpper" names="valueUpper" placeholder="请输入最高值" maxlength="10" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">状态</label>
+				<div class="layui-input-block">
+					<select name="state"  id="state" lay-search>
+							<option value="1">启用</option>
+							<option value="2">停用</option>
+						</select>
+				</div>
+			</div>
+			<span class="saveTijian layui-btn">保存</span>
+		</div>
+		<script>
+			document.write('<script src="../../bootstrapvalidator/vendor/bootstrap/js/bootstrap.min.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<script src="../../bootstrapvalidator/dist/js/bootstrapValidator.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<script src="../../js/yewu/tjxm/tjzbVerification.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<script src="../../js/yewu/tjxm/edittjzb.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+</html>

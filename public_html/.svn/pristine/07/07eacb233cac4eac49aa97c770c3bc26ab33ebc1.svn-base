@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>体检概要信息</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</head>
+
+	<body class="childrenBody">
+	
+			<div class="row padding10">
+				<div class="white102">
+					<p class="fl">体检人员姓名：<span id="xm"></span></p>
+					<p class="fr">体检时间：<span id="tjrq"></span></p>
+				</div>
+				<div class="white102 wuGuan">
+					<ul>
+						<li>
+							<p class="titleWG">职工症状</p>
+							<p class="conAA"><b><span id="zgres1"></span></b>问题 </p>
+						</li>
+						<li>
+							<p class="titleWG">五官科</p>
+							<p class="conAA"><b><span id="wgkres1"></span></b>问题 </p>
+						</li>
+						<li>
+							<p class="titleWG">外科</p>
+							<p class="conAA"><b><span id="wkres1"></span></b>问题 </p>
+						</li>
+						<li>
+							<p class="titleWG">内科</p>
+							<p class="conAA"><b><span id="nkres1"></span></b>问题 </p>
+						</li>
+						<li>
+							<p class="titleWG">神经科科</p>
+							<p class="conAA"><b><span id="sjkres1"></span></b>问题 </p>
+						</li>
+					</ul>
+					
+				</div>
+			</div>
+		
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/tjgyxx.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</body>
+
+</html>

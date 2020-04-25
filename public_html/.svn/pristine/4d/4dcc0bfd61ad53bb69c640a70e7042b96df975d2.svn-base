@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>尿常规报告</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="detailrow">
+			<div class="projectText">尿常规检测报告单</div>
+			<div class="projectInfo">
+				<span><font>姓名:</font><i id="name"></i></span>
+				<span><font>性别:</font><i id="sex"></i></span>
+				<span><font>年龄:</font><i id="age"></i></span>
+				<span><font>样本编号:</font><i id="tmh"></i></span>
+			</div>
+			<table class="layui-table jianyandan">
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>检查结果</th>
+						<th>单位</th>
+						<th>参考范围</th>
+						<th>异常提示</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>尿蛋白(PRO)</td>
+						<td id="ndb"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="ndbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿糖(GLU)</td>
+						<td id="nt"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="ntyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿胆红素(BLL)</td>
+						<td id="ndhs"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="ndhsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿胆原(URO)</td>
+						<td id="ndy"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="ndyyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿潜血(BLO)</td>
+						<td id="nqx"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="nqxyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿酮体(KET)</td>
+						<td id="ntt"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="nttyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>亚硝酸盐(NIT)</td>
+						<td id="yxsy"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="yxsyyc">
+
+						</td>
+					</tr>
+
+					<tr>
+						<td>尿白细胞(LEU)</td>
+						<td id="nbxb"></td>
+						<td></td>
+						<td>阴性</td>
+						<td id="nbxbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿比重</td>
+						<td id="nbz"></td>
+						<td></td>
+						<td>1-1.03</td>
+						<td id="nbzyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>尿酸碱值</td>
+						<td id="nsjz"></td>
+						<td></td>
+						<td>4.5-8</td>
+						<td id="nsjzyc">
+
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+			<div class="doctorFont">
+				<span class="fl qianzi">检查医生:<img src="" id="ysqm" style="display: none;">
+					<input type="text" readonly="" value="" id="ysqmtext" style="display: none;">
+				</span>
+				<span class="fr projectDate">检验时间:<i id="jcsj"></i></span>
+			</div>
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/ncgbg.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

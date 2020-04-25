@@ -1,0 +1,35 @@
+package com.as.occupationaldseases.domain.grjbxx;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+@ToString
+public class Grjbxx_xm {
+    @ApiModelProperty("人员项目id")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
+    @ApiModelProperty("身份证")
+    private String sfz;
+    @ApiModelProperty("姓名")
+    private String name;
+    @ApiModelProperty("工作单位")
+    private String companyname;
+    @ApiModelProperty("单位编号")
+    private String companycode;
+    @ApiModelProperty("检查项目")
+    private String jcxm;
+    @ApiModelProperty("条码号")
+    private String tmh;
+    @ApiModelProperty("检查项目名称")
+    private String jcxmname;
+    private String res0;
+    private String res1;
+    private String res2;
+    private String res3;
+    private String res4;
+    private String res5;
+}

@@ -1,0 +1,906 @@
+$(function() {
+	let convas = document.querySelector("#canvas"); //
+	let video = document.querySelector("#video");
+	let img = document.querySelector("#img");
+	let btn = document.querySelector("button");
+	let context = canvas.getContext('2d');
+	let width = 320; //视频和canvas的宽度
+	let height = 0; //
+	let streaming = false; // 是否开始捕获媒体
+
+	// 获取用户媒体,包含视频和音频
+	navigator.mediaDevices.getUserMedia({
+			video: true
+		})
+		.then(stream => {
+			video.srcObject = stream; // 将捕获的视频流传递给video  放弃window.URL.createObjectURL(stream)的使用
+			video.play(); //  播放视频
+		});
+
+	$('#btn').click(function() {
+		// 需要判断媒体流是否就绪
+		if(streaming) {
+			$('#video').hide();
+			$('#img').show();
+			context.drawImage(video, 0, 0, 350, 240); // 将视频画面捕捉后绘制到canvas里面
+			img.src = canvas.toDataURL('image/png'); // 将canvas的数据传送到img里
+			$('#reloadBtn').show();
+			$(this).hide();
+			base64Url(img.src);
+
+		}
+	})
+
+	$('#reloadBtn').click(function() {
+		img.src = '';
+		$('#img').hide();
+		$('#video').show();
+		$(this).hide();
+		$('#btn').show();
+	})
+
+	// btn.addEventListener('click',tackcapture,false); // 按钮点击事件
+	// 监听视频流就位事件,即视频可以播放了
+	video.addEventListener('canplay', function(ev) {
+		if(!streaming) {
+			height = video.videoHeight / (video.videoWidth / width);
+			video.setAttribute('width', width);
+			video.setAttribute('height', height);
+			canvas.setAttribute('width', width);
+			canvas.setAttribute('height', height);
+			streaming = true;
+		}
+	}, false);
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#csny' //指定元素
+		});
+
+		//日期
+		laydate.render({
+			elem: '#date'
+		});
+		laydate.render({
+			elem: '#date1'
+		});
+		var frameId = window.location.href.split('?')[1].split('&')[2].split('=')[1];
+		var codeData = {};
+		getCodeData(codeData);
+		var data = {};
+		getOrgData(data);
+		var a = getCurrentDate();
+		$('#date1').val(a);
+
+		$('.cxBtn').click(() => {
+			$('#indenty').attr('src', 'http://127.0.0.1:19196/mainpage');
+			window.removeEventListener('message', handle, false);
+			window.addEventListener('message', handle, false);
+		})
+
+		function handle(e) {
+			var val = e.data;
+			$('#name').val(val.partyName);
+			intRadio('sex', val.gender);
+			var nation = val.nation + '族';
+			$('#minzu').find('option[value="' + nation + '"]').prop("selected", true);
+			var birthday = val.bornDay.substring(0, 4) + '-' + val.bornDay.substring(4, 6) + '-' + val.bornDay.substring(6,
+				8);
+			$('#date').val(birthday);
+			$('#sfz').val(val.certNumber);
+			$('#name').val(val.partyName);
+			$('#birthplace').val(val.certAddress);
+
+			var params = {
+				sfz: val.certNumber,
+			}
+			$.ajax({
+				type: "Post",
+				url: BaseUrl + '/grjbxx/select',
+				async: true,
+				data: JSON.stringify(params),
+				processData: false, //是否序列化
+				contentType: "application/json",
+				success: function(data) {
+					if(data.success) {
+						var list = data.queryResult.list;
+						if(list.length > 0) {
+							debugger;
+							var data = list[0];
+							$('#brdh').val(data.brdh); //本人电话
+							$('#familyaddress').val(data.familyaddress); //家庭住址	
+							$("#companycode").find('option[value="' + data.companycode + '"]').attr("selected", true);
+							$("#tmh").val(data.tmh);
+							if(data.companycode != null && data.companycode != "") {
+								//工作岗位
+								selectPost(data.companycode);
+
+							}
+							if(data.gzgwCode != null && data.gzgwCode != "") {
+								$("#gzgwCode").val(data.gzgwCode);
+								//查询危险因素
+								selectRiskFactors(data.gzgwCode);
+								//危险因素赋值
+								intCheckbox("whysqt", stringTurnArr(data.whysqt));
+								if(data.whysqt != null && data.whysqt != "") {
+									//查询项目
+									selectproject(data.whysqt);
+									//查询选中的项目并赋值
+									selectSelectionProject(data.sfz);
+								}
+
+							}
+							$("#hyzk").val(data.hyzk); //婚姻状况
+							$("#jycd").val(data.jycd); //教育程度
+							$("#tjlx").val(data.tjlx); //体检类型
+							$("#orgcode").val(data.orgcode); //机构号
+
+							form.render();
+
+						}
+					}
+				},
+				error: function(data) {
+					layer.close(loading);
+					layer.msg(data.message);
+				}
+			});
+
+			form.render();
+
+		}
+
+		$.ajax({
+			type: "get",
+			url: "../../json/minzu.json",
+			async: true,
+			success: function(data) {
+				var list = data.data;
+				var html = '';
+				for(var i = 0; i < list.length; i++) {
+					html += `<option  data-id="${list[i].id}" value="${list[i].name}">${list[i].name}</option>`
+				}
+				$('#minzu').html(html);
+				form.render();
+			}
+		});
+		/*查岗位*/
+		form.on('select(companycode)', function(data) {
+			var companycode = $("#companycode").val();
+			selectPost(companycode);
+
+		})
+
+		/*查询危险因素*/
+		form.on('select(gzgwCode)', function(data) {
+			var jobcode = $("#gzgwCode").val();
+			selectRiskFactors(jobcode);
+
+		});
+		/*查询项目*/
+		form.on('checkbox(whysqt)', function(data) {
+			var hazardCode = splicingCheckbox("whysqt").toString();
+			selectproject(hazardCode)
+
+		})
+
+		/*添加基本信息的项目附表*/
+		$('body').on('click', '#personJcxm', function() {
+			layer.open({
+				type: 1,
+				skin: 'layui-layer-rim', //加上边框
+				area: ['420px', '280px'], //宽高
+				content: $('.hiddenJcxm'),
+				btn: ['确定', '取消'],
+				yes: function(index, layero) {
+					//姓名
+					var name = $("#name").val();
+					//身份证
+					var sfz = $("#sfz").val();
+					//工作单位
+					var companycode = $("#companycode").val();
+					var companyname = $("#companycode option:checked").text();
+					//检查编号
+					var tmh = $("#tmh").val();
+					//检查项目
+					var jcxm = splicingCheckbox("jcxm").toString();
+					var ids = "";
+					$('input[name="jcxm"]:checked').each(function(i) {
+						ids += $(this).next().text() + ',';
+					})
+					ids = ids.substring(0, ids.length - 1);
+					$("#xmxs").html(ids);
+					var params = {
+						name: name,
+						sfz: sfz,
+						companycode: companycode,
+						companyname: companyname,
+						tmh: tmh,
+						jcxm: jcxm,
+						jcxmname: ids,
+					}
+
+					$.ajax({
+						type: "post",
+						url: BaseUrl + 'grjbxxXm/add',
+						async: true,
+						data: JSON.stringify(params),
+						processData: false, //是否序列化
+						contentType: "application/json",
+						success: function(data) {
+							if(data.success) {
+								layer.close(index);
+
+							} else {
+								layer.msg(data.message);
+							}
+
+						}
+					});
+
+				}
+
+			});
+		})
+
+		var type = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+		if(type == "look") {
+			doNotEdit('aaCon');
+			$('.footBtn,#personJcxm').hide();
+			form.render();
+		}
+		if(type == "look" || type == "edit") {
+			$('.photoView').hide();
+			$('#btn').hide();
+			$('#reloadBtn').show();
+			var id = window.location.href.split('?')[1].split('&')[1].split('=')[1];
+			var loadData = layer.msg('数据加载中...', {
+				icon: 16,
+				shade: 0.2,
+				time: false
+			});
+			var params = {
+				id: id
+			};
+			$.ajax({
+				type: "Post",
+				url: BaseUrl + '/grjbxx/select',
+				async: true,
+				data: JSON.stringify(params),
+				processData: false, //是否序列化
+				contentType: "application/json",
+				success: function(data) {
+					layer.close(loadData);
+					if(data.success) {
+						var list = data.queryResult.list[0];
+						//姓名
+						$("#name").val(list.name);
+						//性别
+						intRadio('sex', list.sex);
+						//民族
+						$("#minzu").val(list.mz);
+						//婚姻情况
+						$("#hyzk").val(list.hyzk);
+						//身份证
+						$("#sfz").val(list.sfz);
+						//出生日期
+						$("#date").val(list.csrq);
+						//教育程度
+						$("#jycd").val(list.jycd);
+						//联系电话
+						$("#brdh").val(list.brdh);
+						//出生地
+						$("#birthplace").val(list.birthplace);
+						//家庭住址
+						$("#familyaddress").val(list.familyaddress);
+						//体检类型
+						$("#tjlx").val(list.tjlx);
+						//工作单位
+						$("#companycode").val(list.companycode);
+						if(list.companycode != null && list.companycode != "") {
+							//工作岗位
+							selectPost(list.companycode);
+						}
+						if(list.gzgwCode != null && list.gzgwCode != "") {
+							$("#gzgwCode").val(list.gzgwCode);
+							//查询危险因素
+							selectRiskFactors(list.gzgwCode);
+							//危险因素赋值
+							intCheckbox("whysqt", stringTurnArr(list.whysqt));
+							if(list.whysqt != null && list.whysqt != "") {
+								//查询项目
+								selectproject(list.whysqt);
+								//查询选中的项目并赋值
+								selectSelectionProject(list.sfz);
+							}
+
+						}
+
+						//检查编号
+						$("#tmh").val(list.tmh);
+						//检查机构
+						$("#orgcode").val(list.orgcode);
+
+						//检查时间
+						$("#date1").val(list.tjrq);
+						$("#personalid").val(list.personalid);
+						if(list.res2 != null && list.res2.length > 0) {
+							$("#url").val(list.res2);
+							var url = BaseUrl + list.res2;
+							$('#img').show().attr('src', url);
+						}
+
+						form.render();
+					} else {
+						layer.msg('data.message');
+					}
+				},
+				error: function(data) {
+					layer.close(data.Message);
+					layer.msg('程序错误!');
+				}
+
+			});
+		}
+
+		//接受结果集，往表格进行数据填充
+		function setCodedata(result) {
+
+			var html = '';
+			html += `<option value=""></option>`;
+			for(var i = 0; i < result.length; i++) {
+				html += `<option value="${result[i].companycode}">${result[i].companyname}</option>`;
+			}
+			$('#companycode').html(html);
+			getnull();
+			form.render();
+
+		};
+		//查询单位
+		function getCodeData(data) {
+			if(typeof(data) == "undefined") {
+				data = {};
+			}
+			var result;
+			$.ajax({
+				type: "get",
+				url: BaseUrl + 'companyinfo/selectlist',
+				data: data,
+				async: false,
+				success: function(data) {
+					if(data.success) {
+						result = data.queryResult.list;
+						setCodedata(result);
+					} else {
+						layer.msg(data.message);
+					}
+
+				}
+			});
+		}
+
+		//接受结果集，往表格进行数据填充
+		function setOrgdata(result) {
+			//debugger;
+			var html = '';
+			html += '<option value="">请选择</option>';
+			for(var i = 0; i < result.length; i++) {
+				html += `<option value="${result[i].orgno}">${result[i].orgname}</option>`;
+			}
+			$('#orgcode').html(html);
+			getnull();
+			form.render();
+
+		}
+
+		function getOrgData(data) {
+			if(typeof(data) == "undefined") {
+				data = {};
+			}
+			var result;
+			$.ajax({
+				type: "get",
+				url: BaseUrl + 'sysOrg/selectList',
+				data: data,
+				async: true,
+				success: function(data) {
+					if(data.success) {
+						result = data.queryResult.list;
+						setOrgdata(result);
+					} else {
+						layer.msg(data.message);
+					}
+
+				}
+			});
+		}
+
+		/*保存信息*/
+		$('.bcxx').click(function() {
+			//姓名
+			var name = $("#name").val();
+			//性别
+			var sex = $("input[name='sex']:checked").val();
+			//民族
+			var mz = $("#minzu option:selected").val();
+			//婚姻情况
+			var hyzk = $("#hyzk option:selected").val();
+			//身份证
+			var sfz = $("#sfz").val();
+			//出生日期
+			var csrq = $("#date").val();
+			//教育程度
+			var jycd = $("#jycd option:selected").val();
+			//联系电话
+			var brdh = $("#brdh").val();
+			//出生地
+			var birthplace = $("#birthplace").val();
+			//家庭住址
+			var familyaddress = $("#familyaddress").val();
+			//工作单位
+			var companycode = $("#companycode").val();
+			var companyname = $("#companycode option:checked").text();
+			//工作岗位
+			var gzgwCode = $("#gzgwCode").val();
+			var gzgw = $("#gzgwCode option:checked").text();
+			//检查编号
+			var tmh = $("#tmh").val();
+			//检查机构
+			var orgcode = $("#orgcode").val();
+			var orgname = $("#orgcode option:checked").text();
+			//检查时间
+			var tjrq = $("#date1").val();
+			//危险因素
+			var whysqt = splicingCheckbox("whysqt").toString();
+			//档案号
+			var personalid = $("#personalid").val();
+			var tjlx = $("#tjlx").val();
+			var res2 = $("#url").val();
+
+			var params = {
+				tjnf: '2020',
+				name: name,
+				sex: sex,
+				mz: mz,
+				hyzk: hyzk,
+				sfz: sfz,
+				csrq: csrq,
+				jycd: jycd,
+				brdh: brdh,
+				birthplace: birthplace,
+				familyaddress: familyaddress,
+				companycode: companycode,
+				companyname: companyname,
+				gzgw: gzgw,
+				gzgwCode: gzgwCode,
+				tmh: tmh,
+				orgname: orgname,
+				orgcode: orgcode,
+				tjrq: tjrq,
+				whysqt: whysqt,
+				personalid: personalid,
+				tjlx: tjlx,
+				djbs: "1",
+				res2: res2,
+			}
+
+			$.ajax({
+				type: "post",
+				url: BaseUrl + 'grjbxx/insert',
+				async: false,
+				data: JSON.stringify(params),
+				processData: false, //是否序列化
+				contentType: "application/json",
+				success: function(data) {
+					if(data.success) {
+						var sfz1 = $("#sfz").val();
+						addSpeedOfProgress(sfz1);
+						layer.alert('保存成功', {
+							skin: 'layui-layer-lan',
+							closeBtn: 0,
+							anim: 4 //动画类型
+						}, function(tc, layero) {
+							var dom = $(top.window.document.getElementsByName(frameId)[0].contentWindow.document.getElementById('intSearch'));
+							var newpage = parseInt(dom.attr('data-page'));
+							top.window.document.getElementsByName(frameId)[0].contentWindow.getPageData(newpage);
+						});
+					} else {
+						layer.msg(data.message);
+					}
+
+				}
+			});
+			var printItems = [];
+			$.ajax({
+				type: "GET",
+				url: BaseUrl + "/grjbxxXm/selectlist",
+				async: false,
+				data: {
+					sfz: $("#sfz").val(),
+				},
+				success: function(data) {
+					if(data.success) {
+						printItems = data.queryResult.list;
+						if(printItems.length > 0) {
+							debugger;
+							printItems = JSON.stringify(printItems);
+							$.post("http://" + ip + ":" + port + "/printreport", {
+									"ReportType": "gridreport",
+									/*报表类型 gridreport fastreport 为空 将默认为gridreport  */
+									"ReportName": "barcode.grf",
+									/*报表文件名 条形码 */
+									"ReportVersion": 1,
+									/*可选。报表版本, 为空则默认1  如果本地报表的版本过低 将从 ReportUrl 地址进行下载更新*/
+									//"ReportUrl": "http://111.67.202.157:9099/report/barcode.grf",                  /*可选。为空 将不更新本地报表 , 如果本地报表不存在可以从该地址自动下载*/
+									"ReportUrl": "",
+									/*可选。为空 将不更新本地报表 , 如果本地报表不存在可以从该地址自动下载*/
+									"Copies": 1,
+									/*可选。打印份数，支持指定打印份数。默认1份,如果为零,不打印,只返回报表生成的pdf,jpg等文件*/
+									"PrinterName": TmhPrintMachineName,
+									/*可选。指定打印机，为空的话 使用默认打印机, 请在 控制面板 -> 设备和打印机 中查看您的打印机的名称 */
+									"PrintOffsetX": 0,
+									/*可选。打印右偏移，单位厘米。报表的水平方向上的偏移量，向右为正，向左为负。*/
+									"PrintOffsetY": 0,
+									/*可选。打印下偏移，单位厘米。 报表的垂直方向上的偏移量，向下为正，向上为负。*/
+									"token": PrintTokens,
+									/*可选。只要token值在列表中 方可打印*/
+									"taskId": "1234567",
+									/*可选。多个打印任务同时打印时，根据该id确定返回的是哪个打印任务。 */
+									"exportfilename": "",
+									/*可选。自定义 导出 文件名称 为空 或者 自定义名称 如 test */
+									"exportfiletype": "",
+									/*可选。自定义 导出 文件格式 为空 或者 自定义名称 如 pdf  */
+
+									"Field": '[' ///*字段， type ftBlob (base64格式) ,ftString ftInteger ftBoolean, ftFloat, ftCurrency,ftDateTime,  size (ftString 设置为实际长度,其他的设置为0,例如 ftInteger ftBlob 等设置为0 ) 
+										+
+										'{"type": "ftString", "name": "name","size": 255,"required": true},' +
+										'{"type": "ftString", "name": "no","size": 255,"required": false},' +
+										']',
+
+									"Data": printItems,
+								},
+								function(data) {
+									data = decodeURIComponent(data);
+									//alert(data);
+									if(data == "") {
+										layer.msg('连接打印机失败，请检查设置项');
+									} else {
+										var obj = JSON.parse(data);
+										if(obj.status == "ok") {
+											layer.msg("打印成功");
+										} else {
+											layer.msg("打印失败:" + obj.data);
+										}
+									}
+								});
+						}
+					} else {
+						layer.msg(data.msg);
+					}
+					parent.layer.closeAll();
+				},
+				error: function(data) {
+					layer.msg(data.msg);
+					parent.layer.closeAll();
+				}
+			});
+
+		})
+			//保存进度
+			function addSpeedOfProgress(sfz) {
+			var params = {
+						sfz: sfz,
+					}
+			$.ajax({
+				type: "post",
+				url: BaseUrl + '/progress/add',
+				async: true,
+				data: JSON.stringify(params),
+				processData: false,
+				contentType: "application/json",
+				success: function(data) {
+					layer.msg(data.message);
+				}
+				
+			});
+			}
+
+		//查询危险因素
+		function selectRiskFactors(jobcode) {
+			$.ajax({
+				type: "get",
+				url: BaseUrl + 'Hazardinfo/selectNoPaging/' + jobcode,
+				async: false,
+				success: function(data) {
+					if(data.success) {
+						var list = data.queryResult.list;
+						var html = '';
+						for(var i = 0; i < list.length; i++) {
+							html +=
+								`<input type="checkbox" name="whysqt" lay-filter="whysqt" title="${list[i].hazardName}" value="${list[i].hazardCode}" lay-skin="primary">`;
+
+						}
+						$("#wxys").html(html);
+						form.render();
+					} else {
+						layer.msg('data.message');
+					}
+				},
+				error: function(data) {
+					layer.close(data.Message);
+					layer.msg('程序错误!');
+				}
+
+			});
+
+		}
+		/*获取岗位*/
+		function selectPost(companycode) {
+			var params = {
+				companycode: companycode
+			};
+			$.ajax({
+				type: "get",
+				url: BaseUrl + 'Jobinfo/list/0/100',
+				async: false,
+				data: params,
+				success: function(data) {
+					if(data.success) {
+						var list = data.queryResult.list;
+						if(list.length > 0) {
+							var html = '';
+							html = '';
+							for(var i = 0; i < list.length; i++) {
+								html += `<option  value="${list[i].jobcode}">${list[i].jobname}</option>`
+							}
+							$('#gzgwCode').html(html);
+							if(typeof(list[0].jobcode) != 'undefined' && list[0].jobcode != null) {
+								selectRiskFactors(list[0].jobcode);
+							}
+						} else {
+							$('#wxys').html("");
+							$("#gzgwCode").html('');
+
+						}
+						form.render();
+					}
+				},
+				error: function(data) {
+					layer.close(loading);
+					layer.msg(data.message);
+				}
+			});
+		}
+
+		/*获取项目*/
+		function selectproject(hazardCode) {
+			$.ajax({
+				type: "get",
+				url: BaseUrl + 'DiseaseItem/selectNoPaging/' + hazardCode,
+				async: false,
+				success: function(data) {
+					if(data.success) {
+						var list = data.queryResult.list;
+						var html = '';
+						for(var i = 0; i < list.length; i++) {
+							html +=
+								`<input type="checkbox" name="jcxm" lay-filter="jcxm" title="${list[i].iteamName}" value="${list[i].itemCode}" lay-skin="primary">`;
+						}
+
+						$("#jcsm").html(html);
+						form.render();
+					} else {
+						layer.msg('data.message');
+					}
+				},
+				error: function(data) {
+					layer.close(data.Message);
+					layer.msg('程序错误!');
+				}
+
+			});
+
+		}
+		/*获取选中项目*/
+		function selectSelectionProject(sfz) {
+
+			var params = {
+				sfz: sfz
+			};
+			$.ajax({
+				type: "Post",
+				url: BaseUrl + '/grjbxxXm/select',
+				async: false,
+				data: JSON.stringify(params),
+				processData: false, //是否序列化
+				contentType: "application/json",
+				success: function(data) {
+					layer.close(loadData);
+					if(data.success) {
+
+						if(data.queryResult.list.length > 0) {
+							var list = data.queryResult.list[0];
+						}
+						if(!(JSON.stringify(list) == "{}")) {
+							intCheckbox("jcxm", stringTurnArr(list.jcxm));
+							var ids = '';
+							$('input[name="jcxm"]:checked').each(function(i) {
+								ids += $(this).next().text() + ',';
+							})
+
+							ids = ids.substring(0, ids.length - 1);
+							$("#xmxs").html(ids);
+							form.render();
+						}
+
+					} else {
+						layer.msg('data.message');
+					}
+				},
+				error: function(data) {
+					layer.close(data.Message);
+					layer.msg('程序错误!');
+				}
+
+			});
+		}
+
+		//2020-03-30 输入身份证直接回车,显示数据
+		document.onkeydown = keydown;
+		var form = layui.form;
+
+		function keydown(e) {
+			var currKey = 0,
+				e = e || event;
+			currKey = e.keyCode || e.which || e.charCode; //支持IE、FF 
+			if(currKey == 13) {
+				gets();
+			}
+		}
+
+		$('.dengji').bind('input propertychange', function() {
+			if($('.dengji').val().length >= 15) {
+				gets();
+			}
+		});
+
+		function gets() {
+			var sfz = $("#sfz").val();
+			var params = {
+				sfz: $("#sfz").val(),
+			}
+			$.ajax({
+				type: "Post",
+				url: BaseUrl + '/grjbxx/select',
+				async: true,
+				data: JSON.stringify(params),
+				processData: false, //是否序列化
+				contentType: "application/json",
+				success: function(data) {
+					if(data.success) {
+						var list = data.queryResult.list;
+						list = list[0];
+						if(!(JSON.stringify(list) == "{}")) {
+							//姓名
+							$("#name").val(list.name);
+							//性别
+							intRadio('sex', list.sex);
+							//民族
+							$("#minzu").val(list.mz);
+							//婚姻情况
+							$("#hyzk").val(list.hyzk);
+							//身份证
+							$("#sfz").val(list.sfz);
+							//出生日期
+							$("#date").val(list.csrq);
+							//教育程度
+							$("#jycd").val(list.jycd);
+							//联系电话
+							$("#brdh").val(list.brdh);
+							//出生地
+							$("#birthplace").val(list.birthplace);
+							//家庭住址
+							$("#familyaddress").val(list.familyaddress);
+							//体检类型
+							$("#tjlx").val(list.tjlx);
+							//工作单位
+							$("#companycode").val(list.companycode);
+							if(list.companycode != null && list.companycode != "") {
+								//工作岗位
+								selectPost(list.companycode);
+							}
+							if(list.gzgwCode != null && list.gzgwCode != "") {
+								$("#gzgwCode").val(list.gzgwCode);
+								//查询危险因素
+								selectRiskFactors(list.gzgwCode);
+								//危险因素赋值
+								debugger;
+								intCheckbox("whysqt", stringTurnArr(list.whysqt));
+								if(list.whysqt != null && list.whysqt != "") {
+									//查询项目
+									selectproject(list.whysqt);
+									//查询选中的项目并赋值
+									selectSelectionProject(list.sfz);
+								}
+
+							}
+
+							//检查编号
+							$("#tmh").val(list.tmh);
+							//检查机构
+							$("#orgcode").val(list.orgcode);
+
+							//检查时间
+							//$("#date1").val(list.tjrq);
+							var a = getCurrentDate();
+							$('#date1').val(a);
+							$("#personalid").val(list.personalid);
+							if(list.res2 != null && list.res2.length > 0) {
+								$("#url").val(list.res2);
+								var url = BaseUrl + list.res2;
+								$('#img').show().attr('src', url);
+							}
+							form.render();
+						}
+
+					} else {
+						layer.msg('data.message');
+					}
+				},
+				error: function(data) {
+					layer.close(data.Message);
+					layer.msg('程序错误!');
+				}
+
+			});
+		}
+
+	});
+})
+//获取多选框的值
+function splicingCheckbox(name) {
+	obj = document.getElementsByName(name);
+	check_val = [];
+	for(k in obj) {
+		if(obj[k].checked)
+			check_val.push(obj[k].value);
+	}
+	return check_val;
+
+}
+//字符串转数组
+function stringTurnArr(whysqt) {
+	var whyqArry = [];
+	if(whysqt.indexOf(',')) {
+		whyqArry = whysqt.split(',');
+	} else {
+		whyqArry.push(whysqt);
+	}
+
+	return whyqArry;
+}
+
+function base64Url(img) {
+	$.ajax({
+		type: "post",
+		url: BaseUrl + 'grjbxx/base64Url',
+		async: false,
+		data: img,
+		processData: false,
+		contentType: "application/json",
+		success: function(data) {
+			if(data != null) {
+				$('#url').val(data);
+			} else {
+				alert("上传失败,请联系管理员")
+			}
+
+		},
+		error: function(data) {
+			alert("上传失败,请联系管理员")
+		}
+	});
+}

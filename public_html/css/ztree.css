@@ -1,0 +1,43 @@
+.ztree{
+	margin-top: 20px;
+	margin-left: 100px;
+}
+.machines{
+	margin-left: 20px;
+}
+.ztree li span {
+    line-height: 20px;
+    margin-right: 2px;
+}
+
+.ztree * {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-family: Verdana,Arial,Helvetica,AppleGothic,sans-serif;
+}
+.ztree li a {
+    padding: 5px 5px 0 0;
+    margin: 0;
+    cursor: pointer;
+    height: 20px;
+    color: #333;
+    background-color: transparent;
+    text-decoration: none;
+    vertical-align: top;
+    display: inline-block;
+}
+.ztree li a.curSelectedNode {
+    padding-top: 0;
+    background-color: #ffe6b0;
+    color: #000;
+    height: 20px;
+    border: 1px #ffb951 solid;
+    opacity: .8;
+}
+.saveTijian {
+	position: fixed;
+	bottom: 150px;
+	right: 2%;
+	z-index: 999;
+}

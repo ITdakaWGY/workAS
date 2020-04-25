@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用人单位基本信息修改</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/newWrap.css" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+	<body>
+		<div class="x-body">
+			<table class="layui-table layui-form">
+				<tr>
+					<td>危害类型</td>
+					<td colspan="3">
+						<input type="radio" name="hazardType" lay-skin="primary" value="粉尘" checked="" title="粉尘">
+						<input type="radio" name="hazardType" lay-skin="primary" value="化学因素" title="化学因素">
+						<input type="radio" name="hazardType" lay-skin="primary" value="物理因素" title="物理因素">
+						<input type="radio" name="hazardType" lay-skin="primary" value="放射因素" title="放射因素">
+						<input type="radio" name="hazardType" lay-skin="primary" value="生物因素" title="生物因素">
+					</td>
+				</tr>
+				<tr>
+					<td>危害名称</td>
+					<td colspan="3" class="whList">
+						<input type="radio" name="hazardName" lay-skin="primary" value="煤尘"  title="煤尘">
+						<input type="radio" name="hazardName" lay-skin="primary" value="灰尘"  title="灰尘">
+						<input type="radio" name="hazardName" lay-skin="primary" value="面尘"  title="面尘">
+					</td>
+				</tr>
+				<tr>
+					<td>用人单位名称</td>
+					<td colspan="3">
+						<select name="companycode"  id="companycode" lay-search>
+						</select>
+					</td>
+					
+				</tr>
+				
+				
+				
+			</table>
+			<input type="button" class="layui-btn saveTijian" value="保存" >
+			
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zybwh/editzybwh.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+</html>

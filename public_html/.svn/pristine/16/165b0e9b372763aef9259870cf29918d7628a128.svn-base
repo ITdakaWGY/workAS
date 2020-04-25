@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+	
+	</head>
+
+	<body>
+		<div class="x-body layui-form addForm">
+			<div class="dayina">
+			<h2 class="titleA">疑似职业病告知书（用人单位）</h2>
+			<p class="titleB">用人单位：<font id="companyname1"></font></p>
+			<div class="yichangA">
+				劳动者 <font id="name1"></font> 于<font id="tjrq"></font>经我机构职业健康检查，检查结论为疑似职业病，根据《职业健康检查管理办法》第十六条“职业健康机构发现疑似职业病病人时，应当告知劳动者本人并及时通知用人单位”，你单位应在<font id="tjrq1"></font>前依法申请职业病诊断。<br/>
+				特此告知。
+			<p class="jigouA">职业健康检查机构：临沂青年社区服务中心</p>
+			<p class="timeA"><font id="createtime1"></font></p>
+			<p class="qianA">签收人：<font id="companyname2"></font></p>
+			<p class="timeA"><font id="createtime2"></font></p>
+			</div>
+			</div>
+			<div class="dayinb">
+			<h2 class="titleA">疑似职业病告知书（劳动者）</h2>
+			<p class="titleB">劳动者：<font id="name2"></font></p>
+			<div class="yichangA">
+				你于<font id="tjrq2"></font>经我机构职业健康检查，检查结论为疑似职业病，根据《职业健康检查管理办法》第十六条“职业健康机构发现疑似职业病病人时，应当告知劳动者本人并及时通知用人单位”，你单位应在<font id="tjrq3"></font>前依法申请职业病诊断。<br/>
+				特此告知。
+			<p class="jigouA">职业健康检查机构：临沂青年社区服务中心</p>
+			<p class="timeA"><font id="createtime3"></font></p>
+			<p class="qianA">签收人：<font id="name3"></font></p>
+			<p>身份证号：<font id="sfz"></font></p>
+			<p class="timeA"><font id="createtime4"></font></p>
+				
+			</div>
+			</div>
+			<span class="saveTijian layui-btn">打印</span>
+		</div>
+	<!--	<script src="../../js/yewu/tjqy/yszyb.js"></script>-->
+		<script>
+			document.write('<script src="../../js/yewu/tjfk/yszybinfo.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

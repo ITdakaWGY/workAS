@@ -1,0 +1,44 @@
+package com.as.occupationaldseases.api;
+
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.domain.sysMenu.SysMenu;
+import com.as.occupationaldseases.domain.sysMenu.responce.SysMenuResult;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
+public interface SysMenuApi  {
+
+    //新增
+    @ApiOperation("新增")
+    public SysMenuResult add(SysMenu sysMenu);
+
+
+    //根据id修改
+    @ApiOperation("根据id修改")
+    public SysMenuResult update(int id, SysMenu sysMenu);
+
+    //根据id删除
+    @ApiOperation("根据id删除")
+    public SysMenuResult delete(int id);
+
+    /**
+     * 分页查询方法
+     *
+     * @param page       页码，从1开始记数
+     * @param size          每页记录数
+     * @param sysMenu 查询条件
+     * @return
+     */
+    @ApiOperation("分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页码", required = true, paramType = "path", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页记录数", required = true, paramType = "path", dataType = "int")
+    })
+    public QueryResponseResult findList(int page, int size, SysMenu sysMenu);
+
+
+    //查询单条数据
+    @ApiOperation("查询单条数据")
+    public SysMenuResult findBySingle(SysMenu sysMenu);
+}

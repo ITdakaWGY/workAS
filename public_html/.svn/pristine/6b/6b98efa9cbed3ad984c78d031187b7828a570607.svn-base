@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>修改用户</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+	</head>
+
+	<body>
+		<div class="x-body layui-form addForm">
+			<div class="layui-form-item">
+				<label class="layui-form-label">登录名
+		</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" id="name" required lay-verify="required"  placeholder="请输入登录名" autocomplete="off" class="layui-input" >
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户编号</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" id="yhbh" required lay-verify="required" placeholder="请输入用户编号" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">确认密码</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" id="exactlyPassword" required lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户类别</label>
+				<div class="layui-input-block " style="border: 0;margin-left: 100px;">
+		
+					 <div class="layui-input" style="border: 0; ">
+						<select name="leibie" lay-filter="leibie" id="userType">
+								<option value=""></option>
+						<option value="1">登记医生</option>
+						<option value="2">提出信息采集医生</option>
+						<option value="3">症状医生</option>
+						<option value="4">内科医生</option>
+						<option value="5">外科医生</option>
+						<option value="6">五官科医生</option>
+						<option value="7">神经科医生</option>
+					  </select>
+					 </div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户状态</label>
+				<div class="layui-input-block " style="border: 0;margin-left: 100px;">
+					 <div class="layui-input" style="border: 0; ">
+						<select name="yhzt" lay-filter="yhzt" id = "userState" >
+								<option value="">请选择用户状态</option>
+						<option value="0">启用</option>
+						<option value="1">未启用</option>
+					  </select>
+					 </div>
+				</div>
+			</div>	
+			<div class="layui-form-item">
+				<label class="layui-form-label">系统代码</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" id="xtdm" required lay-verify="required" placeholder="请输入系统代码" autocomplete="off" class="layui-input">
+				</div>
+			</div>	
+			<div class="layui-form-item">
+				<label class="layui-form-label">所属机构</label>
+				<div class="layui-input-block " style="border: 0;margin-left: 100px;">
+					 <div class="layui-input" style="border: 0; ">
+						<select name="jigou" lay-filter="jigou" id="orgcode">
+					  </select>
+					 </div>
+				</div>
+			</div>
+			<span class="saveTijian layui-btn">保存</span>
+		</div>
+		<script src="../../js/yewu/yhgl/edit.js"></script>
+	</body>
+
+</html>

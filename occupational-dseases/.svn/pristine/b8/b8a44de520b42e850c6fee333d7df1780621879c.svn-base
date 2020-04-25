@@ -1,0 +1,585 @@
+package com.as.occupationaldseases.service;
+
+import com.as.occupationaldseases.common.response.QueryResultSta;
+import com.as.occupationaldseases.domain.companyinfo.Companyinfo;
+import com.as.occupationaldseases.utils.ExcelUtils;
+import com.as.occupationaldseases.utils.FileFactory;
+import com.as.occupationaldseases.common.response.CommonCode;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.common.response.QueryResult;
+import com.as.occupationaldseases.dao.*;
+import com.as.occupationaldseases.domain.grjbxx.*;
+import com.as.occupationaldseases.domain.grjbxx.responce.GrjbxxResult;
+import com.as.occupationaldseases.domain.user.responce.UserCode;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+@Service
+public class GrjbxxService {
+    @Resource
+    GrjbxxMapper grjbxxMapper;
+    @Resource
+    GrjbxxSxMapper grjbxxSxMapper;
+    @Resource
+    GrjbxxSsMapper grjbxxSsMapper;
+    @Resource
+    GrjbxxWsMapper grjbxxWsMapper;
+    @Resource
+    GrjbxxJzsMapper grjbxxJzsMapper;
+    @Resource
+    GrjbxxJbsMapper grjbxxJbsMapper;
+    @Resource
+    GrjbxxZysMapper grjbxxZysMapper;
+
+    @Resource
+    CompanyinfoMapper companyinfoMapper;
+
+
+
+    /**
+     * 如果有就修改，没有就新增
+     * @param grjbxx
+     * @return
+     */
+    public GrjbxxResult insertAndUpdate(Grjbxx grjbxx){
+        if(grjbxx == null){
+            //抛出异常，非法参数异常..指定异常信息的内容
+            return new GrjbxxResult(CommonCode.INVALID_PARAM,null);
+        }
+        QueryWrapper<Grjbxx> wrapper = new QueryWrapper<>();
+        Grjbxx jbxx = new Grjbxx();
+        jbxx.setSfz(grjbxx.getSfz());
+        wrapper.setEntity(jbxx);
+        Grjbxx grjbxx1 = grjbxxMapper.selectOne(wrapper);
+        if (grjbxx1!=null) {
+            grjbxx.setId(grjbxx1.getId());
+            grjbxxMapper.updateById(grjbxx);
+            return new GrjbxxResult(CommonCode.SUCCESS,grjbxx);
+        }
+
+        grjbxxMapper.insert(grjbxx);
+        return new GrjbxxResult(CommonCode.SUCCESS,grjbxx);
+
+    }
+
+
+
+
+    /**
+     * 新增
+     * @param grjbxx
+     * @return
+     */
+    public GrjbxxResult add(Grjbxx grjbxx){
+        if(grjbxx == null){
+            //抛出异常，非法参数异常..指定异常信息的内容
+            return new GrjbxxResult(CommonCode.INVALID_PARAM,null);
+        }
+        if ("".equals(grjbxx.getCsrq())) {
+            grjbxx.setCsrq(null);
+        }
+        grjbxx.setCreatetime(new Date());
+        grjbxxMapper.insert(grjbxx);
+
+        return new GrjbxxResult(CommonCode.SUCCESS,grjbxx);
+    }
+
+    /**
+     * 修改
+     * @param id
+     * @param grjbxx
+     * @return
+     */
+    public GrjbxxResult update(Long id , Grjbxx grjbxx){
+        Grjbxx grjbxx1 = grjbxxMapper.selectById(id);
+        if (grjbxx1!=null){
+            grjbxxMapper.updateById(grjbxx);
+            return new GrjbxxResult(CommonCode.SUCCESS,grjbxx);
+        }
+        return new GrjbxxResult(UserCode.USER_NOTEXISTS,null);
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    public GrjbxxResult delete(Long id){
+
+        Grjbxx grjbxx1 = grjbxxMapper.selectById(id);
+        if (grjbxx1!=null) {
+             grjbxxMapper.deleteById(id);
+            return new GrjbxxResult(CommonCode.SUCCESS,grjbxx1);
+        }
+          return new GrjbxxResult(UserCode.USER_NOTEXISTS,null);
+    }
+
+    /**
+     * 查询全部
+     * @param grjbxx
+     * @return
+     */
+    public QueryResponseResult select(Grjbxx grjbxx){
+        if ("".equals(grjbxx.getTjrq())) {
+            grjbxx.setTjrq(null);
+        }
+
+        QueryWrapper<Grjbxx> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(grjbxx);
+        List<Grjbxx> grjbxxList = grjbxxMapper.selectList(wrapper);
+
+
+        QueryResult queryResult = new QueryResult();
+
+        queryResult.setList(grjbxxList);
+        queryResult.setTotal(grjbxxList.size());
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
+        return queryResponseResult;
+    }
+    public QueryResponseResult selectWhole(Grjbxx grjbxx){
+        if ("".equals(grjbxx.getTjrq())) {
+            grjbxx.setTjrq(null);
+        }
+
+        QueryWrapper<Grjbxx> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(grjbxx);
+        List<Grjbxx> grjbxxList = grjbxxMapper.selectList(wrapper);
+        if (!(grjbxxList!=null&&grjbxxList.size()>0))
+            return  new QueryResponseResult(CommonCode.FAIL,null);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("personalid",grjbxxList.get(0).getPersonalid());
+        List<Grjbxx_zys> grjbxx_zysList = grjbxxZysMapper.selectByMap(map);
+        List<Grjbxx_ws> grjbxx_wsList = grjbxxWsMapper.selectByMap(map);
+        List<Grjbxx_sx> grjbxx_sxList = grjbxxSxMapper.selectByMap(map);
+        List<Grjbxx_ss> grjbxx_ssList = grjbxxSsMapper.selectByMap(map);
+        List<Grjbxx_jbs> grjbxx_jbsList = grjbxxJbsMapper.selectByMap(map);
+        List<Grjbxx_jzs> grjbxx_jzsList = grjbxxJzsMapper.selectByMap(map);
+        for (int i = 0; i < grjbxx_jzsList.size(); i++) {
+            System.out.println("其他："+grjbxx_jzsList.get(i).getJzsOther());
+        }
+        List<GrjbxxWhole> list = new ArrayList<>();
+        GrjbxxWhole grjbxxWhole = new GrjbxxWhole();
+        grjbxxWhole.setGrjbxx(grjbxxList.get(0));
+        grjbxxWhole.setGrjbxxJzs(grjbxx_jzsList);
+        grjbxxWhole.setGrjbxxJbs(grjbxx_jbsList);
+        grjbxxWhole.setGrjbxxSs(grjbxx_ssList);
+        grjbxxWhole.setGrjbxxWs(grjbxx_wsList);
+        grjbxxWhole.setGrjbxxZys(grjbxx_zysList);
+        grjbxxWhole.setGrjbxxSx(grjbxx_sxList);
+        list.add(grjbxxWhole);
+        QueryResult queryResult = new QueryResult();
+        queryResult.setList(list);
+        queryResult.setTotal(list.size());
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
+        return queryResponseResult;
+    }
+
+
+    /**
+     * 用户查询方法
+     * @param current  页码，从1开始计数
+     * @param size  每页记录数
+     * @param params  查询条件
+     * @return
+     */
+    public QueryResponseResult findList(int current, int size, Map<String,Object> params){
+
+        //分页参数
+        if(current <=1){
+            current = 0;
+        } if  (current>1)
+            current = current*10-10;
+
+      //  current = current -1;
+        if(size<=0){
+            size = 10;
+        }
+        QueryResult queryResult = new QueryResult();
+        String page =  String.valueOf(current)+","+String.valueOf(size);
+        queryResult.setTotal(grjbxxMapper.queryCount(params));
+        params.put("page",page);
+        System.out.println("数据："+params);
+        List<Grjbxx> grjbxxeList = grjbxxMapper.queryStuBaseByXmlPage(params);
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
+        queryResult.setList(grjbxxeList);
+        return queryResponseResult;
+    }
+
+    public static Date stringToDate(String strTime, String formatType) {
+        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+        Date date = null;
+        try {
+            date = formatter.parse(strTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+
+    public GrjbxxResult Import(MultipartFile excelFile) throws IOException {
+        String name = excelFile.getOriginalFilename();
+        String type = null;
+        if (name.endsWith(".xls")) {
+            type = "xls";
+        }else if(name.endsWith(".xlsx")){
+            type = "xlsx";
+        }
+        List<Object[]> list = ExcelUtils.Excel(excelFile.getInputStream(), type);
+
+        List<Grjbxx> fail_list = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Object[] obj = list.get(i);
+            Grjbxx jbxx = new Grjbxx();
+            int k  = 0;
+            try {
+                jbxx.setName(DataTransformation(obj[k]));
+                jbxx.setSex(DataTransformation(obj[++k]));
+                jbxx.setCsrq(DataTransformation(obj[++k]));
+                jbxx.setSfz(DataTransformation(obj[++k]));
+                jbxx.setCompanyname(DataTransformation(obj[++k]));
+                jbxx.setCompanycode(DataTransformation(obj[++k]));
+                jbxx.setBrdh(DataTransformation(obj[++k]));
+                jbxx.setMz(DataTransformation(obj[++k]));
+                jbxx.setMzqt(DataTransformation(obj[++k]));
+                jbxx.setBirthplace(DataTransformation(obj[++k]));
+                jbxx.setFamilyaddress(DataTransformation(obj[++k]));
+                jbxx.setGl(DataTransformation(obj[++k]));
+                jbxx.setJhgl(DataTransformation(obj[++k]));
+                jbxx.setYzbm(DataTransformation(obj[++k]));
+                jbxx.setCc(DataTransformation(obj[++k]));
+                jbxx.setJq(DataTransformation(obj[++k]));
+                jbxx.setZq(DataTransformation(obj[++k]));
+                jbxx.setTjnl(DataTransformation(obj[++k]));
+                jbxx.setZnnumber(DataTransformation(obj[++k]));
+                jbxx.setLcnumber(DataTransformation(obj[++k]));
+                jbxx.setZcnumber(DataTransformation(obj[++k]));
+                jbxx.setScnumber(DataTransformation(obj[++k]));
+                jbxx.setYctcnumber(DataTransformation(obj[++k]));
+                jbxx.setXtjxnumber(DataTransformation(obj[++k]));
+                jbxx.setHyzk(DataTransformation(obj[++k]));
+                jbxx.setHyzkqt(DataTransformation(obj[++k]));
+                jbxx.setWhys(DataTransformation(obj[++k]));
+                jbxx.setWhysfc(DataTransformation(obj[++k]));
+                jbxx.setWhysfswz(DataTransformation(obj[++k]));
+                jbxx.setWhyswl(DataTransformation(obj[++k]));
+                jbxx.setWhyshxwz(DataTransformation(obj[++k]));
+                jbxx.setWhysqt(DataTransformation(obj[++k]));
+                jbxx.setXyzk(DataTransformation(obj[++k]));
+                jbxx.setRxyl(DataTransformation(obj[++k]));
+                jbxx.setKsxynl(DataTransformation(obj[++k]));
+                jbxx.setJynl(DataTransformation(obj[++k]));
+                jbxx.setYjpl(DataTransformation(obj[++k]));
+                jbxx.setRyjl(DataTransformation(obj[++k]));
+                jbxx.setSfjj(DataTransformation(obj[++k]));
+                jbxx.setJjnl(DataTransformation(obj[++k]));
+                jbxx.setKsyjnl(DataTransformation(obj[++k]));
+                jbxx.setSfzj(DataTransformation(obj[++k]));
+                jbxx.setYjzl(DataTransformation(obj[++k]));
+                jbxx.setYjzlqt(DataTransformation(obj[++k]));
+                jbxx.setYcbs(DataTransformation(obj[++k]));
+                jbxx.setYcbsms(DataTransformation(obj[++k]));
+                jbxx.setYwgms(DataTransformation(obj[++k]));
+                jbxx.setYwgmsqtms(DataTransformation(obj[++k]));
+                jbxx.setTjrq(DataTransformation(obj[++k]));
+                jbxx.setCreatetime(new Date());
+                jbxx.setGzgw(DataTransformation(obj[++k]));
+                jbxx.setJyfcbs(DataTransformation(obj[++k]));
+                jbxx.setFcsj(DataTransformation(obj[++k]));
+                jbxx.setFcdd(DataTransformation(obj[++k]));
+                jbxx.setFcyy(DataTransformation(obj[++k]));
+                jbxx.setYszybbs(DataTransformation(obj[++k]));
+                jbxx.setYszybyc(DataTransformation(obj[++k]));
+                jbxx.setYszybwb(DataTransformation(obj[++k]));
+                jbxx.setJjzbs(DataTransformation(obj[++k]));
+                jbxx.setJjzyc(DataTransformation(obj[++k]));
+                jbxx.setJjzwb(DataTransformation(obj[++k]));
+                jbxx.setZjclyj(DataTransformation(obj[++k]));
+                jbxx.setZjjcjl(DataTransformation(obj[++k]));
+                jbxx.setJycd(DataTransformation(obj[++k]));
+                jbxx.setOrgname(DataTransformation(obj[++k]));
+                jbxx.setOrgcode(DataTransformation(obj[++k]));
+                Grjbxx grjbxx = new Grjbxx();
+                grjbxx.setSfz(jbxx.getSfz());
+                QueryWrapper<Grjbxx> wrapper = new QueryWrapper<>();
+                wrapper.setEntity(grjbxx);
+                Grjbxx grjbxx1 = grjbxxMapper.selectOne(wrapper);
+                if (grjbxx1!=null) {
+                    jbxx.setId(grjbxx1.getId());
+                    jbxx.setCreatetime(grjbxx1.getCreatetime());
+                    grjbxxMapper.updateById(jbxx);
+                }else
+                    grjbxxMapper.insert(jbxx);
+            }catch ( Exception e){
+                e.printStackTrace();
+                fail_list.add(jbxx);
+            }
+
+        }
+        if (fail_list!=null&&fail_list.size()>0) {
+            File file1 = new File("e:\\同步个人信息失败人员.txt");
+            file1.delete();
+            FileFactory file = new FileFactory("e:\\", "同步个人信息失败人员.txt");
+            file.createFile();
+            file.openOutStream();
+            for (int i = 0; i < fail_list.size(); i++) {
+                file.writeContent("身份证号:"+fail_list.get(i).getSfz()+"姓名:"+fail_list.get(i).getName());
+                System.out.println(fail_list.get(i).getSfz());
+            }
+            file.closeOutStream();
+        }
+        return  new GrjbxxResult(CommonCode.SUCCESS,null);
+
+    }
+
+    private static String DataTransformation(Object obj){
+        boolean equals = obj==null||obj.equals("");
+
+        return equals?null:obj.toString();
+    }
+
+
+    /**
+     *
+     * @param str 1为主表，2为家族史，3为疾病史，4为手术，5为输血，6为外伤，7为职业史
+     * @return
+     */
+    public GrjbxxResult Agreement(String str, String personalid) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("personalid",personalid);
+        if (str.contains("1")) {
+            List<Grjbxx> grjbxxeList = grjbxxMapper.selectByMap(map);
+            if (isNullList(grjbxxeList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+        }
+        if (str.contains("2")) {
+            List<Grjbxx_jzs> grjbxx_jzsList = grjbxxJzsMapper.selectByMap(map);
+            if (isNullList(grjbxx_jzsList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+        }
+        if (str.contains("3")) {
+            List<Grjbxx_jbs> grjbxx_jbsList = grjbxxJbsMapper.selectByMap(map);
+            if (isNullList(grjbxx_jbsList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+        }
+        if (str.contains("4")) {
+            List<Grjbxx_ss> grjbxx_ssList = grjbxxSsMapper.selectByMap(map);
+            if (isNullList(grjbxx_ssList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+        }
+        if (str.contains("5")) {
+            List<Grjbxx_sx> grjbxx_sxList = grjbxxSxMapper.selectByMap(map);
+            if (isNullList(grjbxx_sxList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+        }
+        if (str.contains("6")) {
+            List<Grjbxx_ws> grjbxx_wsList = grjbxxWsMapper.selectByMap(map);
+            if (isNullList(grjbxx_wsList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+
+        }
+        if (str.contains("7")) {
+            List<Grjbxx_zys> grjbxx_zysList = grjbxxZysMapper.selectByMap(map);
+            if (isNullList(grjbxx_zysList)) {
+                rollBack(str,map);
+                return new GrjbxxResult(CommonCode.FAIL,null);
+            }
+
+        }
+        Grjbxx grjbxx = new Grjbxx();
+        grjbxx.setPersonalid(personalid);
+        List<Grjbxx> list1 = null;
+
+        return  new GrjbxxResult(CommonCode.SUCCESS,grjbxx);
+    }
+
+    private Boolean isNullList(List<?> list){
+        return  list!=null&&list.size()>0?false:true;
+    }
+
+
+    private void rollBack(String sign,Map<String,Object> map){
+
+        String[] split = sign.split("-");
+        for (int i = 0; i < split.length; i++) {
+            switch (split[i]){
+                case "1":
+                    grjbxxMapper.deleteByMap(map);
+                    break;
+                case "2":
+                    grjbxxJzsMapper.deleteByMap(map);
+                    break;
+                case "3":
+                    grjbxxJbsMapper.deleteByMap(map);
+                    break;
+                case "4":
+                    grjbxxSsMapper.deleteByMap(map);
+                    break;
+                case "5":
+                    grjbxxSxMapper.deleteByMap(map);
+                    break;
+                case "6":
+                    grjbxxWsMapper.deleteByMap(map);
+                    break;
+                case "7":
+                    grjbxxZysMapper.deleteByMap(map);
+                    break;
+            }
+
+        }
+    }
+
+    //企业职工体检进度
+
+    public  QueryResultSta  selecsta(Map<String, Object> params){
+
+
+        QueryResultSta queryResultSta = new QueryResultSta();
+       // params.put("companycode", "1001");
+        System.out.println("=======企业进度查询======");
+        //未体检人数
+        params.put("res1", "2");
+        int weitijiancount =  grjbxxMapper.queryCount(params);
+        queryResultSta.setWeitijian(weitijiancount);
+        //已体检人数
+        params.remove("res1");
+        params.put("res1","1");
+        int yitijiancount = grjbxxMapper.queryCount(params);
+        queryResultSta.setYitijiancount(yitijiancount);
+        //应体检人数
+        int yingtijiancount = weitijiancount + yitijiancount;
+        queryResultSta.setYingtjiancount(yingtijiancount);
+
+
+        QueryWrapper<Companyinfo> wrapper = new QueryWrapper<>();
+        Companyinfo companyinfo = new Companyinfo();
+        companyinfo.setCompanycode((String)params.get("companycode"));
+        wrapper.setEntity(companyinfo);
+        List<Companyinfo> companyinfos = companyinfoMapper.selectList(wrapper);
+        if(companyinfos!=null&&companyinfos.size()>0){
+            queryResultSta.setPhone(companyinfos.get(0).getPhone());
+            queryResultSta.setCompanyname(companyinfos.get(0).getCompanyname());
+            queryResultSta.setLinkman(companyinfos.get(0).getLinkman());
+        }
+        System.out.println("----------结果集----------："+queryResultSta.toString());
+        return queryResultSta;
+    }
+
+    public QueryResponseResult ProgList(int current, int size, Grjbxx grjbxx) {
+        if (grjbxx == null) {
+            grjbxx = new Grjbxx();
+        }
+        //分页参数
+        if (current <= 0) {
+            current = 1;
+        }
+//        current = current - 1;
+
+        if (size <= 0) {
+            size = 10;
+        }
+        IPage<Grjbxx> grjbxxIPage = null;
+
+        IPage<Grjbxx> page = new Page<>(current, size);
+        QueryWrapper<Grjbxx> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(grjbxx);
+        grjbxxIPage = grjbxxMapper.selectPage(page,wrapper);
+        QueryResult queryResult = new QueryResult();
+        List<GrjbxxProg> grjbxxProgs = new ArrayList<>();
+        List<Grjbxx> grjbxxs = grjbxxIPage.getRecords();
+        for(int i=0;i<grjbxxs.size();i++){
+            Grjbxx grjbxx1 = new Grjbxx();
+            grjbxx1 = grjbxxs.get(i);
+            GrjbxxProg prog = new GrjbxxProg();
+            prog.setCompanyname(grjbxx1.getCompanyname());
+            prog.setGzgw(grjbxx1.getGzgw());
+            prog.setName(grjbxx1.getName());
+            prog.setPhone(grjbxx1.getBrdh());
+            prog.setYtjxms(5);
+            prog.setYtjxm("五官科体检,症状体检,神经科体检,内科体检,外科体检");
+            Integer wtjxms = 0;
+            String wtjxm = null;
+            Integer notjxms = 0;
+            String notjxm = null;
+            if(grjbxx1.getTjflag()!=null&&grjbxx1.getTjflag().equals("1")){
+                wtjxms += 1;
+                wtjxm += "五官科体检,";
+            }else{
+                notjxms += 1;
+                notjxm += "五官科体检,";
+            }
+            if(grjbxx1.getTjflagzz()!=null&&grjbxx1.getTjflagzz().equals("1")){
+                wtjxms += 1;
+                wtjxm += "症状体检,";
+            }else{
+                notjxms += 1;
+                notjxm += "症状体检,";
+            }
+            if(grjbxx1.getTjflagsjk()!=null&&grjbxx1.getTjflagsjk().equals("1")){
+                wtjxms += 1;
+                wtjxm += "神经科体检,";
+            }else{
+                notjxms += 1;
+                notjxm += "神经科体检,";
+            }
+            if(grjbxx1.getTjflagnk()!=null&&grjbxx1.getTjflagnk().equals("1")){
+                wtjxms += 1;
+                wtjxm += "内科体检,";
+            }else{
+                notjxms += 1;
+                notjxm += "内科体检,";
+            }
+            if(grjbxx1.getTjflagwk()!=null&&grjbxx1.getTjflagwk().equals("1")){
+                wtjxms += 1;
+                wtjxm += "外科体检,";
+            }else{
+                notjxms += 1;
+                notjxm += "外科体检,";
+            }
+            if(notjxm==null||notjxm.length()==0||notjxm=="null"){
+                prog.setNotjxm(notjxm);
+            }else{
+                prog.setNotjxm(notjxm.substring(4, notjxm.length()-1));
+            }
+            prog.setNotjxms(notjxms);
+            if(wtjxm==null||wtjxm.length()==0||wtjxm=="null"){
+                prog.setWtjxm(wtjxm);
+            }else{
+                prog.setWtjxm(wtjxm.substring(4, wtjxm.length()-1));
+            }
+            prog.setWtjxms(wtjxms);
+            prog.setTmh(grjbxx1.getTmh());
+            grjbxxProgs.add(prog);
+        }
+        queryResult.setList(grjbxxProgs);//数据列表
+        queryResult.setTotal(grjbxxIPage.getTotal());//数据总记录数
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS, queryResult);
+        return queryResponseResult;
+    }
+
+
+
+}

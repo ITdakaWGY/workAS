@@ -1,0 +1,312 @@
+$(function() {
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var laydate = layui.laydate;
+		var laydate = layui.laydate;
+
+		var personalid = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+		var param = {
+			personalid: personalid,
+		};
+		getGtjbxxData(param);
+		
+		getZysData(param);
+		
+		getJzsData(param);
+		
+		getJbsData(param);
+	
+
+	function getGtjbxxData(param) {
+		if(typeof(param) == "undefined") {
+			param = {};
+		}
+		$.ajax({
+			type: "post",
+			url: BaseUrl + 'grjbxx/select',
+			data:JSON.stringify(param),
+			async: true,
+			processData: false,
+            contentType: "application/json",
+			success: function(data) {
+				if(data.success) {
+					var grjbxx = data.queryResult.list;
+					$('.name').html(grjbxx[0].name);
+					$('.companyname').html(grjbxx[0].companyname);
+					$('.brdh').html(grjbxx[0].brdh);
+					$('.personalid').html(grjbxx[0].personalid);
+					$('.tjrq').html(grjbxx[0].tjrq);
+					$('.name2').html(grjbxx[0].name);
+					$('.sex').html(grjbxx[0].sex);
+					$('.csrq').html(grjbxx[0].csrq);
+					$('.birthplace').html(grjbxx[0].birthplace);
+					$('.mz').html(grjbxx[0].mz);
+					$('.brdh').html(grjbxx[0].brdh);
+					$('.sfz').html(grjbxx[0].sfz);
+					$('.familyaddress').html(grjbxx[0].familyaddress);
+					$('.yzbm').html(grjbxx[0].yzbm);
+					$('.whys').html(grjbxx[0].whys);
+					$('.gl').html(grjbxx[0].gl);
+					$('.jhgl').html(grjbxx[0].jhgl);
+					$('.cc').html(grjbxx[0].cc);
+					$('.jq').html(grjbxx[0].jq);
+					$('.zq').html(grjbxx[0].zq);
+					$('.tjnl').html(grjbxx[0].tjnl);
+					$('.znnumber').html(grjbxx[0].znnumber);
+					$('.lcnumber').html(grjbxx[0].lcnumber);
+					$('.zcnumber').html(grjbxx[0].zcnumber);
+					$('.scnumber').html(grjbxx[0].scnumber);
+					$('.xtjxnumber').html(grjbxx[0].xtjxnumber);
+					$('.xtjxnumber').html(grjbxx[0].xtjxnumber);
+					$('.xyzk').html(grjbxx[0].xyzk);
+					
+					$('.rxyl').html(grjbxx[0].rxyl);
+					$('.jynl').html(grjbxx[0].jynl);
+					$('.yjpl').html(grjbxx[0].yjpl);
+					$('.ryjl').html(grjbxx[0].ryjl);
+					$('.yjzl').html(grjbxx[0].yjzl);
+					$('.ksyjnl').html(grjbxx[0].ksyjnl);
+				} else {
+					layer.msg(data.message);
+				}
+
+			},
+			
+		});
+	}
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+	});
+	// 选项卡
+	$('.leftTiJian ul').hide()
+	$('.leftTiJian ul').eq(0).show()
+	$('.leftTiJian p').click(function(){
+		id = $(this).index()
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		$('.leftTiJian ul').hide();
+		$('.leftTiJian ul').eq(id).show()
+	})
+})
+
+
+	function getZysData(param) {
+		if(typeof(param) == "undefined") {
+			param = {};
+		}
+		var result;
+		$.ajax({
+			type: "get",
+			url: BaseUrl + 'grjbxxZys/select',
+			data: param,
+			async: true,
+			success: function(data) {
+				if(data.success) {
+					result = data.queryResult.list;
+					setZysdata(result);
+				} else {
+					layer.msg(data.message);
+				}
+
+			}
+		});
+	}	
+		
+		
+		
+	//接受结果集，往表格进行数据填充
+function setZysdata(result) {
+	if(result.length == 0) {
+		var nodata = '<div class="nodata">暂无数据!</div>';
+		$('#tbody').html(nodata);
+		return false;
+	}
+	var html = '';
+	for(var i = 0; i < result.length; i++) {
+		html += `<tr>
+								<td>${i+1}</td>
+								<td>${result[i].qzrq}-${result[i].jssj}</td>
+								<td>${result[i].gzdw}</td>
+								<td>${result[i].cj}</td>
+								<td>${result[i].gz}</td>
+								<td>${result[i].yhys}</td>
+								<td>${result[i].fhcs}</td>
+							</tr>`;
+	}
+	$('#tbody').html(html);
+	getnull();
+}
+
+
+function getJzsData(param) {
+		if(typeof(param) == "undefined") {
+			param = {};
+		}
+		var result;
+		$.ajax({
+			type: "get",
+			url: BaseUrl + 'grjbxxJzs/select',
+			data: param,
+			async: true,
+			success: function(data) {
+				if(data.success) {
+					result = data.queryResult.list;
+					setJzsdata(result);
+				} else {
+					layer.msg(data.message);
+				}
+
+			}
+		});
+	}	
+		
+		
+		
+	//接受结果集，往表格进行数据填充
+function setJzsdata(result) {
+	if(result.length == 0) {
+		$('.jzs').html(nodata);
+		return false;
+	}
+	var html = '';
+	for(var i = 0; i < result.length; i++) {
+		var jzsgx = result[i].jzsgx;
+		var jzsgxname;
+		if(jzsgx == "1"){
+			jzsgxname = "父亲";
+		}else if(jzsgx == "2"){
+			jzsgxname = "母亲";
+		}else if(jzsgx == "3"){
+			jzsgxname = "兄弟";
+		}else if(jzsgx == "4"){
+			jzsgxname = "姐妹";
+		}
+		var jzsjbdm = result[i].jzsjbdm;
+		var strs= new Array(); //定义一数组
+		if(jzsjbdm!=""&&typeof(jzsjbdm) != "undefined"){
+		
+		strs=jzsjbdm.split(","); //字符分割
+		var jzsjbzz = "症状:";
+		for (a=0;a<strs.length ;a++ ){
+			if(strs[a]=="1"){
+					jzsjbzz += "无";
+			}else if(strs[a]=="2"){
+					jzsjbzz += "高血压,";
+			}else if(strs[a]=="3"){
+					jzsjbzz += "糖尿病,";
+			}else if(strs[a]=="4"){
+					jzsjbzz += "冠心病,";
+			}else if(strs[a]=="5"){
+					jzsjbzz += "慢性阻塞性肺疾病,";
+			}else if(strs[a]=="6"){
+					jzsjbzz += "恶性肿瘤,";
+			}else if(strs[a]=="7"){
+					jzsjbzz += "脑卒中,";
+			}else if(strs[a]=="8"){
+					jzsjbzz += "严重精神障碍,";
+			}else if(strs[a]=="9"){
+					jzsjbzz += "结核病,";
+			}else if(strs[a]=="10"){
+					jzsjbzz += "肝炎,";
+			}else if(strs[a]=="11"){
+					jzsjbzz += "先天畸形,";
+			}else if(strs[a]=="12"){
+					jzsjbzz += "其他,";
+			}
+			
+		}
+		}
+			html += jzsgxname+jzsjbzz;
+	}
+	$('.jzs').html(html);
+	getnull();
+}
+
+
+function getJbsData(param) {
+		if(typeof(param) == "undefined") {
+			param = {};
+		}
+		var result;
+		$.ajax({
+			type: "get",
+			url: BaseUrl + 'grjbxxJbs/select',
+			data: param,
+			async: true,
+			success: function(data) {
+				if(data.success) {
+					result = data.queryResult.list;
+					setJbsdata(result);
+				} else {
+					layer.msg(data.message);
+				}
+
+			}
+		});
+	}	
+		
+		
+		
+	//接受结果集，往表格进行数据填充
+function setJbsdata(result) {
+	if(result.length == 0) {
+		$('.jbs').html(nodata);
+		return false;
+	}
+	var html = '';
+	for(var i = 0; i < result.length; i++) {
+		
+		var jbsdm = result[i].jbsdm;
+		var strs= new Array(); //定义一数组
+		if(jbsdm!=""&&typeof(jbsdm) != "undefined"){
+		
+		strs=jbsdm.split(","); //字符分割
+		var jbszz = "症状:";
+		for (a=0;a<strs.length ;a++ ){
+			if(strs[a]=="1"){
+					jbszz += "无";
+			}else if(strs[a]=="2"){
+					jbszz += "高血压,";
+			}else if(strs[a]=="3"){
+					jbszz += "糖尿病,";
+			}else if(strs[a]=="4"){
+					jbszz += "冠心病,";
+			}else if(strs[a]=="5"){
+					jbszz += "慢性阻塞性肺疾病,";
+			}else if(strs[a]=="6"){
+					jbszz += "恶性肿瘤,";
+			}else if(strs[a]=="7"){
+					jbszz += "脑卒中,";
+			}else if(strs[a]=="8"){
+					jbszz += "严重精神障碍,";
+			}else if(strs[a]=="9"){
+					jbszz += "结核病,";
+			}else if(strs[a]=="10"){
+					jbszz += "肝炎,";
+			}else if(strs[a]=="11"){
+					jbszz += "先天畸形,";
+			}else if(strs[a]=="12"){
+					jbszz += "其他,";
+			}
+		}
+		}
+		var qzsj = "确诊时间:"+result[i].qzsj;
+		var qtjbs = "其他疾病描述:"+result[i].qtjbs;
+		var zybms = "职业病描述:"+result[i].zybms;
+		var exzlms = "恶性肿瘤描述:"+result[i].exzlms;
+		html += i+1+"次"+jbszz+qzsj+qtjbs+zybms+exzlms;
+	}
+	$('.jbs').html(html);
+	getnull();
+}

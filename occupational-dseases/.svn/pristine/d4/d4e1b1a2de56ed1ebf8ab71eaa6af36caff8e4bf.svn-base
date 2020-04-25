@@ -1,0 +1,25 @@
+package com.as.occupationaldseases.service;
+
+import com.as.occupationaldseases.common.response.CommonCode;
+import com.as.occupationaldseases.dao.GrjbxxXmMapper;
+import com.as.occupationaldseases.domain.grjbxx.Grjbxx_xm;
+import com.as.occupationaldseases.domain.grjbxx.responce.GrjbxxXmResult;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+@Service
+public class GrjbxxXmService {
+
+    @Resource
+    GrjbxxXmMapper grjbxxXmMapper;
+
+
+    public GrjbxxXmResult add(Grjbxx_xm grjbxxXm){
+        if (grjbxxXm==null) {
+            return  new GrjbxxXmResult(CommonCode.INVALID_PARAM,null);
+        }
+        grjbxxXmMapper.insert(grjbxxXm);
+         return  new GrjbxxXmResult(CommonCode.SUCCESS,null);
+    }
+}

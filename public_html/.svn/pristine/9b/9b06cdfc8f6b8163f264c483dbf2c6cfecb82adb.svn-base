@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>角色管理</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+		<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+		<script src="../../js/jquery.pagination.min.js"></script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="rightZTop">
+			<div class="layui-row">
+			 
+				<div class="tableTop layui-form">
+					<table class="layui-table">
+						<thead>
+							<tr>
+								<th>选择操作</th>
+								<th>序号</th>
+								<th>角色名称</th>
+								<th>角色编码</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="machines">
+				<span class="layui-btn saveJs">
+					<i class="iconfont ">&#xe633;</i>保存
+				</span>
+			</div>
+			<!--<span class="layui-btn saveTijian">保存</span>-->
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/jsgl/jsglRelationUserloginList.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

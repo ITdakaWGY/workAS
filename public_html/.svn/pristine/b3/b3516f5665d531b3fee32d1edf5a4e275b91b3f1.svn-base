@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>外科检查信息</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="rightZTop">
+			<div class="layui-row layui-form x-body ">
+				<div class="topinfo">
+					<input type="text" class="layui-input width160" id="personalid" placeholder="体检编号">
+					<input type="text" class="layui-input width160" id="xm" placeholder="姓名">
+					<input type="text" class="layui-input width160" id="tmh" placeholder="条码号">
+				</div>
+				<table class="layui-table layui-form">
+					<thead>
+						<tr>
+							<th>项目</th>
+							<th>内容</th>
+							<th>备注</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr>
+							<td>甲状腺</td>
+							<td>
+								<input type="radio" name="jzx" value="1" title="正常" data="radio" checked="">
+								<input type="radio" name="jzx" value="2" title="肿大" data="radio">
+								<input type="text" class="dis-inline width100 layui-input" name="jzxms" id="jzxms" data="data"  />
+								<span class="dis-inline lin38">(I度、II度、III度)</span>
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline" name="jxzbz" id="jxzbz" data="data" />
+							</td>
+						</tr>
+						<tr>
+							<td>浅表淋巴结</td>
+							<td>
+								<input type="radio" name="qblbj" value="1" title="未触及" data="radio" checked="">
+								<input type="radio" name="qblbj" value="2" title="锁骨上" data="radio">
+								<input type="radio" name="qblbj" value="3" title="腋窝" data="radio">
+								<input type="radio" name="qblbj" value="4" title="其他" data="radio">
+								<input type="text" class="dis-inline width100 layui-input" maxlength="10" name="qblbjms" id="qblbjms" data="data"/>
+							</td>
+							<td>
+								<input type="text" maxlength="10" class="layui-input width200 dis-inline" name="qblbjbz" id="qblbjbz" data="data"/>
+							</td>
+						</tr>
+						<tr>
+							<td>其他</td>
+							<td><input type="text" maxlength="10" class="layui-input width300" name="qt" id="qt" data="data"></td>
+							<!--<td>
+								<input type="text" class="layui-input width200 dis-inline" />
+							</td>-->
+						</tr>
+						<tr>
+							<td>外科可见</td>
+							<td colspan="2">
+								<div class='textarea-block'>
+										<input placeholder="请输入外科可见问题，最多100字" class="textarea-item fl layui-input" type="text" name="res1" id="res1" data="data">
+										<div class="textarea-count">
+											<span class="textareaInput">0</span>/<span class="textareaTotal">100</span>
+										</div>
+									</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>医师签字</td>
+							<td><input type="text" class="layui-input width300" name="ysqz" id="ysqz" data="data"></td>
+							<td colspan="4">
+								<input placeholder="体检时间" autocomplete="off" class="layui-input width200" id="createtime" name="createtime" data="data">
+							</td>
+							<!--<td>
+								<input type="text" class="layui-input width200 dis-inline" />
+							</td>-->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+			<script>
+				document.write('<script src="../../js/yewu/zjDetails/wkjcxx.js?v=' + Math.random() + '"><\/script>')
+				
+			</script>
+	</body>
+
+</html>

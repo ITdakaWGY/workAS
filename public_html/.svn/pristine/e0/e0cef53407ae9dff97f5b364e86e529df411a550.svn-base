@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>总检详情</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+			<div class="container">
+				<div class="leftsidebar_box">
+					<div class="line"></div>
+					<dl class="system_log">
+						<p class="dt actives" data-href="../zjDetails/tjgyxx.html">体检概要信息</p>
+					</dl>
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/zgjbxx.html">职工基本信息</p>
+					</dl>
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/zgzzxx.html">职工症状信息</p>
+					</dl>
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/nkjcxx.html">内科检查信息</p>
+					</dl>
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/wkjcxx.html">外科检查信息</p>
+					</dl>
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/wgkjcxx.html">五官科检查信息</p>
+					</dl>
+
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/sjkjcxx.html">神经科检查信息</p>
+					</dl>
+
+					<dl class="custom">
+						<dt>实验室检验信息<img src="../../images/select_xl01.png"></dt>
+						<dd class="first_dd dm"  data-href="../zjDetails/xcgbg.html">
+							<a href="javascript:void(0)" >血常规报告</a>
+						</dd>
+
+						<dd data-href="../zjDetails/ncgbg.html" class="dm">
+							<a href="javascript:void(0)"  >尿常规报告</a>
+						</dd>
+
+						<dd data-href="../zjDetails/shbg.html" class="dm">
+							<a href="javascript:void(0)"  >生化报告</a>
+						</dd>
+					</dl>
+
+					<dl class="custom">
+						<dt>辅助检查信息<img src="../../images/select_xl01.png"></dt>
+						<dd class="first_dd dm" data-href="../zjDetails/xdtbg.html">
+							<a href="javascript:void(0)"  >DR报告</a>
+						</dd>
+
+						<dd data-href="../zjDetails/xdtbg.html" class="dm">
+							<a href="javascript:void(0)"  >心电图报告</a>
+						</dd>
+
+						<dd data-href="../zjDetails/dctbg.html" class="dm">
+							<a  href="javascript:void(0)"  >电测听报告</a>
+						</dd>
+					</dl>
+
+					<dl class="system_log">
+						<p class="dt" data-href="../zjDetails/zjjl.html">主检结论</p>
+					</dl>
+
+				</div>
+				<div class="detailRight">
+					<iframe src="../zjDetails/tjgyxx.html" name="rightDom" class="xqIframe"></iframe>
+				</div>
+
+			</div>
+		<script src="../../js/zjDetails.js?v=1.2"></script>
+	</body>
+
+
+</html>

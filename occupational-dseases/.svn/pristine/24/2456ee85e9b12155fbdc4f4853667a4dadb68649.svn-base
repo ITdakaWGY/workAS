@@ -1,0 +1,413 @@
+package com.as.occupationaldseases.domain.inquiry_sjk;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+@ToString
+@TableName("inquiry_sjk")
+public class InquirySjk {
+    @ApiModelProperty("主键")
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+    @ApiModelProperty("用户id")
+    private String personalid;
+    @ApiModelProperty("肌萎缩")
+    private String jws;
+    @ApiModelProperty("肌萎缩描述")
+    private String jwsms;
+    @ApiModelProperty("肌萎缩备注")
+    private String jwsbz;
+    @ApiModelProperty("肌力")
+    private String jl;
+    @ApiModelProperty("肌力描述")
+    private String jlms;
+    @ApiModelProperty("肌力备注")
+    private String jlbz;
+    @ApiModelProperty("肌张力")
+    private String jzl;
+    @ApiModelProperty("肌张力描述")
+    private String jzlms;
+    @ApiModelProperty("肌张力备注")
+    private String jzlbz;
+    @ApiModelProperty("三颤")
+    private String sc;
+    @ApiModelProperty("三颤描述")
+    private String scms;
+    @ApiModelProperty("三颤备注")
+    private String scbz;
+    @ApiModelProperty("共济运动")
+    private String gjyd;
+    @ApiModelProperty("共济运动描述")
+    private String gjydms;
+    @ApiModelProperty("共济运动备注")
+    private String gjydbz;
+    @ApiModelProperty("痛觉")
+    private String tj;
+    @ApiModelProperty("痛觉描述")
+    private String tjms;
+    @ApiModelProperty("触觉")
+    private String cj;
+    @ApiModelProperty("触觉描述")
+    private String cjms;
+    @ApiModelProperty("浅感觉备注")
+    private String qgnbz;
+    @ApiModelProperty("深感觉")
+    private String sgj;
+    @ApiModelProperty("深感觉描述")
+    private String sgjms;
+    @ApiModelProperty("深感觉备注")
+    private String sgjbz;
+    @ApiModelProperty("腱反射")
+    private String jfs;
+    @ApiModelProperty("腱反射备注")
+    private String jfsbz;
+    @ApiModelProperty("病理反射")
+    private String blfs;
+    @ApiModelProperty("病理反射备注")
+    private String blfsbz;
+    @ApiModelProperty("自主神经")
+    private String zzsj;
+    @ApiModelProperty("自主神经描述")
+    private String zzsjms;
+    @ApiModelProperty("自主神经备注")
+    private String zzsjbz;
+    @ApiModelProperty("医师签字")
+    private String ysqz;
+    @ApiModelProperty("医师签字URL")
+    private String ysqzul;
+
+    @ApiModelProperty("条码号")
+    private String tmh;
+
+    private String res1;
+    private String res2;
+    private String res3;
+    private String res4;
+    private String res5;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getPersonalid() {
+        return personalid;
+    }
+
+    public void setPersonalid(String personalid) {
+        this.personalid = personalid;
+    }
+
+    public String getJws() {
+        return jws;
+    }
+
+    public void setJws(String jws) {
+        this.jws = jws;
+    }
+
+    public String getJwsms() {
+        return jwsms;
+    }
+
+    public void setJwsms(String jwsms) {
+        this.jwsms = jwsms;
+    }
+
+    public String getJwsbz() {
+        return jwsbz;
+    }
+
+    public void setJwsbz(String jwsbz) {
+        this.jwsbz = jwsbz;
+    }
+
+    public String getJl() {
+        return jl;
+    }
+
+    public void setJl(String jl) {
+        this.jl = jl;
+    }
+
+    public String getJlms() {
+        return jlms;
+    }
+
+    public void setJlms(String jlms) {
+        this.jlms = jlms;
+    }
+
+    public String getJlbz() {
+        return jlbz;
+    }
+
+    public void setJlbz(String jlbz) {
+        this.jlbz = jlbz;
+    }
+
+    public String getSc() {
+        return sc;
+    }
+
+    public void setSc(String sc) {
+        this.sc = sc;
+    }
+
+    public String getScms() {
+        return scms;
+    }
+
+    public void setScms(String scms) {
+        this.scms = scms;
+    }
+
+    public String getScbz() {
+        return scbz;
+    }
+
+    public void setScbz(String scbz) {
+        this.scbz = scbz;
+    }
+
+    public String getGjyd() {
+        return gjyd;
+    }
+
+    public void setGjyd(String gjyd) {
+        this.gjyd = gjyd;
+    }
+
+    public String getGjydms() {
+        return gjydms;
+    }
+
+    public void setGjydms(String gjydms) {
+        this.gjydms = gjydms;
+    }
+
+    public String getGjydbz() {
+        return gjydbz;
+    }
+
+    public void setGjydbz(String gjydbz) {
+        this.gjydbz = gjydbz;
+    }
+
+    public String getTj() {
+        return tj;
+    }
+
+    public void setTj(String tj) {
+        this.tj = tj;
+    }
+
+    public String getTjms() {
+        return tjms;
+    }
+
+    public void setTjms(String tjms) {
+        this.tjms = tjms;
+    }
+
+    public String getCj() {
+        return cj;
+    }
+
+    public void setCj(String cj) {
+        this.cj = cj;
+    }
+
+    public String getCjms() {
+        return cjms;
+    }
+
+    public void setCjms(String cjms) {
+        this.cjms = cjms;
+    }
+
+    public String getQgnbz() {
+        return qgnbz;
+    }
+
+    public void setQgnbz(String qgnbz) {
+        this.qgnbz = qgnbz;
+    }
+
+    public String getJfs() {
+        return jfs;
+    }
+
+    public void setJfs(String jfs) {
+        this.jfs = jfs;
+    }
+
+    public String getJfsbz() {
+        return jfsbz;
+    }
+
+    public void setJfsbz(String jfsbz) {
+        this.jfsbz = jfsbz;
+    }
+
+    public String getBlfs() {
+        return blfs;
+    }
+
+    public void setBlfs(String blfs) {
+        this.blfs = blfs;
+    }
+
+    public String getBlfsbz() {
+        return blfsbz;
+    }
+
+    public void setBlfsbz(String blfsbz) {
+        this.blfsbz = blfsbz;
+    }
+
+    public String getZzsj() {
+        return zzsj;
+    }
+
+    public void setZzsj(String zzsj) {
+        this.zzsj = zzsj;
+    }
+
+    public String getZzsjbz() {
+        return zzsjbz;
+    }
+
+    public void setZzsjbz(String zzsjbz) {
+        this.zzsjbz = zzsjbz;
+    }
+
+    public String getYsqz() {
+        return ysqz;
+    }
+
+    public void setYsqz(String ysqz) {
+        this.ysqz = ysqz;
+    }
+
+    public String getYsqzul() {
+        return ysqzul;
+    }
+
+    public void setYsqzul(String ysqzul) {
+        this.ysqzul = ysqzul;
+    }
+
+    public String getRes1() {
+        return res1;
+    }
+
+    public void setRes1(String res1) {
+        this.res1 = res1;
+    }
+
+    public String getRes2() {
+        return res2;
+    }
+
+    public void setRes2(String res2) {
+        this.res2 = res2;
+    }
+
+    public String getRes3() {
+        return res3;
+    }
+
+    public void setRes3(String res3) {
+        this.res3 = res3;
+    }
+
+    public String getRes4() {
+        return res4;
+    }
+
+    public void setRes4(String res4) {
+        this.res4 = res4;
+    }
+
+    public String getRes5() {
+        return res5;
+    }
+
+    public void setRes5(String res5) {
+        this.res5 = res5;
+    }
+
+    public String getTmh() {
+        return tmh;
+    }
+
+    public void setTmh(String tmh) {
+        this.tmh = tmh;
+    }
+
+    public String getJzl() {
+        return jzl;
+    }
+
+    public void setJzl(String jzl) {
+        this.jzl = jzl;
+    }
+
+    public String getJzlms() {
+        return jzlms;
+    }
+
+    public void setJzlms(String jzlms) {
+        this.jzlms = jzlms;
+    }
+
+    public String getJzlbz() {
+        return jzlbz;
+    }
+
+    public void setJzlbz(String jzlbz) {
+        this.jzlbz = jzlbz;
+    }
+
+    public String getSgj() {
+        return sgj;
+    }
+
+    public void setSgj(String sgj) {
+        this.sgj = sgj;
+    }
+
+    public String getSgjms() {
+        return sgjms;
+    }
+
+    public void setSgjms(String sgjms) {
+        this.sgjms = sgjms;
+    }
+
+    public String getSgjbz() {
+        return sgjbz;
+    }
+
+    public void setSgjbz(String sgjbz) {
+        this.sgjbz = sgjbz;
+    }
+
+    public String getZzsjms() {
+        return zzsjms;
+    }
+
+    public void setZzsjms(String zzsjms) {
+        this.zzsjms = zzsjms;
+    }
+}
+

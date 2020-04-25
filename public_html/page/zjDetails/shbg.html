@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>生化报告</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="detailrow">
+			<div class="detailrow">
+			<div class="projectText">生化检测报告单</div>
+			<div class="projectInfo">
+				<span><font>姓名:</font><i id="name"></i></span>
+				<span><font>性别:</font><i id="sex"></i></span>
+				<span><font>年龄:</font><i id="age"></i></span>
+				<span><font>样本编号:</font><i id="tmh"></i></span>
+			</div>
+			<table class="layui-table jianyandan">
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>检查结果</th>
+						<th>单位</th>
+						<th>参考范围</th>
+						<th>异常提示</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>总胆红素</td>
+						<td id="zdhs"></td>
+						<td>μmol/L</td>
+						<td>1.7-20.0</td>
+						<td id="zdhsyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>血清谷丙转氨酶</td>
+						<td id="xqgbzam"></td>
+						<td>U/L</td>
+						<td>0-40</td>
+						<td id="xqgbzamyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>血清谷草转氨酶</td>
+						<td id="xqgczam"></td>
+						<td>U/L</td>
+						<td>0-40</td>
+						<td id="xqgczamyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>总胆固醇</td>
+						<td id="zdgc"></td>
+						<td>mmol/L </td>
+						<td>3.0-6.5</td>
+						<td id="zdgcyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>甘油三酯</td>
+						<td id="gysz"></td>
+						<td>mmol/L </td>
+						<td>0.0-1.71</td>
+						<td  id="gyszyc">
+
+
+						</td>
+					</tr>
+					<tr>
+						<td>血清肌酐</td>
+						<td id="xqjg"></td>
+						<td>μmol/L </td>
+						<td>53-115 </td>
+						<td id="xqjgyc">
+
+
+						</td>
+					</tr>
+					<tr>
+						<td>血尿素氮</td>
+						<td id="xnsd"></td>
+						<td>μmol/L </td>
+						<td>2.9-8.19</td>
+						<td id="xnsdyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>空腹血糖</td>
+						<td id="kfxt"></td>
+						<td>mmol/L</td>
+						<td>3.8-6.11 </td>
+						<td id="kfxtyc">
+
+							
+
+						</td>
+					</tr>
+					<tr>
+						<td>低密度脂蛋白 </td>
+						<td id="dmdzdb"></td>
+						<td>mmol/L </td>
+						<td>0-3.61</td>
+						<td id="dmdzdbyc">
+
+
+						</td>
+					</tr>
+					<tr>
+						<td>高密度脂蛋白</td>
+						<td id="gmdzdb"></td>
+						<td>mmol/L </td>
+						<td>0.9-1.80</td>
+						<td id="gmdzdbyc"> 
+
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="doctorFont">
+				<span class="fl qianzi">检查医生:<img src="" id="ysqm" style="display: none;">
+					<input type="text" readonly="" value="" id="ysqmtext" style="display: none;">
+				</span>
+				<span class="fr projectDate">检验时间:<i id="jcsj"></i></span>
+			</div>
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/shbg.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

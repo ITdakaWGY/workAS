@@ -1,0 +1,37 @@
+package com.as.occupationaldseases.controller;
+
+import com.as.occupationaldseases.api.TjHazardItemApi;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.domain.tjHazardItem.TjHazardItem;
+import com.as.occupationaldseases.domain.tjHazardItem.responce.TjHazardItemResult;
+import com.as.occupationaldseases.service.TjHazardItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/tjHazardItem")
+public class TjHazardItemContorller implements TjHazardItemApi {
+
+    @Autowired
+    private TjHazardItemService tjHazardItemService;
+
+    @Override
+    @PostMapping("/add")
+    public TjHazardItemResult add(@RequestBody TjHazardItem tjHazardItem) {
+        return tjHazardItemService.add(tjHazardItem);
+    }
+
+    @Override
+    @GetMapping("/list/{page}/{size}")
+    public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size") int size, TjHazardItem tjHazardItem) {
+        return tjHazardItemService.findList(page, size, tjHazardItem);
+    }
+
+
+    @Override
+    @DeleteMapping("/del/{id}")
+    public TjHazardItemResult delete(@PathVariable("id") int id) {
+        return tjHazardItemService.delete(id);
+    }
+}

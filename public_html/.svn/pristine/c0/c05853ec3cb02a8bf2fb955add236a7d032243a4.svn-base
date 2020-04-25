@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>血常规报告</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="detailrow">
+			<div class="projectText">血常规检测报告单</div>
+			<div class="projectInfo">
+				<span><font>姓名:</font><i id="name"></i></span>
+				<span><font>性别:</font><i id="sex"></i></span>
+				<span><font>年龄:</font><i id="age"></i></span>
+				<span><font>样本编号:</font><i id="tmh"></i></span>
+			</div>
+			<table class="layui-table jianyandan">
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>检查结果</th>
+						<th>单位</th>
+						<th>参考范围</th>
+						<th>异常提示</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>白细胞×109／L</td>
+						<td id="xhdb"></td>
+						<td>g/L </td>
+						<td>110-160 </td>
+						<td id="xhdbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>中性粒    %</td>
+						<td id="bxbjs"></td>
+						<td>10^9/L </td>
+						<td>4-10</td>
+						<td id="bxbjsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>淋巴细胞    %</td>
+						<td id="hxbjs"></td>
+						<td>10^12/L</td>
+						<td>3.5-5.5</td>
+						<td id="hxbjsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>红细胞×12／L</td>
+						<td id="hxbyj"></td>
+						<td>%</td>
+						<td>35-50</td>
+						<td id="hxbyjyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>血红蛋白g／L</td>
+						<td id="lbxbbfb"></td>
+						<td>%</td>
+						<td>20-40</td>
+						<td id="lbxbbfbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>血小板×109／L</td>
+						<td id="zjxbbfb"></td>
+						<td>%</td>
+						<td>1.0-15.0</td>
+						<td id="zjxbbfbyc">
+
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<div class="doctorFont">
+				<span class="fl qianzi">检查医生:<img src="" id="ysqm" style="display: none;">
+					<input type="text" readonly="" value="" id="ysqmtext" style="display: none;">
+				</span>
+				<span class="fr projectDate">检验时间:<i id="jcsj"></i></span>
+			</div>
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/xcgbg.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

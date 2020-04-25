@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>体检基础信息采集</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		
+		<link rel="stylesheet" href="../../bootstrapvalidator/vendor/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="../../bootstrapvalidator/dist/css/bootstrapValidator.css"/>
+		<script  src="../../bootstrapvalidator/vendor/bootstrap/js/bootstrap.min.js" >
+		</script>
+		<script  src="../../bootstrapvalidator/dist/js/bootstrapValidator.js" >
+		</script>
+	</head>
+
+	<body>
+		<div class="rightZTop">
+			<div class="layui-row layui-form x-body">
+				<div class="line-shai">
+					<a name="card">筛选条件</a>
+				</div>
+				<div class="layui-row layui-form layui-flex">
+					<div class="layui-form-item inputWrap1">
+						<input required lay-verify="required" placeholder="条码号" autocomplete="off" class="layui-input" id="sstmh">
+					</div>
+
+					<div class="layui-form-item inputWrap1">
+						<input placeholder="体检日期" class="layui-input" id="tjrq" readonly="">
+						<input type="hidden"  name="companycode" />
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<span class="layui-btn chaxunBtn" id="searchBtn">查询</span>
+					</div>
+				</div>
+				<div class="line5"></div>
+				
+				
+				<fieldset class="layui-elem-field" style="margin-bottom: 0;">
+				  <legend>体检人员信息</legend>
+				  <div class="layui-field-box xinXiDetail" >
+				    <span class="fl">单位名称：</span><input type="text" class="layui-input width160 fl"   id="companyname" name="companyname"  readonly=""/>
+				    <span class="fl">姓名：</span><input type="text" class="layui-input width160 fl"  id="xm" name="xm" readonly=""/ data='input'>
+				    <span class="fl">身份证：</span><input type="text" class="layui-input width160 fl"  id="sfz" name="sfz" readonly="" />
+				    <span class="fl">岗位：</span><input type="text" class="layui-input width160 fl"   id="gzgw" name="gzgw" readonly=""/>
+				  </div>
+				</fieldset>
+				
+				
+				
+				<div class="leftTiJian" >
+					<p class="active">未体检/<font id="wtjrs">0</font>人</p>
+						<p>已体检/<font id="ytjrs">0</font>人</p>
+						<ul>
+							
+						</ul>
+						<ul>
+							
+						</ul>
+				
+					
+				</div>	
+		 
+				<table class="layui-table layui-form layui-table-rightAA" id="regular">
+			      <input type="hidden" id="personalid" />
+					<tr>
+						<td>性别</td>
+						<td colspan="3">
+							<input type="radio" name="sex" value="男" title="男" value="男" checked="">
+							<input type="radio" name="sex" value="女" title="女" value="女">
+						</td>
+						<td>出生年月</td>
+						<td colspan="2">
+							<input type="text" class="layui-input inputWrap1" readonly="" id="csny" />
+						</td>
+					</tr>
+
+					<tr>
+						<td>身份证号</td>
+						<td colspan="3">
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="sfz" name="sfz" id="sfz" class="layui-input" />
+							</div>
+						</td>
+						<td>工作单位</td>
+						<td colspan="2">
+							<select name="danwei" lay-verify="required" id="companycode" lay-search>
+							
+						</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>本人电话</td>
+						<td colspan="3">
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="brdh" name="brdh" id="brdh"   class="layui-input" />
+							</div>
+						</td>
+						<td>民族</td>
+						<td colspan="2">
+							<div class="layui-input-inline">
+								<select name="modules" lay-verify="required" lay-search="" id="minzu">
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>出生地</td>
+						<td colspan="3">
+							<input type="text" id="birthplace" class="layui-input" />
+						</td>
+						<td>家庭地址</td>
+						<td colspan="2">
+							<input type="text" id="familyaddress" class="layui-input" />
+						</td>
+					</tr>
+
+					<tr>
+						<td>总工龄</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<input type="text"  maxlength="2" names="gl" name="gl"  id="gl" class="layui-input" />
+							</div>
+						</td>
+						<td>接害工龄</td>
+						<td>
+							<div class="form-group" style="width: 50%">
+							<input type="text" maxlength="2" name="jhgl" names="jhgl" id="jhgl" class="layui-input" />
+							</div>
+						</td>
+						<td>邮政编码</td>
+						<td colspan="2">
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="yzbm" name="yzbm"  id="yzbm" class="layui-input" />
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>月经史</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">初潮 </span><input type="text" names="cc"  name="cc" maxlength="2" id="cc" class="layui-input width50 fl" /><span class="fl lin38"> 岁 </span>
+						   </div>
+						</td>
+						<td>
+						    <div class="form-group" style="width: 50%">
+							<span class="fl lin38">经期 </span><input type="text" names="jq" name="jq"  maxlength="2" id="jq" class="layui-input width50 fl" /><span class="fl lin38"> 天 </span></td>
+							</div>
+						<td>
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">周期 </span><input type="text" names="zq" name="zq" id="zq"  maxlength="2" class="layui-input width50 fl" /><span class="fl lin38"> 天 </span></td>
+							</div>
+						<td colspan="3">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">停经年龄 </span><input name="tjnl" names="tjnl" type="text" maxlength="2"  id="tjnl" class="layui-input width50 fl" /><span class="fl lin38"> 岁 </span></td>
+							</div>
+					</tr>
+					<tr>
+						<td>生育史</td>
+						<td colspan="">
+							
+							<span class="fl lin38">子女 </span>
+							<div class="form-group" style="width: 50%">
+							<input type="text" name="znnumber" names="znnumber" maxlength="2" id="znnumber" class="layui-input width50 fl" />
+							</div>
+							<span class="fl lin38"> 人</span>
+						</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">流产</span><input type="text" names="lcnumber" name="lcnumber" maxlength="2" id="lcnumber"  class="layui-input width50 fl" /><span class="fl lin38">次</span>
+							</div>
+						</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">早产</span><input type="text" names="zcnumber" name="zcnumber" maxlength="2" id="zcnumber" class="layui-input width50 fl" /><span class="fl lin38">次</span>
+							</div>
+						</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">死产</span><input type="text" names="scnumber" name="scnumber" maxlength="2" value="0"  id="scnumber" class="layui-input width50 fl" /><span class="fl lin38">次</span>
+							</div>
+						</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">异常胎</span><input type="text" names="yctcnumber" name="yctcnumber" id="yctcnumber" maxlength="2" value="0"  class="layui-input width50 fl" /><span class="fl lin38">次</span>
+							</div>
+						</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">先天畸形</span><input type="text" names="xtjxnumber"  name="xtjxnumber" maxlength="2" id="xtjxnumber" value="0"  class="layui-input width50 fl" /><span class="fl lin38">次</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>婚姻状况</td>
+						<td colspan="6">
+							<input type="radio" name="hunyin" value="1" title="未婚" lay-filter="hunyin" checked="">
+							<input type="radio" name="hunyin" value="2" title="已婚" lay-filter="hunyin">
+							<input type="radio" name="hunyin" value="3" title="离婚" lay-filter="hunyin">
+							<input type="radio" name="hunyin" value="4" title="丧偶" lay-filter="hunyin">
+							<input type="radio" name="hunyin" value="5" title="未说明的婚姻状况" lay-filter="hunyin">
+							<input type="text" class="layui-input width200 mt10 none" id="hyzkqt" />
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width95">接触的(或拟接触的)职业病危害因素</span></td>
+						<td colspan="6">
+							<input type="checkbox" name="jcwhys" value="1" title="粉尘" lay-skin="primary" lay-filter="jcwhys">
+							<input type="checkbox" name="jcwhys" value="2" title="放射物质" lay-skin="primary" lay-filter="jcwhys">
+							<input type="checkbox" name="jcwhys" value="3" title="物理因素	" lay-skin="primary" lay-filter="jcwhys">
+							<input type="checkbox" name="jcwhys" value="4" title="化学物质" lay-skin="primary" lay-filter="jcwhys">
+							<input type="checkbox" name="jcwhys" value="5" title="其他" lay-skin="primary" lay-filter="jcwhysqt">
+							<input type="text" class="layui-input width400 mt10 none" id="jcwhysqt" />
+						</td>
+					</tr>
+					<tr>
+						<td>职业史</td>
+						<td colspan="6">
+							<div class="zhiyeshi p-l">
+								<font class="addzys" id="addzys">+</font>
+								<div class="zysTitle">
+									<span>开始时间</span>
+									<span>结束时间</span>
+									<span>工作单位</span>
+									<span>车间</span>
+									<span>工种</span>
+									<span>有害因素</span>
+									<span>防护措施</span>
+								</div>
+								<div class="fl p-l zys">
+									<span class="fl">
+										<input  type="text" class="layui-input width100 kssj" />
+									</span>
+
+									<span class="fl">
+										<input  type="text" class="layui-input width100 jssj" />
+									</span>
+									<span class="fl">
+											<input type="text" class="layui-input width100 gzdw" placeholder="请输入工作单位" />
+									</span>
+
+									<span class="fl">
+										<input type="text" class="layui-input width100 cj" placeholder="请输入车间" />
+									</span>
+									<span class="fl">
+											<input type="text" class="layui-input width100 gz" placeholder="请输入工种" />
+									</span>
+									<span class="fl">
+											<input type="text" class="layui-input width100 yhys" placeholder="请输入有害因素" />
+									</span>
+									<span class="fl">
+											<input type="text" class="layui-input width100 fhcs" placeholder="请输入防护措施" />
+									</span>
+									<font class="pum">--</font>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="3">吸烟情况</td>
+						<td colspan="2">吸烟状况</td>
+						<td colspan="4">
+							<input type="radio" name="xyzk" value="1" title="从不吸烟" checked="">
+							<input type="radio" name="xyzk" value="2" title="已戒烟">
+							<input type="radio" name="xyzk" value="3" title="吸烟">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">日吸烟量</td>
+						<td colspan="4">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">平均</span><input type="text" names="rxyl" name="rxyl" maxlength="2" id="rxyl" class="layui-input width50 fl" /><span class="fl lin38">支</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">开始吸烟年龄</td>
+						<td colspan="2">
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="ksxynl" name="ksxynl" maxlength="2" id="ksxynl" class="layui-input width50 fl" /><span class="fl lin38">岁</span>
+							</div>
+						</td>
+						<td>戒烟年龄</td>
+						<td colspan="">
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="jynl" name="jynl" maxlength="2" id="jynl" class="layui-input width50 fl" /><span class="fl lin38">岁</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="5">饮酒情况</td>
+						<td colspan="2">饮酒频率</td>
+						<td colspan="4">
+							<input type="radio" name="yjpl" value="1" title="从不" checked="">
+							<input type="radio" name="yjpl" value="2" title="偶尔">
+							<input type="radio" name="yjpl" value="3" title="经常">
+							<input type="radio" name="yjpl" value="4" title="每天">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">日饮酒量</td>
+						<td colspan="4">
+							<div class="form-group" style="width: 50%">
+							<span class="fl lin38">平均</span><input type="text" names="ryjl" name="ryjl" maxlength="2" id="ryjl"  class="layui-input width50 fl"><span class="fl lin38">两</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">是否戒酒</td>
+						<td colspan="4">
+							<input type="radio" name="sfjj" value="1" title="未戒酒" checked="">
+							<input type="radio" name="sfjj" value="2" title="已戒酒">
+							<div class="fr">
+								<div class="form-group" style="width: 50%">
+								<span class="ml30 lin38 fl">戒酒年龄：</span><input type="text" names="jjnl" name="jjnl" maxlength="2" id="jjnl" class="layui-input width50 fl"><span class="ml30 lin38 fl">岁</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">开始饮酒年龄</td>
+						<td>
+							<div class="form-group" style="width: 50%">
+							<input type="text" names="ksyjnl" name="ksyjnl" maxlength="2" id="ksyjnl" class="layui-input width50 fl"><span class="fl lin38">岁</span>
+							</div>
+						</td>
+						<td colspan="2">近一年内是否醉酒</td>
+						<td>
+							<input type="radio" name="sfzj" value="1" title="是" checked="">
+							<input type="radio" name="sfzj" value="2" title="否">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">饮酒种类</td>
+						<td colspan="4">
+							<input type="checkbox" name="yjzl" value="1" title="白酒" lay-skin="primary">
+							<input type="checkbox" name="yjzl" value="2" title="啤酒" lay-skin="primary">
+							<input type="checkbox" name="yjzl" value="3" title="黄酒" lay-skin="primary">
+							<input type="checkbox" name="yjzl" value="4" title="红酒" lay-skin="primary">
+							<input type="checkbox" name="yjzl" value="5" title="其他" lay-skin="primary" lay-filter="yjzlqt">
+							<input type="text" class="layui-input width200 mt10 none" id="yjzlqt" />
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="4">
+							既往史
+						</td>
+						<td>疾病</td>
+						<td colspan="5">
+							<input type="checkbox" name="jws" title="无" lay-skin="primary" lay-filter="jwswu" value="1" checked="">
+							<input type="checkbox" name="jws" title="高血压" lay-skin="primary" lay-filter="jwsjb" value="2">
+							<input type="checkbox" name="jws" title="糖尿病" lay-skin="primary" lay-filter="jwsjb" value="3">
+							<input type="checkbox" name="jws" title="冠心病" lay-skin="primary" lay-filter="jwsjb" value="4">
+							<input type="checkbox" name="jws" title="慢性阻塞性肺疾病" lay-skin="primary" lay-filter="jwsjb" value="5">
+							<input type="checkbox" name="jws" title="恶性肿瘤" lay-skin="primary" lay-filter="jwsjb" value="6">
+							<input type="text"  class="layui-input none width400" id="exzltext" />
+							<input type="checkbox" name="jws" title="脑卒中" lay-skin="primary" lay-filter="jwsjb" value="7">
+							<input type="checkbox" name="jws" title="严重精神障碍" lay-skin="primary" lay-filter="jwsjb" value="8">
+							<input type="checkbox" name="jws" title="结核病" lay-skin="primary" lay-filter="jwsjb" value="9">
+							<input type="checkbox" name="jws" title="肝炎" lay-skin="primary" lay-filter="jwsjb" value="10">
+							<input type="checkbox" name="jws" title="其他法定传染病" lay-skin="primary" lay-filter="jwsjb" value="11">
+							<input type="checkbox" name="jws" title="职业病" lay-skin="primary" lay-filter="jwsjb" value="12">
+							<input type="text" class="layui-input none width400" id="zybtext" />
+							<input type="checkbox" name="jws" title="其他" lay-skin="primary" lay-filter="jwsjb" value="13" id="jwsjbqt">
+							<div class="jwsjb none p-l">
+								<font class="addzys" id="addjws">+</font>
+								<div>
+									<span>疾病名称</span>
+									<span>确诊时间</span>
+								</div>
+								<div class="p-l jbs">
+									<span>
+										<input  type="text" class="layui-input qtjbs" placeholder="疾病名称"/>
+									</span>
+									<span>
+										<input  type="text" class="layui-input jwssj" placeholder="确诊时间"/>
+									</span>
+									<font class="pum">--</font>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>手术</td>
+						<td colspan="5">
+							<div>
+								<input type="radio" name="sfss" value="1" checked="checked" title="无">
+								<input type="radio" name="sfss" value="2" title="有">
+								<div class="sstitle  p-l" id="ssparent">
+									<font class="addzys" id="addsss">+</font>
+									<div>
+										<span>名称</span>
+										<span>时间</span>
+									</div>
+									<div class="fl p-l ss">
+										<span>
+      										<input type="text" class="layui-input ssmc" placeholder="手术名称"/>
+      									</span>
+										<span>
+      										<input type="text" class="layui-input sssj" placeholder="手术时间"/>
+      									</span>
+										<font class="pum">--</font>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>外伤</td>
+						<td colspan="5">
+							<div>
+								<input type="radio" name="sfws" value="1" checked="checked"  title="无">
+								<input type="radio" name="sfws" value="2" title="有">
+								<div class="sstitle  p-l" id="wsparent">
+									<font class="addzys" id="addws">+</font>
+									<div>
+										<span>名称</span>
+										<span>时间</span>
+									</div>
+									<div class="fl p-l ws">
+										<span>
+      										<input type="text" class="layui-input wsmc" placeholder="外伤名称"/>
+      									</span>
+										<span>
+      										<input type="text" class="layui-input wssj" placeholder="外伤时间"/>
+      									</span>
+										<font class="pum">--</font>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>输血</td>
+						<td colspan="5">
+							<div>
+								<input type="radio" name="sfsx" value="1" checked="checked"  title="无">
+								<input type="radio" name="sfsx" value="2" title="有">
+								<div class="sstitle  p-l" id="sxparent">
+									<font class="addzys" id="addsx">+</font>
+									<div>
+										<span>名称</span>
+										<span>时间</span>
+									</div>
+									<div class="fl p-l sx">
+										<span>
+      										<input type="text" class="layui-input sxmc" placeholder="输血名称"/>
+      									</span>
+										<span>
+      										<input type="text" class="layui-input sxsj" placeholder="输血时间"/>
+      									</span>
+										<font class="pum">--</font>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="4">
+							家族史
+						</td>
+						<td>
+							父亲
+						</td>
+						<td colspan="5">
+							<input type="checkbox" name="jzsfq" title="无" lay-skin="primary" lay-filter="jzswufq" value="1" checked="">
+							<input type="checkbox" name="jzsfq" title="高血压" lay-skin="primary" lay-filter="jzsfq" value="2">
+							<input type="checkbox" name="jzsfq" title="糖尿病" lay-skin="primary" lay-filter="jzsfq" value="3">
+							<input type="checkbox" name="jzsfq" title="冠心病" lay-skin="primary" lay-filter="jzsfq" value="4">
+							<input type="checkbox" name="jzsfq" title="慢性阻塞性肺疾病" lay-skin="primary" lay-filter="jzsfq" value="5">
+							<input type="checkbox" name="jzsfq" title="恶性肿瘤" lay-skin="primary" lay-filter="jzsfq" value="6">
+							<input type="checkbox" name="jzsfq" title="脑卒中" lay-skin="primary" lay-filter="jzsfq" value="7">
+							<input type="checkbox" name="jzsfq" title="严重精神障碍" lay-skin="primary" lay-filter="jzsfq" value="8">
+							<input type="checkbox" name="jzsfq" title="结核病" lay-skin="primary" lay-filter="jzsfq" value="9">
+							<input type="checkbox" name="jzsfq" title="肝炎" lay-skin="primary" lay-filter="jzsfq" value="10">
+							<input type="checkbox" name="jzsfq" title="先天畸形" lay-skin="primary" lay-filter="jzsfq" value="11">
+							<div class="fl widthbfb mt10">
+								<input type="checkbox" name="jzsfq" title="其他" lay-skin="primary" lay-filter="jzsfq" value="12">
+								<input class="layui-input width300 dis-inline" id="jzsqtfq" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							母亲
+						</td>
+						<td colspan="5">
+							<input type="checkbox" name="jzsmq" title="无" lay-skin="primary" lay-filter="jzswumq" value="1" checked="">
+							<input type="checkbox" name="jzsmq" title="高血压" lay-skin="primary" lay-filter="jzsmq" value="2">
+							<input type="checkbox" name="jzsmq" title="糖尿病" lay-skin="primary" lay-filter="jzsmq" value="3">
+							<input type="checkbox" name="jzsmq" title="冠心病" lay-skin="primary" lay-filter="jzsmq" value="4">
+							<input type="checkbox" name="jzsmq" title="慢性阻塞性肺疾病" lay-skin="primary" lay-filter="jzsmq" value="5">
+							<input type="checkbox" name="jzsmq" title="恶性肿瘤" lay-skin="primary" lay-filter="jzsmq" value="6">
+							<input type="checkbox" name="jzsmq" title="脑卒中" lay-skin="primary" lay-filter="jzsmq" value="7">
+							<input type="checkbox" name="jzsmq" title="严重精神障碍" lay-skin="primary" lay-filter="jzsmq" value="8">
+							<input type="checkbox" name="jzsmq" title="结核病" lay-skin="primary" lay-filter="jzsmq" value="9">
+							<input type="checkbox" name="jzsmq" title="肝炎" lay-skin="primary" lay-filter="jzsmq" value="10">
+							<input type="checkbox" name="jzsmq" title="先天畸形" lay-skin="primary" lay-filter="jzsmq" value="11">
+							<div class="fl widthbfb mt10">
+								<input type="checkbox" name="jzsmq" title="其他" lay-skin="primary" lay-filter="jzsmq" value="12">
+								<input class="layui-input width300 dis-inline" id="jzsqtmq" />
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							兄弟姐妹
+						</td>
+						<td colspan="5">
+							<input type="checkbox" name="jzsxd" title="无" lay-skin="primary" lay-filter="jzswuxdjm" value="1" checked="">
+							<input type="checkbox" name="jzsxd" title="高血压" lay-skin="primary" lay-filter="jzsxdjm" value="2">
+							<input type="checkbox" name="jzsxd" title="糖尿病" lay-skin="primary" lay-filter="jzsxdjm" value="3">
+							<input type="checkbox" name="jzsxd" title="冠心病" lay-skin="primary" lay-filter="jzsxdjm" value="4">
+							<input type="checkbox" name="jzsxd" title="慢性阻塞性肺疾病" lay-skin="primary" lay-filter="jzsxdjm" value="5">
+							<input type="checkbox" name="jzsxd" title="恶性肿瘤" lay-skin="primary" lay-filter="jzsxdjm" value="6">
+							<input type="checkbox" name="jzsxd" title="脑卒中" lay-skin="primary" lay-filter="jzsxdjm" value="7">
+							<input type="checkbox" name="jzsxd" title="严重精神障碍" lay-skin="primary" lay-filter="jzsxdjm" value="8">
+							<input type="checkbox" name="jzsxd" title="结核病" lay-skin="primary" lay-filter="jzsxdjm" value="9">
+							<input type="checkbox" name="jzsxd" title="肝炎" lay-skin="primary" lay-filter="jzsxdjm" value="10">
+							<input type="checkbox" name="jzsxd" title="先天畸形" lay-skin="primary" lay-filter="jzsxdjm" value="11">
+							<div class="fl widthbfb mt10">
+								<input type="checkbox" name="jzsxd" title="其他" lay-skin="primary" lay-filter="jzsxdjm" value="12">
+								<input class="layui-input width300 dis-inline" id="jzsqtxdjm" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							子女
+						</td>
+						<td colspan="5">
+							<input type="checkbox" name="jzszn" title="无" lay-skin="primary" lay-filter="jzswuzn" value="1" checked="">
+							<input type="checkbox" name="jzszn" title="高血压" lay-skin="primary" lay-filter="jzszn" value="2">
+							<input type="checkbox" name="jzszn" title="糖尿病" lay-skin="primary" lay-filter="jzszn" value="3">
+							<input type="checkbox" name="jzszn" title="冠心病" lay-skin="primary" lay-filter="jzszn" value="4">
+							<input type="checkbox" name="jzszn" title="慢性阻塞性肺疾病" lay-skin="primary" lay-filter="jzszn" value="5">
+							<input type="checkbox" name="jzszn" title="恶性肿瘤" lay-skin="primary" lay-filter="jzszn" value="6">
+							<input type="checkbox" name="jzszn" title="脑卒中" lay-skin="primary" lay-filter="jzszn" value="7">
+							<input type="checkbox" name="jzszn" title="严重精神障碍" lay-skin="primary" lay-filter="jzszn" value="8">
+							<input type="checkbox" name="jzszn" title="结核病" lay-skin="primary" lay-filter="jzszn" value="9">
+							<input type="checkbox" name="jzszn" title="肝炎" lay-skin="primary" lay-filter="jzszn" value="10">
+							<input type="checkbox" name="jzszn" title="先天畸形" lay-skin="primary" lay-filter="jzszn" value="11">
+							<div class="fl widthbfb mt10">
+								<input type="checkbox" name="jzszn" title="其他" lay-skin="primary" lay-filter="jzszn" value="12">
+								<input class="layui-input width300 dis-inline" id="jzsqtzn" />
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>遗传病史</td>
+						<td colspan="6">
+							<input type="radio" name="ycbs" value="1" title="无" lay-filter="ycbs" checked="">
+							<input type="radio" name="ycbs" value="2" title="有" lay-filter="ycbs">
+							<div class="fl widthbfb">
+								<span class="lin38">
+									疾病名称：
+								</span>
+								<input type="text" id="ycbsms" class="layui-input dis-inline width300" />
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>药物过敏史</td>
+						<td colspan="6">
+							<input type="checkbox" name="ywgms" value="1" title="无" lay-skin="primary" lay-filter="ywgmswu" value="" checked="">
+							<input type="checkbox" name="ywgms" value="2" title="青霉素" lay-skin="primary" lay-filter="ywgms" value="">
+							<input type="checkbox" name="ywgms" value="3" title="磺胺" lay-skin="primary" lay-filter="ywgms" value="">
+							<input type="checkbox" name="ywgms" value="4" title="链霉素" lay-skin="primary" lay-filter="ywgms" value="">
+							<input type="checkbox" name="ywgms" value="5" title="其他" lay-skin="primary" lay-filter="ywgms" value="">
+							<input type="text" id="ywgmsqtms" class="layui-input width300 dis-inline" />
+						</td>
+					</tr>
+
+				</table>
+				<span class="layui-btn saveTijian">保存</span>
+			</div>
+			
+
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/tjgl/jbxxcj.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<script src="../../js/yewu/tjgl/regularJbxxcj.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

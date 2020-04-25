@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>职业病信息管理平台</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/main.css" media="all" />
+		<script src="js/jquery-3.2.1.min.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<div class="container new_style_container">
+				<div class="fl package_div">
+					<div class="logo left"><img height="50" width="50" src="images/aslogomin.png"></div>
+					<div class="sysname left text_color">职业病信息管理平台</div>
+				</div>
+				<ul class="layui-nav right text_color" lay-filter="">
+
+					<li class="layui-nav-item">
+						<a href="">系统首页</a>
+					</li>
+					<li class="layui-nav-item loginOut">
+						<a href="">注销登录</a>
+					</li>
+					<li class="layui-nav-item">
+						<a  href="">修改密码</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="indexBanner">
+				<div class="layui-carousel" id="test1">
+					<div carousel-item>
+						<div><img src="images/banner2.jpg"></div>
+						<div><img src="images/banner1.jpg"></div>
+						<div><img src="images/banner3.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div class="listNav">
+				<div class="ai_card">
+					<div class="w1200">
+						<ul id="welcomeNav">
+							<li>
+								<div class="info" data-type="1">
+									<div class="img gwfw">
+										<span class="iconfont iconSize">&#xe628;</span>
+									</div>
+									<a class="gwfw" >
+										<h3 class="btn">基础信息管理</h3></a>
+								</div>
+
+							</li>
+
+							<li>
+								<div class="info" data-type="2">
+									<div class="img jyfw" >
+										<span class="iconfont iconSize">&#xe71a;</span>
+									</div>
+									<a class="jyfw" >
+										<h3 class="btn">体检管理</h3></a>
+								</div>
+							</li>
+
+							<li>
+								<div class="info" data-type="3">
+									<div class="img jcpt">
+										<span class="iconfont iconSize">&#xe64c;</span>
+									</div>
+									<a class="jcpt"  >
+										<h3 class="btn">总检管理</h3></a>
+								</div>
+							</li>
+							<li>
+								<div class="info" data-type="4">
+									<div class="img jkgl">
+										<span class="iconfont iconSize">&#xe64f;</span>
+									</div>
+									<a class="jkgl"  >
+										<h3 class="btn">体检查询反馈</h3></a>
+								</div>
+							</li>
+
+							<li>
+								<div class="info" data-type="5">
+									<div class="img jkjy">
+										<span class="iconfont iconSize">&#xe6b6;</span>
+									</div>
+									<a class="jkjy"  >
+										<h3 class="btn">体检进度</h3></a>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<script type="text/javascript">
+					$(function() {
+						$('.ai_card ul li').hover(function() {
+							$(this).addClass('active bg-lan').siblings().removeClass('active bg-lan');
+							$(this).find('h3').addClass('color-bai');
+							$(this).find('.iconfont').addClass('color-bai')
+						}, function() {
+							$(this).removeClass('active bg-lan').siblings().removeClass('active bg-lan');
+							$(this).find('h3').removeClass('color-bai');
+							$(this).find('.iconfont').removeClass('color-bai');
+						})
+					})
+				</script>
+
+
+			</div>
+			<div class="footer">
+				<div class="copyright">Copyright (c) 2018 山东爱升信息科技有限公司 版权所有　v1.0.0</div>
+				<div class="user">
+					<ul>
+						<li> 尊敬的<label id="systemUser_name">温泉管理员</label>，欢迎登录<label id="systemUser_orgname">即墨区温泉镇卫生院</label>！</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="layui/layui.js"></script>
+		<script type="text/javascript" src="js/wrap.js"></script>
+		<script src="js/welcome.js"></script>
+
+	</body>
+
+</html>

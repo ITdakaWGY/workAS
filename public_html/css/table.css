@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+.layui-form-radio {line-height:18px;margin:0 6px 0 0;padding-right:5px;}
+.layui-form-radio i {margin-right:5px;font-size:16px;}
+
+.layui-form-checkbox[lay-skin=primary] i {width: 14px;height: 14px;line-height: 14px;font-size: 12px;}
+.layui-form-checkbox[lay-skin=primary] span {padding-right: 10px; padding-left:5px;line-height: 18px;background: 0 0;color: #333; margin-bottom:3px}
+.inside-input{height:22px; line-height:22px}

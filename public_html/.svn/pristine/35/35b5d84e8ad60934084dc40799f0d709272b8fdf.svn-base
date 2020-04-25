@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>体检签约修改</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+	</head>
+
+	<body>
+		<div class="x-body layui-form addForm">
+			<input type="hidden" id="qybh" />
+			<div class="layui-form-item">
+				<label class="layui-form-label">签约日期</label>
+				<div class="layui-input-block">
+					<input type="text" name="signtime" required lay-verify="required" id="signtime" placeholder="请输入签约日期" autocomplete="off" class="layui-input" readonly="">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="companyname" id="companyname" required lay-verify="required" placeholder="请输入单位名称" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">体检人数</label>
+				<div class="layui-input-block">
+					<input type="text" name="physicalnumber" id="physicalnumber" required lay-verify="required" placeholder="请输入体检人数" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">联  系  人</label>
+				<div class="layui-input-block">
+					<input type="text" name="linkman" id="linkman" required lay-verify="required" placeholder="请输入联  系  人" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">联系电话</label>
+				<div class="layui-input-block">
+					<input type="text" name="phone" id="phone" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">职业危害</label>
+				<div class="layui-input-block">
+					<input type="text" name="occupationharm" id="occupationharm" required lay-verify="required" placeholder="请输入职业危害" autocomplete="off" class="layui-input">
+				</div>
+			</div>	
+			<div class="layui-form-item">
+				<label class="layui-form-label">签约地址</label>
+				<div class="layui-input-block">
+					<input type="text" name="address" id="address" required lay-verify="required" placeholder="请输入职业危害" autocomplete="off" class="layui-input">
+				</div>
+			</div>	
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">协议文本</label>
+				<div class="layui-input-block p-l">
+					<input type="hidden" id="protocol" />
+					<input type="file" name="protocol"  multiple="multiple" onchange="handleFile('1',this)" class="files">
+					<span class="layui-btn uploadBtn">上传文件</span>
+					<ul class="fileList">
+						<li>
+							<span id="xywbName"></span>
+							<span class="delFiles">删除</span>
+						</li>
+					</ul>
+				
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">其他材料</label>
+				<div class="layui-input-block p-l">
+					<input type="hidden" id="qtcl" />
+					<input type="file" name="qtcl"  multiple="multiple" onchange="handleFile('2',this)" class="files">
+					<span class="layui-btn uploadBtn">上传文件</span>
+					<ul class="fileList">
+						<li>
+							<span id="qtclName"></span>
+							<span class="delFiles">删除</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<span class="saveTijian layui-btn">保存</span>
+		</div>
+		<script src="../../js/yewu/tjqy/edittjqy.js"></script>
+	</body>
+
+</html>

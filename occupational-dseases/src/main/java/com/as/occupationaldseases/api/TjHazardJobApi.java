@@ -1,0 +1,43 @@
+package com.as.occupationaldseases.api;
+
+import com.as.occupationaldseases.common.response.CommonCode;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.common.response.QueryResult;
+import com.as.occupationaldseases.domain.tjHazardJob.TjHazardJob;
+import com.as.occupationaldseases.domain.tjHazardJob.responce.TjHazardJobCode;
+import com.as.occupationaldseases.domain.tjHazardJob.responce.TjHazardJobResult;
+import com.as.occupationaldseases.exception.ExceptionCast;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
+public interface TjHazardJobApi {
+
+    //新增
+    @ApiOperation("新增")
+    public TjHazardJobResult add(TjHazardJob tjHazardJob);
+
+    /**
+     * 分页查询方法
+     *
+     * @param current     页码，从1开始记数
+     * @param size        每页记录数
+     * @param tjHazardJob 查询条件
+     * @return
+     */
+    @ApiOperation("分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页码", required = true, paramType = "path", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页记录数", required = true, paramType = "path", dataType = "int")
+    })
+    public QueryResponseResult findList(int current, int size, TjHazardJob tjHazardJob);
+
+
+
+    //根据id删除
+    @ApiOperation("删除")
+    public TjHazardJobResult delete(TjHazardJob tjHazardJob);
+}

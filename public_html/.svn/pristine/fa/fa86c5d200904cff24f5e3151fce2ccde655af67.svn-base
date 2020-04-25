@@ -1,0 +1,198 @@
+	//验证插件测试-----------
+	 	  $(document).ready(function() {
+	 		
+	 	    $('#regular').bootstrapValidator({
+	 	    	live: 'enabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
+	 	        message: 'This value is not valid',
+	 	        feedbackIcons: {
+	 	            valid: 'glyphicon glyphicon-ok',
+	 	            invalid: 'glyphicon glyphicon-remove',
+	 	            validating: 'glyphicon glyphicon-refresh'
+	 	        },
+	 	        //group: '.form-group',
+	 	        fields: {/*验证*/
+	 	        	"jhgl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "gl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "yzbm": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]\d{5}(?!\d)$/,
+	 	        					message: '邮政编码格式不正确！！'
+	 	        				}
+	 	                    }
+	 	                },    
+	 	            "brdh": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^((((1[0-9]{1}[0-9]{1}))+\d{8})|^\s*|[0][1-9]{2,3}-[0-9]{5,10}|[1-9]{1}[0-9]{5,8})$/,
+	 	        					message: '电话格式不正确！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "cc": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "jq": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "zq": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "tjnl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "znnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },   
+	 	             "lcnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+					"zcnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },	 	           
+	 	        	"scnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "yctcnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },    
+	 	            "xtjxnumber": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 				"rxyl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },	 
+	 				"ksxynl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },	 
+	 	            "jynl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },    
+	 	            "ryjl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "jjnl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	            "ksyjnl": {/*键名和input name值对应*/
+	 	                    message: '',
+	 	                    validators: {
+	 	        				regexp: {
+	 	        					regexp: /^[0-9]*$/,
+	 	        					message: '只能为数字！！'
+	 	        				}
+	 	                    }
+	 	                },
+	 	        
+	 	        }
+	 	    });
+	 	 
+	 	});

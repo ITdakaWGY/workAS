@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>症状信息采集</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<style type="text/css">
+			
+			page[size="A4"] {
+			  background: white;
+			  width: 21cm;
+			  height: 29.7cm;
+			  display: block;
+			  margin: 0 auto;
+			  margin-bottom: 0.5cm;
+			  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); position: relative;
+			}
+			@media print {
+			  body, page[size="A4"] {
+			    margin: 0;
+			    box-shadow: 0;
+			  }
+			}
+			.topDayin{width: 200px; float: right; font-size: 14px; line-height: 30px; padding-top: 80px;}
+			.topDayin i{ font-style: normal; border-bottom: 1px solid #333;}
+			.titleZy{ margin-top: 80%; position: absolute; text-align: center;width:100%; font-size: 30px; clear: both;}
+			.yinzhi{ position: absolute; bottom: 80px; text-align: center; width:100%}
+			.jichuAA{ padding:0 20px; padding-top: 50px;}
+			.titleJichu{ padding: 10px 0;}
+			.jichuAA>p{ line-height: 35px;  position: relative; position: ;}
+			.jichuAA>p>i{ font-style: normal; border-bottom: 1px solid #333; padding: 0 8px; margin-right: 10px;}
+			.qianmingAA{padding:0 20px; padding-top: 50px;}
+			.qianmingAA>p{width:50%; float: left; line-height: 35px;}
+			.jibenAA{ border-top: 1px solid #333; padding-top: 20px; margin: 0 20px; margin-top: 20px;}
+			.pageA4{ padding: 20px; box-sizing: border-box;}
+			.pageA4 table{ line-height: 25px;}
+			.lineXie{ background: #fff url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=) no-repeat 100% center;   
+}
+.jielunCon{ width: 100%; min-height: 120px;padding-top: 10px; }
+
+.qianmingCon {width: 100%; min-height: 90px; border-bottom: 1px solid #666; }
+.qianmingCon .left{width:80%; float: left;}
+.qianmingCon span{width:100%; display: block;}
+.qianmingCon .right{width:20%; float: left;}
+
+		</style>
+	</head>
+
+	<body>
+		
+		
+		
+		<div class="rightZTop">
+			<page size="A4">
+				<div class="topDayin" >
+					姓名：<i><span class="name"></span></i><br>                 
+					单位：<i><span class="companyname"></span></i><br>
+					单位电话：<i><span class="brdh"></span></i><br>
+					工号：<i></i><br>
+					编号：<i><span class="personalid"></span></i><br>
+					填表日期:<i><span class="tjrq"></span></i><br>
+					类别：<i></i>
+				</div>
+				<p class="titleZy">职 业 健 康 检 查  表</p>
+				<p class="yinzhi">山东省卫生厅印制</p>
+				</page>
+			<page size="A4">
+				<div class="jichuAA" >
+					<h2 class="titleJichu">个人基本资料：</h2>
+					<p>姓 名：<i><span class="name"></span></i>  性 别：<i><span class="sex"></span></i>  出生日期：<i><span class="csrq"></span></i></p>
+					<p>出生地：<i><span class="birthplace"></span></i>  民 族：<i><span class="mz"></span></i> 个人联系电话：<i><span class="brdh"></span></i></p>
+					<p>居民身份证号码：<i><span class="sfz"></span></i></p>
+					<p>家庭地址：<i><span class="familyaddress"></span></i> 邮政编码：<i><span class="yzbm"></span></i></p>
+					<p>接触的（或拟接触的）职业病危害因素：<i><span class="whys"></span></i></p>
+					<p>总工龄：<i><span class="gl"></span></i>   接害工龄：<i><span class="jhgl"></span></i></p>
+				</div>
+				<div class="jichuAA">
+					<h2 class="titleJichu">职业史（由受检者本人填写）：</h2>
+					<table class="layui-table">
+						<thead>
+						<tr>
+							<th>序号</th>
+							<th>起止日期</th>
+							<th>工作单位</th>
+							<th>车间	</th>
+							<th>工种</th>
+							<th>有害因素</th>
+							<th>防护措施</th>
+						 </tr>
+						</thead>
+						<tbody id="tbody"></tbody>
+					</table>
+					
+					<p>受检者签名:___________    </p>
+					
+				</div>
+				<div class="jichuAA">
+					<h2 class="titleJichu">急慢性职业病史</h2>
+					<p>病名：______________________                  诊断日期：___________   </p>
+					<p>诊断单位：______________________              是否痊愈：___________</p>
+					
+				</div>
+				<div class="qianmingAA">
+					<p>受检人签名：<br>
+					________年____月____日 </p>
+					<p>用人单位签章：<br>
+					________年____月____日 </p>
+					
+				</div>
+			</page>
+			<page size="A4">
+				<div class="jichuAA">
+					<p >一、既往病史:<i><span class="jbs"></span></i></p>                                            
+									  
+		<p>二、月经及生育史：初潮<i><span class="cc"></span></i>岁，经期<i><span class="jq"></span></i>天，周期<i><span class="zq"></span></i>天，停经年龄<i><span class="tjnl"></span></i>岁。现有子女<i><span class="znnumber"></span></i>人，
+				流产<i><span class="lcnumber"></span></i>次，早产<i><span class="zcnumber"></span></i>次，死产<i><span class="scnumber"></span></i>次，异常胎<i><span class="yctcnumber"></span></i>次，先天畸形<i><span class="xtjxnumber"></span></i>次。</p>
+		<p>三、吸烟史：<i><span class="xyzk"></span></i> ，经常吸<i><span class="rxyl"></span></i>包∕天、共<i><span class="jynl"></span></i>年</p>
+		<p>四、饮酒史：<i><span class="yjpl"></span></i><i><span class="ryjl"></span></i>∕日、饮酒种类<i><span class="yjzl"></span></i>、开始饮酒年龄<i><span class="ksyjnl"></span></i></p>
+		<p>五、家族史：<i><span class="jzs"></span></i></p>
+					
+				</div>
+				<div class="topDayin">
+					受检者签名：<i>XXX</i><br>
+					<i>XXXX</i>年<i>XX</i>月<i>XX</i>日<br>
+				</div>
+				<p class="clear"></p>
+				<div class="jibenAA">
+					（基本情况有无变化）
+					
+				</div>
+				<div class="topDayin">
+					受检者签名：<i>XXX</i><br>
+					<i>XXXX</i>年<i>XX</i>月<i>XX</i>日<br>
+				</div>
+				<p class="clear"></p>
+				<div class="jibenAA">
+					（基本情况有无变化）
+					
+				</div>
+				<div class="topDayin">
+					受检者签名：<i>XXX</i><br>
+					<i>XXXX</i>年<i>XX</i>月<i>XX</i>日<br>
+				</div>
+			</page>
+			<page size="A4" class="pageA4">
+				<h2 class="titleJichu">
+					六、症状
+				</h2>
+				<table width="100%" border="1" style="text-align: center;">
+				  <tbody>
+					<tr>
+					  <td>项目</td>
+					  <td>年</td>
+					  <td>年</td>
+					  <td>年</td>
+					  <td>项目</td>
+					  <td>年</td>
+					  <td>年</td>
+					  <td>年</td>
+					</tr>
+					<tr>
+					  <td>头痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>头晕 (昏) </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>眩晕</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>失眠</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>嗜睡</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>多梦</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>记忆力减退</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>疲乏无力</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>易激动 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>低热</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>盗汗</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>多汗</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>全身酸痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>视物模糊</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>视力下降</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>咽干</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>咽痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>羞明 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>流泪</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>嗅觉减退</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>鼻塞</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>鼻干</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>流鼻血</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>耳鸣</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>耳聋</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>消瘦 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>口渴</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>流涎</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>牙痛 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>牙齿松动</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>牙龈肿胀</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>牙龈出血</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>口腔溃疡</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>口腔异味</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>胸闷 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>气短</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>胸痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>咳嗽 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>咳痰</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>咯血</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>哮喘</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>心悸</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>心前区不适</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>食欲减退</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>腹痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>腹胀</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>腹泻</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>便秘</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>肝区疼痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>皮下出血</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>皮肤瘙痒</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>皮疹</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>脱发</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>关节痛</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>肌肉抽搐 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>下肢沉重感</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>动作不灵活</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>四肢麻木</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>四肢多汗</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>四肢发凉</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>饮水呛咳</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>尿频</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>尿急 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>尿血</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>浮肿 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>月经异常</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>性欲减退 </td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>医师签名</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					
+				  </tbody>
+				</table>
+				<p>*症状程度：偶有以“±”，较轻以“ +”，中等以“ ++”，明显以“ +++”，无以“ -”表示</p>
+				
+			</page>
+			<page size="A4" class="pageA4">
+				<h2 class="titleJichu">
+				七、体征
+				</h2>
+				<table width="100%" border="1" style="text-align: center;">
+				  <tbody>
+					<tr>
+					  <td colspan="3" rowspan="2">项目</td>
+					  <td colspan="6">时间</td>
+					  <td colspan="2" rowspan="2">备注</td>
+					</tr>
+					<tr>
+					<td colspan="2">年</td>
+					  <td colspan="2">年</td>
+					  <td colspan="2">年</td>
+					</tr>
+					
+					<tr>
+					  <td rowspan="4">外科</td>
+					  <td colspan="2">甲状腺 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">浅表淋巴结 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">其他 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">医师签名 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td rowspan="7">神经内科</td>
+					  <td colspan="2">肌萎缩 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">肌力 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">肌张力 </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">三颤</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">共济运动</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">浅感觉</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td colspan="2">深感觉</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>  
+					  
+					  
+					  
+					  <tr>
+					  <td rowspan="4">&nbsp;</td>
+					  <td colspan="2">腱反射 
+				
+				
+				 </td>
+					  <td colspan="2"> </td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					  <tr>
+						<td colspan="2">病理反射 </td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					  <tr>
+						<td colspan="2">自主神经 </td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					  <tr>
+						<td colspan="2">医师签字</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					  
+					  
+					<tr>
+					  <td>皮肤</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>	  
+					<tr>
+					  <td>其他</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>	  
+					 
+					 <tr>
+					  <td rowspan="7">电测听</td>
+					  <td colspan="2" class="lineXie">
+						  <span style="float:left;margin-top:20px; padding-left: 8px;">dB</span>
+						  <span style="float:right;margin-top:8px; padding-right: 5px;">HZ</span>
+					  </td>
+					  <td>500</td>
+					  <td>1000</td>
+					  <td>1000</td>
+					  <td>3000</td>
+					  <td>4000</td>
+					  <td>6000</td>
+					  <td colspan="2">&nbsp;</td>
+					</tr>
+					 <tr>
+					   <td rowspan="2">年</td>
+					   <td>左耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td >初步印象1</td>
+					   <td rowspan="2">医生签名</td>
+					</tr>
+					 <tr>
+					   <td>右耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td>初步印象2</td>
+				
+					</tr>
+					 <tr>
+					   <td rowspan="2">年</td>
+					   <td>左耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					  <td >初步印象3</td>
+					   <td rowspan="2">医生签名</td>
+				
+					</tr>
+					 <tr>
+					   <td>右耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td>初步印象4</td>
+					  
+					</tr>
+					 <tr>
+					   <td rowspan="2">年</td>
+					   <td>左耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td >初步印象5</td>
+					   <td rowspan="2">医生签名</td>
+				
+					</tr>
+					 <tr>
+					   <td>右耳</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td colspan="2">&nbsp;</td>
+					   <td>初步印象6</td>
+					  
+					</tr>  
+					  
+				  </tbody>
+				</table>
+			</page>
+			
+			
+			<page  size="A4" class="pageA4">
+				<h2 class="titleJichu">
+					八、化验及其它检查
+				</h2>
+				<table width="100%" border="1" style="text-align: center;">
+				  <tbody>
+					<tr>
+					  <td rowspan="8">血常规</td>
+					  <td>&nbsp;</td>
+					  <td colspan="3">检查结果</td>
+					</tr>
+					<tr>
+					  <td>&nbsp;</td>
+					  <td>年</td>
+					  <td>年</td>
+					  <td>年</td>
+					</tr>
+					<tr>
+					  <td>中性粒%</td>
+					  <td></td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>白细胞×109／L</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>淋巴细胞    %</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>红细胞×12／L</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>血红蛋白g／L</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>血小板×109／L</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					  <tr>
+					  <td rowspan="6">尿常规</td>
+					  <td>尿蛋白</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>尿糖</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>尿比重</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>红细胞</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>白细胞</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>管型</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					  
+					  
+					<tr>
+					  <td rowspan="5">肝功能</td>
+					  <td>ALT</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>GGT</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>TP、ALB</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>TBIL</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>乙肝五项</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+				   
+					<tr>
+					  <td rowspan="3">肾功能</td>
+					  <td>BUN</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>Cr</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>尿：β2-微球蛋白</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+				 
+				
+					  
+					  
+				   <tr>
+					  <td  colspan="2">血糖</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>  
+					<tr>
+					  <td  colspan="2">胸部X线检查</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>  
+					  <tr>
+					  <td  colspan="2">心电图</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+				  <tr>	  
+				<td  colspan="2">B超（肝、胆、脾、肾）</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>	
+						<tr>
+				<td  colspan="2">脑电图</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>	
+						<tr>
+					<td  colspan="2">神经肌电图</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<td  colspan="2">尿：铅砷镉铬汞</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+				 
+					  <td>&nbsp;</td>
+					</tr>
+					  <tr>
+					<td  colspan="2">血：铅汞</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+				
+					</tr>
+					  <tr>
+					<td  colspan="2">全血或红细胞胆碱酯酶活性</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+				
+					  <td>&nbsp;</td>
+					</tr>
+				
+				
+						<tr>
+					  <td rowspan="3">肺功能</td>
+					  <td>FVC              %</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>FEV1              %</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>FEV1/FVC         %</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+					<tr>
+					  <td>医生签名</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					</tr>
+				  </tbody>
+				</table>
+			</page>
+				<page size="A4" class="pageA4">
+					<h2 class="titleJichu" style="border-bottom: 2px solid #666;">
+						九、化验及其它检查报告粘贴处
+					</h2>
+					
+					<p></p>
+
+
+				</page>
+				<page size="A4" class="pageA4">
+					<h2 class="titleJichu" style="border-bottom: 2px solid #666;">
+						十、检查结论及处理意见
+					</h2>
+					<div>
+						<p class="jielunCon">检查结论：<br>sdsdsd</p>
+				
+						<p class="jielunCon">处理意见：<br>sdsdsd</p>
+			
+						<div class="qianmingCon">
+							<p class="left">
+								<span>主检医师签名:</span>
+								<span>年 月 日</span>
+							</p>
+							<p>
+								<span>体检机构（盖章）:</span>
+								<span>年 月 日</span>
+							</p>
+						</div>
+			
+					</div>	
+					<div>
+						<p class="jielunCon">检查结论：<br>sdsdsd</p>
+									
+						<p class="jielunCon">处理意见：<br>sdsdsd</p>
+								
+						<div class="qianmingCon">
+							<p class="left">
+								<span>主检医师签名:</span>
+								<span>年 月 日</span>
+							</p>
+							<p>
+								<span>体检机构（盖章）:</span>
+								<span>年 月 日</span>
+							</p>
+						</div>
+								
+					</div>	
+					<div>
+						<p class="jielunCon">检查结论：<br>sdsdsd</p>
+									
+						<p class="jielunCon">处理意见：<br>sdsdsd</p>
+								
+						<div class="qianmingCon" style="border: 0;">
+							<p class="left">
+								<span>主检医师签名:</span>
+								<span>年 月 日</span>
+							</p>
+							<p>
+								<span>体检机构（盖章）:</span>
+								<span>年 月 日</span>
+							</p>
+						</div>
+								
+					</div>	
+				</page>
+			<span class="layui-btn saveTijian">打印</span>
+		</div>
+			<script>
+				document.write('<script src="../../js/yewu/tjgl/zjxxgl.js?v=' + Math.random() + '"><\/script>')
+			</script>
+	</body>
+
+</html>

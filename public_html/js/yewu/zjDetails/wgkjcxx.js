@@ -1,0 +1,121 @@
+$(function() {
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var tmh = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+		var params = {
+				tmh: tmh,
+		}
+		getData(params);	
+		
+	    function getData(params) {
+				var urls = 'InquiryWgk/list/1/' + pageSize;
+				$.ajax({
+					type: "get",
+					url: BaseUrl + urls,
+					async: true,
+					data: params,
+					success: function(data) {
+						if(data.success) {
+							var list = data.queryResult.list;
+							if(list.length > 0) {
+								var data = list[0];
+								$('#personalid').val(data.personalid);
+				            	$('#xm').val(data.xm);
+				            	$('#tmh').val(data.tmh);
+				            	$('#res1').val(data.res1);
+								$('input[name="zysl"]').val(data.zysl);
+								$('input[name="yysl"]').val(data.yysl);
+								$('input[name="zyjzsl"]').val(data.zyjzsl);
+								$('input[name="yyjzsl"]').val(data.yyjzsl);
+								$('input[name="slbz"]').val(data.slbz);
+								intRadio('wy', data.wy);
+								$('input[name="wyms"]').val(data.wyms);
+								$('input[name="wybz"]').val(data.wybz);
+								intRadio('jt', data.jt);
+								$('input[name="jtms"]').val(data.jtms);
+								$('input[name="jtbz"]').val(data.jtbz);
+								intRadio('sjrt', data.sjrt);
+								$('input[name="sjrtms"]').val(data.sjrtms);
+								$('input[name="ydbz"]').val(data.ydbz);
+								intRadio('swmxg', data.swmxg);
+								$('input[name="swmxgms"]').val(data.swmxgms);
+								intRadio('hbq', data.hbq);
+								$('input[name="hbqms"]').val(data.hbqms);
+								intRadio('ek', data.ek);
+								$('input[name="ekms"]').val(data.ekms);
+								$('input[name="webz"]').val(data.webz);
+								intRadio('wed', data.wed);
+								$('input[name="wedms"]').val(data.wedms);
+								intRadio('ztl', data.ztl);
+								intRadio('ytl', data.ytl);
+								$('input[name="tlbz"]').val(data.tlbz);
+								intRadio('bwx', data.bwx);
+								intRadio('bzg', data.bzg);
+								intRadio('bqnm', data.bqnm);
+								intRadio('bdqyt', data.bdqyt);
+								intRadio('kc', data.kc);
+								//齿列多选框
+								if(data.cl != null) {
+									var cl = data.cl.split(',');
+									intCheckbox('cl', cl);
+								}
+								intRadio('kqyb', data.kqyb);
+								intRadio('yhyb', data.yhyb);
+								intRadio('btt', data.btt);
+								intRadio('kyb', data.kyb);
+								$('input[name="bwxms"]').val(data.bwxms);
+								$('input[name="bbz"]').val(data.bbz);
+								$('input[name="bzgms"]').val(data.bzgms);
+								$('input[name="bdqytms"]').val(data.bdqytms);
+								$('input[name="kqbz"]').val(data.kqbz);
+								$('input[name="yhybms"]').val(data.yhybms);
+								$('input[name="bttms"]').val(data.bttms);
+								$('input[name="kybms"]').val(data.kybms);
+								$('input[name="ysqz"]').val(data.ysqz);
+								$('input[name="createtime"]').val(getDate(data.tjrq));
+								$('input[name="qczs"]').val(data.qczs);
+								$('input[name="qczx"]').val(data.qczx);
+								$('input[name="qcys"]').val(data.qcys);
+								$('input[name="qcyx"]').val(data.qcyx);
+								$('input[name="yczs"]').val(data.yczs);
+								$('input[name="yczx"]').val(data.yczx);
+								$('input[name="ycys"]').val(data.ycys);
+								$('input[name="ycyx"]').val(data.ycyx);
+								$('input[name="jczs"]').val(data.jczs);
+								$('input[name="jczx"]').val(data.jczx);
+								$('input[name="jcys"]').val(data.jcys);
+								$('input[name="jcyx"]').val(data.jcyx);
+								$('input[name="yhbz"]').val(data.yhbz);
+								$('input[name="bqnmms"]').val(data.bqnmms);
+								$('input[name="res1"]').val(data.res1);
+								if(data.cl.indexOf('缺齿') >= 0) {
+									$('.chilieyc').show();
+									$('#qcdoms').show();
+								}
+
+								if(data.cl.indexOf('龋齿') >= 0) {
+									$('.chilieyc').show();
+									$('#jcdoms').show();
+								}
+								if(data.cl.indexOf('义齿') >= 0) {
+									$('.chilieyc').show();
+									$('#ycdoms').show();
+								}
+								form.render();
+							} else {
+								layer.msg('暂无改人员相关信息,请先进行登记');
+							}
+						} else {
+							layer.msg(data.message);
+						}
+					},
+					error: function(data) {
+						layer.msg(data.message);
+					}
+
+				});
+		}
+	});
+})

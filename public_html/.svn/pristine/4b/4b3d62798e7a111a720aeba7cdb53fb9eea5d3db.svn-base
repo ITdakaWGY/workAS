@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>内科问诊</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+			<link rel="stylesheet" href="../../bootstrapvalidator/vendor/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="../../bootstrapvalidator/dist/css/bootstrapValidator.css"/>
+		<script  src="../../bootstrapvalidator/vendor/bootstrap/js/bootstrap.min.js" >
+		</script>
+		<script  src="../../bootstrapvalidator/dist/js/bootstrapValidator.js" >
+		</script>
+	</head>
+
+
+	<body>
+	
+		<div class="rightZTop">
+			<div class="layui-row layui-form x-body ">
+				<div class="line-shai">
+					<a name="card">筛选条件</a>
+				</div>
+				<div class="layui-row layui-form layui-flex">
+					<div class="layui-form-item inputWrap1">
+						<input required lay-verify="required" placeholder="条码号"  name="sstmh" autocomplete="off" class="layui-input" id="sstmh">
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<input required lay-verify="required" placeholder="体检日期" autocomplete="off" class="layui-input" readonly="" id="tjrq" >
+							<input type="hidden"  name="companycode" id="companycode"/>
+							<input type="hidden"  name="id" id="id"/>
+							<input type="hidden" name="brdh" id="brdh">
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<span class="layui-btn chaxunBtn" id="searchBtn">查询</span>
+					</div>
+				</div>
+				<div class="line5"></div>
+				<fieldset class="layui-elem-field" style="margin-bottom: 0;">
+				  <legend>体检人员信息</legend>
+				  <div class="layui-field-box xinXiDetail" >
+				    <span class="fl">单位名称：</span><input type="text" class="layui-input width160 fl"   id="companyname" name="companyname"  readonly=""/>
+				    <span class="fl">姓名：</span><input type="text" class="layui-input width160 fl"  id="xm" name="xm" readonly=""/ data='input'>
+				    <span class="fl">身份证：</span><input type="text" class="layui-input width160 fl"  id="sfz" name="sfz" readonly="" />
+				    <span class="fl">岗位：</span><input type="text" class="layui-input width160 fl"   id="gzgw" name="gzgw" readonly=""/>
+				  </div>
+
+				</fieldset>
+
+
+
+
+				<div>
+
+					<div class="leftTiJian">
+						<p class="active">未体检/<font id="wtjrs">0</font>人</p>
+						<p>已体检/<font id="ytjrs">0</font>人</p>
+						<ul>
+
+						</ul>
+						<ul>
+
+						</ul>
+
+					</div>
+				<table class="layui-table layui-form layui-table-rightAA" id="nkwz">
+					<thead>
+						<tr>
+							<th>项目</th>
+							<th>内容</th>
+							<th>备注</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="width100">胸廓</td>
+							<td>
+								<span class="fl line28 dis-inline mr10">外形:</span>
+							    <input type="radio" name="xk" value="1" title="正常" checked="">
+								<input type="radio" name="xk" value="2" title="扁平胸">
+								<input type="radio" name="xk" value="3" title="桶状胸">
+								<input type="radio" name="xk" value="4" title="其他">
+								<input type="text" class="layui-input width200 dis-inline" name="xkqt" id="xkqt" maxlength="10" />
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline" name="xkbz" id="xkbz"  maxlength="10" />
+							</td>
+						</tr>
+						<tr>
+							<td>心脏</td>
+							<td>
+							<div class="fl">
+								<span class="fl line28 dis-inline mr10">心率:</span>
+								<div class="form-group">
+								<input type="text" class="dis-inline width80 layui-input fl" names="xlnumber" name="xlnumber" id="xlnumber"/>
+								</div>
+								<span class="fl line28 dis-inline mr10"  >&nbsp;次/分钟</span>
+								<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;心律:</span>
+								<input type="radio" name="xlqk" value="1" title="齐">
+								<input type="radio" name="xlqk" value="2" title="不齐">
+								<input type="radio" name="xlqk" value="3" title="绝对不齐">
+							</div>
+							<div class="fl">
+								<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;杂音:</span>
+								<input type="radio" name="zy" value="1" title="无" checked="">
+								<input type="radio" name="zy" value="2" title="有">
+								<input type="text" class="dis-inline width100 layui-input" name="zyms" id="zyms"  maxlength="10"/>
+								<span class="dis-inline lin38">(额外心音、杂音、心包摩擦音)</span>
+							</div>
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline" name="xzbz" id="xzbz"  maxlength="10"/>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="2">肺</td>
+							<td>
+								<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;呼吸音:</span>
+								<input type="radio" name="hxy" value="1" title="正常" checked="">
+								<input type="radio" name="hxy" value="2" title="异常">
+								<input type="text" class="dis-inline width100 layui-input" name="hxyms" id="hxyms"  maxlength="10"/>
+								<span class="dis-inline lin38">(减弱，增强)</span>
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline"  name="hxybz" id="hxybz"  maxlength="10"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;罗音:</span>
+								<input type="radio" name="ly" value="1" title="无" checked="" >
+								<input type="radio" name="ly" value="2" title="干罗音">
+								<input type="radio" name="ly" value="3" title="湿罗音">
+								<input type="radio" name="ly" value="4" title="其他">
+								<div class="group-form">
+								<input type="text" class="dis-inline width100 layui-input" name="lyms" id="lyms"  maxlength="10"/>
+								</div>
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline"  name="fbz" id="fbz"  maxlength="10"/>
+							</td>
+						</tr>
+						<tr>
+							<td>腹部</td>
+							<td>
+								<div class="mt10">
+									<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;压痛:</span>
+									<input type="radio" name="yt" value="1" title="无" checked="">
+									<input type="radio" name="yt" value="2" title="有">
+									<input type="text" class="dis-inline width100 layui-input" name="ytms" id="ytms"  maxlength="10"/>
+								</div>
+								<div class="mt10">
+									<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;包块:</span>
+									<input type="radio" name="bk" value="1" title="无" checked="">
+									<input type="radio" name="bk" value="2" title="有">
+									<input type="text" class="dis-inline width100 layui-input" name="bkms" id="bkms"  maxlength="10"/>
+								</div>
+								<div class="mt10">
+									<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;肝大:</span>
+									<input type="radio" name="gd" value="1" title="无" checked="">
+									<input type="radio" name="gd" value="2" title="有">
+									<input type="text" class="dis-inline width100 layui-input" name="dams" id="dams"  maxlength="10"/>
+								</div>
+								<div class="mt10">
+									<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;脾大:</span>
+									<input type="radio" name="pd" value="1" title="无" checked="">
+									<input type="radio" name="pd" value="2" title="有">
+									<input type="text" class="dis-inline width100 layui-input" name="pdms" id="pdms"  maxlength="10"/>
+								</div>
+								<div class="mt10">
+									<span class="fl line28 dis-inline mr10">&nbsp;&nbsp;&nbsp;移动性浊音:</span>
+									<input type="radio" name="ydxzy" value="1" title="无" checked="">
+									<input type="radio" name="ydxzy" value="2" title="有">
+									<input type="text" class="dis-inline width100 layui-input" name="ydxzyms" id="ydxzyms"  maxlength="10"/>
+								</div>
+							</td>
+							<td>
+								<input type="text" class="layui-input width200 dis-inline" name="fbbz" id="fbbz"  maxlength="10"/>
+							</td>
+						</tr>
+						<tr>
+							<td>其他</td>
+							<td colspan="2"><input type="text" class="layui-input width300" name="qt" id="qt"  maxlength="10"></td>
+							<!--<td>
+								<input type="text" class="layui-input width200 dis-inline" />
+							</td>-->
+						</tr>
+						<tr>
+							<td>内科可见</td>
+							<td colspan="2"><input type="text" class="layui-input" placeholder="内科可见问题" name="res1" id="res1"  maxlength="50"></td>
+						</tr>
+							<tr>
+							<td>医师签字</td>
+							<td><input type="text" class="layui-input width300" name="ysqz" id="ysqz"></td>
+							<td colspan="4">
+								<input placeholder="体检时间" autocomplete="off" class="layui-input width200" id="createtime" name="createtime">
+							</td>
+							<!--<td>
+								<input type="text" class="layui-input width200 dis-inline" />
+							</td>-->
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<span class="layui-btn saveTijian" id="saveNk">保存</span>
+			</div>
+		</div>
+			<script>
+				document.write('<script src="../../js/yewu/wzgl/nkwz.js?v=' + Math.random() + '"><\/script>')
+			</script>
+			<script>
+				document.write('<script src="../../js/yewu/wzgl/nkwzcheck.js?v=' + Math.random() + '"><\/script>')
+			</script>
+	</body>
+
+
+</html>

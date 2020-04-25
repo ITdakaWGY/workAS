@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>体检人员登记</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</head>
+
+	<body class="childrenBody">
+		<div class="row">
+			<div class="rowAA">
+				<p class="aaTit">职业病体检人员登记</p>
+				<div class="aaCon">
+					<div class="aaConLeft">
+						<p>
+							<video id="video" class="photoView"></video>
+							<!-- <img src="../../img/zp.jpg" alt="" srcset=""> -->
+							<canvas id="canvas" style="display: none;"></canvas>
+							<img src="" alt="" id="img" class="none">
+							<span id="btn" class="sp1">拍照</span>
+							<span id="reloadBtn" class="sp2 none">重新拍照</span>
+							<input type="hidden" id="url" />
+						</p>
+						<input type="button" value="采集身份证" class="cxBtn">
+					</div>
+					<div class="aaConRight layui-form">
+                         <input type="hidden" id="personalid" />
+						<div class="layui-form-item" style="margin: 0;">
+							<div class="layui-inline">
+								<label class="layui-form-label">姓名</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="name" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">性别</label>
+								<div class="layui-input-block">
+									<input type="radio" name="sex" value="男" title="男">
+									<input type="radio" name="sex" value="女" title="女">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">民族</label>
+								<div class="layui-input-inline">
+									<select name="modules" lay-verify="required" lay-search="" id="minzu">
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">婚姻状况</label>
+								<div class="layui-input-inline">
+									<select   lay-verify="required" id="hyzk" lay-search="">
+										<option value="1">未婚</option>
+										<option value="2">已婚</option>
+										<option value="3">离异</option>
+										<option value="4">丧偶</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">身份证号</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="sfz" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">出生日期</label>
+								<div class="layui-input-inline">
+									<input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">教育程度</label>
+								<div class="layui-input-inline">
+									<select  lay-verify="required" id="jycd" lay-search="">
+										<option value="小学">小学</option>
+										<option value="初中">初中</option>
+										<option value="高中">高中</option>
+										<option value="大专">大专</option>
+										<option value="本科">本科</option>
+										<option value="硕士">硕士</option>
+										<option value="博士">博士</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">联系电话</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="brdh" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">出生地</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="birthplace" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">家庭住址</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="familyaddress" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">工作单位</label>
+								<div class="layui-input-inline">
+									<select name="danwei" lay-verify="required" id="companycode" lay-filter="companycode" lay-search>
+											
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">工作岗位</label>
+								<div class="layui-input-inline">
+									<select name="danwei" lay-verify="required" id="gzgwCode" lay-filter="gzgwCode"   lay-search>
+											
+									</select>
+									
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">体检编号</label>
+								<div class="layui-input-inline">
+									<input type="text" name="number" id="tmh" lay-verify="required|number" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">体检类型</label>
+								<div class="layui-input-inline">
+									<select name="leibie" lay-filter="leibie" id="tjlx" >
+									<option value="">请选择类型</option>
+									<option value="1">入职前</option>
+									<option value="2">在职</option>
+									<option value="3">离岗</option>
+					  			</select>
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item" style="margin: 0;">
+							<div class="layui-inline">
+								<label class="layui-form-label">危害因素</label>
+								<div class="layui-input-inline layui-form-mid" id="wxys">
+									
+								</div>
+							</div>
+
+						</div>
+						<div class="layui-form-item" style="margin: 0;">
+
+							<div class="layui-inline">
+								<label class="layui-form-label">检查项目</label>
+								<div class="layui-input-inline layui-form-mid" id="xmxs">
+									 
+								</div>
+								<div class="layui-form-mid">
+
+									<span type="button" class="layui-btn layui-btn-sm" id="personJcxm">变更检查项目</span>
+
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item" style="margin: 0;">
+
+							<div class="layui-inline">
+								<label class="layui-form-label">检查机构</label>
+								<div class="layui-input-inline">
+									<select name="jigou" lay-filter="jigou" id="orgcode"  >
+						
+					 				 </select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">检查日期</label>
+								<div class="layui-input-inline">
+									<input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<p class="footBtn">
+						<button type="button" class="layui-btn">补打条码</button>
+						<button type="button" class="layui-btn layui-btn-normal bcxx" id="Preservation" >保存并打印条码</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="hiddenJcxm layui-form none">
+			 <div id="jcsm"> </div>
+			<p style="text-align: center;padding-top: 20px;">
+		<!--	<button type="button" class="layui-btn xmbc">保存</button>--></p>
+		</div>
+		<iframe src=" " id="indenty" style="opacity: 0;"></iframe>
+		<script>
+			document.write('<script src="../../js/yewu/tjgl/dengji.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</body>
+
+</html>

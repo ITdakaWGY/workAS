@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+		<style type="text/css">
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="x-body layui-form addForm">
+			<div class="dayina">
+			<h2 class="titleA">职业健康检查复查通知书（用人单位）</h2>
+			<p class="titleB">用人单位：<font id="companyname1">xxxx公司</font></p>
+			<div class="yichangA">
+				劳动者 <font id="name1"></font>于<font id="tjrq"></font>经我机构职业健康检查，发现有<font id="fcyy1"></font>异常，尚不能做出明确检查结论，请该劳动者于<font id="fcsj1"></font>前来我机构复查，以明确本次检查结论。
+			<p class="jigouA">职业健康检查机构：临沂青年社区服务中心</p>
+			<p class="timeA"><font id="createtime1"></font></p>
+			<p class="qianA">签收人：<font id="companyname2"></p>
+			<p class="timeA"><font id="createtime2"></p>
+			</div>
+			</div>
+			<div class="dayinb">
+			<h2 class="titleA">职业健康检查复查通知书（劳动者）</h2>
+			<p class="titleB">劳动者：<font id="name2"></font></p>
+			<div class="yichangA">
+				你于<font id="tjrq"></font>经我机构职业健康检查，发现有<font id="fcyy2"></font>异常，尚不能做出明确检查结论，请该劳动者于<font id="fcsj2"></font>前来我机构复查，以明确本次检查结论。
+			<p class="jigouA">职业健康检查机构：临沂青年社区服务中心</p>
+			<p class="timeA"> <font id="createtime3"></p>
+			<p class="qianA">签收人：<font id="name3"></font></p>
+			<p>身份号：<font id="sfz"></p>
+			<p class="timeA"><font id="createtime4"></p>
+				
+			</div>
+			</div>
+			<span class="saveTijian layui-btn">打印</span>
+		</div>
+<!-- 		<script src="../../js/yewu/tjqy/tjqyList.js"></script>
+-->	
+		<script>
+			document.write('<script src="../../js/yewu/tjfk/fctzsinfo.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	
+	</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>主检结论</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</head>
+
+	<body class="childrenBody">
+		<div class="rightZTop">
+			<div class="layui-row layui-form x-body ">
+				<div class="topinfo">
+					<p><span class="spanleft">姓名:</span><input type="text" class="layui-input width160" id="name" placeholder="姓名"></p>
+					<p><span class="spanleft" >身份证：</span><input type="text" class="layui-input width160" id="sfz" placeholder="身份证号"></p>
+					<p><span class="spanleft" >条码号：</span><input type="text" class="layui-input width160" id="tmh" placeholder="条码号"></p>
+					<p><span class="spanleft" >体检日期：</span><input type="text" class="layui-input width160" id="tjrq" placeholder="体检日期"></p>
+				</div>
+				<table class="layui-table layui-form" id="zjjl">
+					<tbody>
+						<tr>
+							<th>反馈管理项</th>
+							<th>反馈项目操作</th>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td>
+								检查结论
+							</td>
+							<td>
+								<div class="">
+								  <textarea placeholder="请输入检查结论" id="zjjcjl" class="layui-textarea"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								处理意见 
+							</td>
+							<td>
+								<div class="">
+								  <textarea placeholder="请输入处理意见" id="zjclyj" class="layui-textarea"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" id="jyfcbs" value="1" name="jyfcbs" title="建议复查信息" lay-skin="primary"> 
+							</td>
+							<td>
+								<div class="mb10">
+									<span class="spanleft">复查原因：</span>
+									<input type="text"  class="layui-input width300" id="fcyy"  placeholder="复查原因"/>
+								</div>
+								<div class="mb10">
+									<!--<input type="text" class="layui-input width300" id="fcdd" placeholder="复查地点" />-->
+								<span class="spanleft">复查地点：</span>
+							      <input type="radio" name="fcyy" value="临清体检机构" title="临清体检机构" checked="">
+							      <input type="radio" name="fcyy" value="其他机构" title="其他机构">
+
+									
+									
+								</div>
+								<div class="mb10">
+									<span class="spanleft">复查时间：</span>
+									<input type="text" class="layui-input width100" id="fcsj" placeholder="复查时间"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<!--<input type="checkbox" id="yszybbs" value="2" name="yszybbs" title="疑似职业病" lay-skin="primary"> -->
+									<input type="checkbox" name="yszybbs"  value="1" title="疑似职业病" lay-skin="primary"/>
+							</td>
+							<td>
+								<div class="mb10">
+									<input type="text"  class="layui-input width300" id="yszybwb"  placeholder="疑似职业病"/>
+								</div>
+								<div class="mb10">
+									<input type="text"  class="layui-input width300" id="yszybyc" placeholder="异常指标" />
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								<input type="checkbox"  value="1" name="jjzbs" title="职业禁忌证" lay-skin="primary"> 
+							</td>
+							<td>
+								<div class="mb10">
+									<input type="text" id="jjzwb" class="layui-input width300"  placeholder="禁忌证"/>
+								</div>
+								<div class="mb10">
+									<input type="text" id="jjzyc" class="layui-input width300" placeholder="异常指标" />
+								</div>
+							</td>
+						</tr>
+						
+						
+					</tbody>
+					
+				</table>
+				<span class="saveTijian layui-btn">保存</span>
+			</div>
+		</div>
+
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/zjjl.js?v=' + Math.random() + '"><\/script>');
+		</script>
+
+	</body>
+
+</html>

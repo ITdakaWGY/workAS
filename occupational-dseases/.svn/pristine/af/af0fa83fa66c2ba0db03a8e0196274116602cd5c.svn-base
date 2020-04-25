@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as.occupationaldseases.dao.SigninfoMapper">
+
+
+<!--    <resultMap id="StuBaseResultMap" type="com.as.occupationaldseases.domain.stubase.StuBase" autoMapping="true">
+        <id column="id" property="id"/>
+        &lt;!&ndash;association:完成子对象的映射&ndash;&gt;
+        &lt;!&ndash;property:子对象在父对象中的属性名&ndash;&gt;
+        &lt;!&ndash;javaType:子对象的java类型&ndash;&gt;
+        &lt;!&ndash;autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配&ndash;&gt;
+        <association property="user" javaType="com.as.occupationaldseases.domain.stubase.StuBaser" autoMapping="true">
+            <id column="sfz" property="eno"/>
+        </association>
+    </resultMap>-->
+    
+
+
+
+    <!-- 分页查询-->
+    <select id="queryStuBaseByXmlPage" resultType="com.as.occupationaldseases.domain.signinfo.Signinfo"  parameterType="java.util.Map">
+          select  id,companyname,signtime,linkman,phone,address  from  signinfo where 1=1
+        <if test="signtimeState!=null and signtimeState!=''">
+            and signtime>=str_to_date(#{signtimeState},'%Y-%m-%d')
+        </if>
+        <if test="companycode!=null and companycode!=''">
+            and companycode = #{companycode}
+        </if>
+        <if test="page!=null and page!=''">
+            LIMIT  ${page}
+        </if>
+
+    </select>
+
+
+   <!--分页数据量-->
+    <select id="queryCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
+        select  count(id)  from  signinfo where 1=1
+        <if test="signtimeState!=null and signtimeState!=''">
+            and signtime>=#{signtimeState}
+        </if>
+        <if test="companycode!=null and companycode!=''">
+            and companycode = #{companycode}
+        </if>
+    </select>
+
+ 
+
+</mapper>

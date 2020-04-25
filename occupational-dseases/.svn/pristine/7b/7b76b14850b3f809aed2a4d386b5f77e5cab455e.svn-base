@@ -1,0 +1,118 @@
+package com.as.occupationaldseases.service;
+
+import com.as.occupationaldseases.common.response.CommonCode;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.common.response.QueryResult;
+import com.as.occupationaldseases.dao.UserLoginMapper;
+import com.as.occupationaldseases.domain.userLogin.UserLogin;
+import com.as.occupationaldseases.domain.userLogin.responce.UserLoginResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
+public class UserLoginService {
+
+    @Resource
+    private UserLoginMapper userLoginMapper;
+
+
+    /**
+     * 新增
+     * @param userLogin
+     * @return
+     */
+    public UserLoginResult add(UserLogin userLogin){
+
+
+        if (userLogin==null) {
+            return new UserLoginResult(CommonCode.INVALID_PARAM,null);
+        }
+
+        userLogin.setId(null);
+        userLoginMapper.insert(userLogin);
+        return new UserLoginResult(CommonCode.SUCCESS,userLogin);
+    }
+
+    /**
+     * 修改
+     * @param id
+     * @param userLogin
+     * @return
+     */
+    public UserLoginResult update(Long id, UserLogin userLogin){
+        UserLogin userLogin1 = userLoginMapper.selectById(id);
+        if (userLogin1!=null) {
+            userLoginMapper.updateById(userLogin);
+            return new UserLoginResult(CommonCode.SUCCESS,userLogin);
+        }
+        return  new UserLoginResult(CommonCode.FAIL,null);
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    public UserLoginResult delete(Long id){
+        UserLogin userLogin = userLoginMapper.selectById(id);
+        if (userLogin!=null) {
+            userLoginMapper.deleteById(id);
+            return  new UserLoginResult(CommonCode.SUCCESS,userLogin);
+        }
+
+        return  new UserLoginResult(CommonCode.FAIL,null);
+    }
+
+    /**
+     * 查询
+     * @param userLogin
+     * @return
+     */
+    public QueryResponseResult select(UserLogin userLogin) {
+        QueryWrapper<UserLogin> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(userLogin);
+        List<UserLogin> userLogins = userLoginMapper.selectList(wrapper);
+        QueryResult<UserLogin> result = new QueryResult<>();
+        result.setList(userLogins);
+        result.setTotal(userLogins.size());
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,result);
+        return queryResponseResult;
+
+    }
+
+    public QueryResponseResult findList(int current, int size, UserLogin userLogin) {
+        if(userLogin == null){
+            userLogin = new UserLogin();
+        }
+
+        //分页参数
+        if(current <=0){
+            current = 1;
+        }
+        current = current -1;
+        if(size<=0){
+            size = 10;
+        }
+       if("".equals(userLogin.getUserType()))
+           userLogin.setUserType(null);
+       if("".equals(userLogin.getUserState()))
+           userLogin.setUserState(null);
+        IPage<UserLogin> page = new Page<>(current, size);
+        QueryWrapper<UserLogin> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(userLogin);
+
+        IPage<UserLogin> userLoginIPage = userLoginMapper.selectPage(page, wrapper);
+
+        QueryResult queryResult = new QueryResult();
+
+        queryResult.setList(userLoginIPage.getRecords());//数据列表
+        queryResult.setTotal(userLoginIPage.getTotal());//数据总记录数
+        QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
+        return queryResponseResult;
+    }
+}

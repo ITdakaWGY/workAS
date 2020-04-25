@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新增职业病危害因素</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=1.2" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<script type="text/javascript">
+			json=[
+				{
+					
+				}
+			]
+		</script>
+	</head>
+	<body>
+		<div class="x-body">
+			<table class="layui-table layui-form">
+				<tr>
+					<td>危害类型</td>
+					<td colspan="3">
+						<input type="radio" name="hazardType" value="粉尘" checked="" title="粉尘">
+						<input type="radio" name="hazardType" value="化学因素" title="化学因素">
+						<input type="radio" name="hazardType" value="物理因素" title="物理因素">
+						<input type="radio" name="hazardType" value="放射因素" title="放射因素">
+						<input type="radio" name="hazardType" value="生物因素" title="生物因素">
+					</td>
+				</tr>
+				<tr>
+					<td>危害名称</td>
+					<td colspan="3" class="whList">
+						<input type="radio" name="hazardName" value="煤尘"  title="煤尘">
+						<input type="radio" name="hazardName" value="灰尘"  title="灰尘">
+						<input type="radio" name="hazardName" value="面尘"  title="面尘">
+					</td>
+				</tr>
+				<tr>
+					<td>用人单位名称</td>
+					<td colspan="3">
+						<select name="companycode"  id="companycode" lay-search>
+						</select>
+					</td>
+					
+				</tr>
+				
+				
+				
+			</table>
+			
+			<span  class="layui-btn saveTijian">保存</span>
+			
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zybwh/addzybwh.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+</html> 

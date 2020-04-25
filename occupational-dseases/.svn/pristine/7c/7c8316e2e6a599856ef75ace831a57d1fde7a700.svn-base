@@ -1,0 +1,10 @@
+package com.as.occupationaldseases.api;
+
+import com.as.occupationaldseases.domain.grjbxx.Grjbxx_xm;
+import com.as.occupationaldseases.domain.grjbxx.responce.GrjbxxXmResult;
+import io.swagger.annotations.ApiOperation;
+
+public interface GrjbxxXmApi {
+    @ApiOperation("个人与项目的新增")
+    public GrjbxxXmResult add(Grjbxx_xm grjbxxXm);
+}

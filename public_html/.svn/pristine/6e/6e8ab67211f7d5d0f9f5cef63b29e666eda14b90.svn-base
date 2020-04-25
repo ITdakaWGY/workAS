@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>修改角色</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/newWrap.css" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+		<style>
+			.layui-select {
+				height: 200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="x-body layui-form">
+				<div class="layui-form-item mt10">
+					<label class="layui-form-label">角色名称</label>
+					<div class="layui-input-block form-group">
+						<input type="text"  id="orgname"  names="orgname" placeholder="请输入角色名称" maxlength="20" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色编码</label>
+					<div class="layui-input-block form-group">
+						<input type="text"  id="phone"  names="phone" placeholder="请输入角色编码" maxlength="20" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色状态</label>
+					<div class="layui-input-block">
+					<select name="state"  id="state">
+						<option value="">请选择角色状态</option>
+						<option value="1">启用</option>
+						<option value="2">停用</option>
+					</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色说明</label>
+					<div class="layui-input-block form-group">
+						<input type="text"  id="address"  names="address" placeholder="请输入角色说明" maxlength="20" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			<span class="layui-btn saveTijian">保存</span>
+
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/jsgl/jsEdit.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

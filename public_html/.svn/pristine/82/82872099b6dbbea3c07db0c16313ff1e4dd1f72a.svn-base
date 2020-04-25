@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>症状信息采集</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="rightZTop">
+			<div class="layui-row layui-form x-body ">
+				<div class="line-shai">
+					<a name="card">筛选条件</a>
+				</div>
+				<div class="layui-row layui-form layui-flex">
+					<div class="layui-form-item inputWrap1">
+						<input required lay-verify="required" placeholder="条码号" name="sstmh" autocomplete="off" class="layui-input" id="sstmh" data='input'>
+					</div>
+
+					<div class="layui-form-item inputWrap1">
+						<input placeholder="体检日期" class="layui-input" id="tjrq" readonly="">
+						<input type="hidden"  name="companycode" id="companycode"/>
+						<input type="hidden"  name="id" data="data" id="id"/>
+						<input type="hidden" name="brdh" id="brdh">
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<span class="layui-btn chaxunBtn" id="searchBtn">查询</span>
+					</div>
+				</div>
+				<div class="line5"></div>
+			<!-- 	<div class="btnAll  tjInfo" id="grjbxx">
+					<b class="fl" style="padding-right: 10px;">体检人员信息</b>
+					<span class="fl">单位名称：</span><input type="text" class="layui-input width160 fl"   id="companyname" name="companyname"  readonly=""/>
+					<span class="fl">姓名：</span><input type="text" class="layui-input width160 fl"  id="xm" name="xm" readonly=""/ data='input'>
+					<span class="fl">身份证：</span><input type="text" class="layui-input width160 fl"  id="sfz" name="sfz" readonly="" />
+					<span class="fl">岗位：</span><input type="text" class="layui-input width160 fl"   id="gzgw" name="gzgw" readonly=""/>
+				</div>
+				<p class="clear"></p> -->
+<fieldset class="layui-elem-field" style="margin-bottom: 0;">
+  <legend>体检人员信息</legend>
+  <div class="layui-field-box xinXiDetail" >
+    <span class="fl">单位名称：</span><input type="text" class="layui-input width160 fl"   id="companyname" name="companyname"  readonly=""/>
+    <span class="fl">姓名：</span><input type="text" class="layui-input width160 fl"  id="xm" name="xm" readonly=""/ data='input'>
+    <span class="fl">身份证：</span><input type="text" class="layui-input width160 fl"  id="sfz" name="sfz" readonly="" />
+    <span class="fl">岗位：</span><input type="text" class="layui-input width160 fl"   id="gzgw" name="gzgw" readonly=""/>
+  </div>
+</fieldset>
+
+
+
+				<p class="clear"></p>
+				<div class="leftTiJian" >
+					<p class="active">未体检/<font id="wtjrs">0</font>人</p>
+						<p>已体检/<font id="ytjrs">0</font>人</p>
+						<ul>
+						</ul>
+						<ul>
+						</ul>
+				</div>
+
+				<table class="layui-table layui-form layui-table-rightAA">
+					<tr>
+						<td><span class="width100 dis-inline">头痛</span></td>
+						<td>
+							<input type="radio" name="tt" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="tt" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="tt" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="tt" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="tt" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">头晕（昏）</span></td>
+						<td>
+							<input type="radio" name="ty" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ty" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ty" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ty" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ty" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+
+
+					<tr>
+						<td><span class="width100 dis-inline">眩晕</span></td>
+						<td>
+							<input type="radio" name="xy" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xy" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xy" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xy" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xy" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">失眠</span></td>
+						<td>
+							<input type="radio" name="sm" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="sm" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="sm" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="sm" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="sm" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">嗜睡</span></td>
+						<td>
+							<input type="radio" name="ss" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ss" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ss" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ss" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ss" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">多梦</span></td>
+						<td>
+							<input type="radio" name="dm" title="无" lay-skin="primary" value="1"  data='radio'>
+							<input type="radio" name="dm" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="dm" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="dm" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="dm" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">记忆力减退</span></td>
+						<td>
+							<input type="radio" name="jylst" title="无" lay-skin="primary" value="1"  data='radio'>
+							<input type="radio" name="jylst" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="jylst" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="jylst" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="jylst" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">疲乏无力</span></td>
+						<td>
+							<input type="radio" name="pfwl" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="pfwl" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="pfwl" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="pfwl" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="pfwl" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+
+					<tr>
+						<td><span class="width100 dis-inline">易激动</span></td>
+						<td>
+							<input type="radio" name="yjd" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yjd" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yjd" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yjd" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yjd" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">低热</span></td>
+						<td>
+							<input type="radio" name="dr" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="dr" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="dr" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="dr" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="dr" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">盗汗</span></td>
+						<td>
+							<input type="radio" name="dh" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="dh" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="dh" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="dh" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="dh" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">多汗</span></td>
+						<td>
+							<input type="radio" name="duoh" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="duoh" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="duoh" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="duoh" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="duoh" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">全身酸痛</span></td>
+						<td>
+							<input type="radio" name="qsst" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="qsst" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="qsst" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="qsst" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="qsst" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">视物模糊</span></td>
+						<td>
+							<input type="radio" name="ssmh" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ssmh" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ssmh" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ssmh" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ssmh" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">视力下降</span></td>
+						<td>
+							<input type="radio" name="slxj" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="slxj" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="slxj" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="slxj" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="slxj" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">咽干</span></td>
+						<td>
+							<input type="radio" name="yg" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yg" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yg" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yg" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yg" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">咽痛</span></td>
+						<td>
+							<input type="radio" name="yant" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yant" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yant" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yant" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yant" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">羞明</span></td>
+						<td>
+							<input type="radio" name="xium" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xium" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xium" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xium" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xium" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">流泪</span></td>
+						<td>
+							<input type="radio" name="liul" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="liul" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="liul" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="liul" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="liul" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">嗅觉减退</span></td>
+						<td>
+							<input type="radio" name="xjjt" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xjjt" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xjjt" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xjjt" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xjjt" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">鼻塞</span></td>
+						<td>
+							<input type="radio" name="bse" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="bse" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="bse" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="bse" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="bse" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">鼻干</span></td>
+						<td>
+							<input type="radio" name="bgan" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="bgan" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="bgan" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="bgan" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="bgan" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+
+						<td><span class="width100 dis-inline">流鼻血</span></td>
+						<td>
+							<input type="radio" name="liubxue" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="liubxue" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="liubxue" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="liubxue" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="liubxue" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">耳鸣</span></td>
+						<td>
+							<input type="radio" name="erm" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="erm" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="erm" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="erm" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="erm" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">耳聋</span></td>
+						<td>
+							<input type="radio" name="erl" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="erl" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="erl" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="erl" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="erl" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">消瘦</span></td>
+						<td>
+							<input type="radio" name="xshou" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xshou" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xshou" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xshou" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xshou" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+
+					<tr>
+						<td><span class="width100 dis-inline">口渴</span></td>
+						<td>
+							<input type="radio" name="kouk" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="kouk" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="kouk" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="kouk" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="kouk" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">流涎</span></td>
+						<td>
+							<input type="radio" name="liux" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="liux" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="liux" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="liux" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="liux" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">牙痛</span></td>
+						<td>
+							<input type="radio" name="yatong" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yatong" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yatong" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yatong" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yatong" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">牙齿松动</span></td>
+						<td>
+							<input type="radio" name="ycsd" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ycsd" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ycsd" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ycsd" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ycsd" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">牙龈肿胀</span></td>
+						<td>
+							<input type="radio" name="yyzz" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yyzz" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yyzz" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yyzz" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yyzz" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">牙龈出血</span></td>
+						<td>
+							<input type="radio" name="yycx" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yycx" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yycx" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yycx" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yycx" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">口腔溃疡</span></td>
+						<td>
+							<input type="radio" name="kqky" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="kqky" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="kqky" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="kqky" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="kqky" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">口腔异味</span></td>
+						<td>
+							<input type="radio" name="kqyw" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="kqyw" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="kqyw" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="kqyw" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="kqyw" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">胸闷</span></td>
+						<td>
+							<input type="radio" name="xmen" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xmen" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xmen" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xmen" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xmen" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">气短</span></td>
+						<td>
+							<input type="radio" name="qduan" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="qduan" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="qduan" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="qduan" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="qduan" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">胸痛</span></td>
+						<td>
+							<input type="radio" name="xtong" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xtong" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xtong" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xtong" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xtong" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">咳嗽</span></td>
+						<td>
+							<input type="radio" name="kesou" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="kesou" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="kesou" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="kesou" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="kesou" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">咳痰</span></td>
+						<td>
+							<input type="radio" name="ketan" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ketan" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ketan" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ketan" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ketan" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">咯血</span></td>
+						<td>
+							<input type="radio" name="kaxie" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="kaxie" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="kaxie" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="kaxie" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="kaxie" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">哮喘</span></td>
+						<td>
+							<input type="radio" name="xiaoc" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xiaoc" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xiaoc" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xiaoc" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xiaoc" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">心悸</span></td>
+						<td>
+							<input type="radio" name="xinji" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xinji" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xinji" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xinji" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xinji" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">心前区不适</span></td>
+						<td>
+							<input type="radio" name="xqqbs" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xqqbs" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xqqbs" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xqqbs" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xqqbs" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">腹痛</span></td>
+						<td>
+							<input type="radio" name="futong" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="futong" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="futong" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="futong" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="futong" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">腹胀</span></td>
+						<td>
+							<input type="radio" name="fuzhang" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="fuzhang" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="fuzhang" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="fuzhang" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="fuzhang" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">腹泻</span></td>
+						<td>
+							<input type="radio" name="fuxie" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="fuxie" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="fuxie" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="fuxie" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="fuxie" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">便秘</span></td>
+						<td>
+							<input type="radio" name="bianm" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="bianm" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="bianm" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="bianm" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="bianm" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">肝区疼痛</span></td>
+						<td>
+							<input type="radio" name="gqttong" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="gqttong" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="gqttong" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="gqttong" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="gqttong" title="明显" lay-skin="primary" value="5"data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">皮下出血</span></td>
+						<td>
+							<input type="radio" name="pxcxue" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="pxcxue" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="pxcxue" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="pxcxue" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="pxcxue" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">皮肤瘙痒</span></td>
+						<td>
+							<input type="radio" name="pfsy" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="pfsy" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="pfsy" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="pfsy" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="pfsy" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">皮疹</span></td>
+						<td>
+							<input type="radio" name="pizhen" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="pizhen" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="pizhen" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="pizhen" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="pizhen" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">脱发</span></td>
+						<td>
+							<input type="radio" name="tuofa" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="tuofa" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="tuofa" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="tuofa" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="tuofa" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">关节痛</span></td>
+						<td>
+							<input type="radio" name="gjt" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="gjt" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="gjt" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="gjt" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="gjt" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">肌肉抽搐</span></td>
+						<td>
+							<input type="radio" name="jrcc" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="jrcc" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="jrcc" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="jrcc" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="jrcc" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">下肢沉重感</span></td>
+						<td>
+							<input type="radio" name="xzczg" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xzczg" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xzczg" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xzczg" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xzczg" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">动作不灵活</span></td>
+						<td>
+							<input type="radio" name="dzblh" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="dzblh" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="dzblh" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="dzblh" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="dzblh" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">四肢麻木</span></td>
+						<td>
+							<input type="radio" name="szmm" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="szmm" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="szmm" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="szmm" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="szmm" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">四肢多汗</span></td>
+						<td>
+							<input type="radio" name="szdh" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="szdh" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="szdh" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="szdh" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="szdh" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">四肢发凉</span></td>
+						<td>
+							<input type="radio" name="szfl" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="szfl" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="szfl" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="szfl" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="szfl" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">饮水呛咳</span></td>
+						<td>
+							<input type="radio" name="ysqhai" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="ysqhai" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="ysqhai" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="ysqhai" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="ysqhai" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">尿频</span></td>
+						<td>
+							<input type="radio" name="niaop" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="niaop" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="niaop" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="niaop" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="niaop" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">尿急</span></td>
+						<td>
+							<input type="radio" name="niaoji" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="niaoji" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="niaoji" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="niaoji" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="niaoji" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">尿血</span></td>
+						<td>
+							<input type="radio" name="niaoxue" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="niaoxue" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="niaoxue" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="niaoxue" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="niaoxue" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+						<td><span class="width100 dis-inline">浮肿</span></td>
+						<td>
+							<input type="radio" name="fuzhong" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="fuzhong" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="fuzhong" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="fuzhong" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="fuzhong" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="width100 dis-inline">月经异常</span></td>
+						<td>
+							<input type="radio" name="yjyc" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="yjyc" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="yjyc" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="yjyc" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="yjyc" title="明显" lay-skin="primary" value="5" data='radio'>
+						<yjyc>
+						<td><span class="width100 dis-inline">性欲减退</span></td>
+						<td>
+							<input type="radio" name="xyjt" title="无" lay-skin="primary" value="1" data='radio'>
+							<input type="radio" name="xyjt" title="偶有" lay-skin="primary" value="2" data='radio'>
+							<input type="radio" name="xyjt" title="较轻" lay-skin="primary" value="3" data='radio'>
+							<input type="radio" name="xyjt" title="中等" lay-skin="primary" value="4" data='radio'>
+							<input type="radio" name="xyjt" title="明显" lay-skin="primary" value="5" data='radio'>
+						</td>
+					</tr>
+
+					<tr>
+							<td>症状可见</td>
+							<td colspan="4"><input type="text" class="layui-input " name="res1" id="res1"  placeholder="症状可见问题" data='data'></td>
+					</tr>
+
+					<tr>
+						<td><span class="width100 dis-inline">医师签名</span></td>
+						<td>
+							<div class="layui-input-inline">
+							        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+							      </div>
+						</td>
+						<td> </td>
+						<td>
+
+						</td>
+					</tr>
+
+<tr>
+										</table>
+				<span class="layui-btn saveTijian">保存</span>
+			</div>
+		</div>
+			<script>
+				document.write('<script src="../../js/yewu/tjgl/zzxxcj.js?v=' + Math.random() + '"><\/script>')
+			</script>
+	</body>
+
+</html>

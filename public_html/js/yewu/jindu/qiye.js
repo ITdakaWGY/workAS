@@ -1,0 +1,220 @@
+$(function() {
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var laydate = layui.laydate;
+		 laydate.render({
+			    elem: '#starttime', //指定元素
+			    type: 'year',
+			    value:new Date(),
+			  });
+
+	   var danwei;
+		$('body').on('click', '.allPeople', function() {
+			var companycode=$(this).attr('data-id');
+			top.layer.open({
+				type: 2,
+				title: '应体检人员信息',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['80%', '80%'],
+				content: 'page/jindu/qiyeall.html?danwei='+danwei+"&flag=1",
+			});
+		})
+		$('body').on('click', '.yiPeople', function() {
+			var id=$(this).attr('data-id');
+			top.layer.open({
+				type: 2,
+				title: '已体检人员信息',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['80%', '80%'],
+				content: 'page/jindu/qiyeyi.html?danwei='+danwei+"&flag=2",
+			});
+		})
+		
+		
+		$('body').on('click', '.weiPeople', function() {
+			var id=$(this).attr('data-id');
+			top.layer.open({
+				type: 2,
+				title: '未体检人员信息',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['80%', '80%'],
+				content: 'page/jindu/qiyewei.html?danwei='+danwei+"&flag=3",
+			});
+		})
+		
+		
+	
+		
+		
+	//初次读取数据，第一页，企业列表信息
+/*		var data = {};
+		getData(data);
+*/ 
+		var selectdata  = getselectgData();
+		setselectdata(selectdata);
+			//条件查询事件selectdata
+		$('body').on('click','#searchBtn',function(){
+		 danwei=$('#danwei').val();
+		 var tjnf=$('#tjnf').val();
+		// var tjflag=$('#tjflag').val();
+		 var searchdata2={
+				companycode:danwei,
+				tjnf:tjnf,
+			}
+			var result = getData(searchdata2);		
+			setdata(result);
+			
+		})
+		
+
+//拼装下拉框数据
+function setselectdata(result) {
+	var result=result.queryResult.list;
+	if(result.length == 0) {
+		var nodata = '<div class="nodata">暂无数据!</div>';
+		$('#danwei').html(nodata);
+		return false;
+	}
+	var html = '';
+	for(var i = 0; i < result.length; i++) {
+		    html += `
+		    <option value="${result[i].companycode}">${result[i].companyname}</option>`;
+	}
+	$('#danwei').html(html);
+	getnull();
+	form.render();
+}
+		
+			
+	});
+})
+
+
+
+//初次请求第一页的数据，并初始化分页,如果条件查询，请传入data
+function getData(params) {
+	var result;
+	if(typeof(params) == "undefined") {
+		params = {};
+	}
+	//var orgno = localStorage.getItem('orgno');
+	var urls = 'grjbxx/selecsta';
+	var loading = layer.msg('正在查询...', {
+		icon: 16,
+		shade: 0.2,
+		time: false
+	});
+
+	$.ajax({
+		type: "get",
+		url: BaseUrl + urls,
+		data: params,
+		async: false,
+		success: function(data) {
+			layer.close(loading);
+			result = data;
+		},
+		error: function(data) {
+			layer.msg('程序错误!');
+			layer.close(loading);
+		}
+
+	});
+	return result;
+}
+
+
+//接受结果集，往表格进行数据填充
+function setdata(result) {
+	
+	var html = '';
+		html += `<tr>
+								<td>${result.companyname}</td>
+								<td class="allPeople color-lan">${result.yingtjiancount}</td>
+								<td class="yiPeople color-lan">${result.yitijiancount}</td>
+								<td class="weiPeople color-lan">${result.weitijian}</td>
+								<td>${result.linkman}</td>
+								<td>${result.phone}</td>
+							</tr>`;
+	
+	$('#tbody').html(html);
+	getnull();
+}
+
+
+
+//获取下拉框数据
+function getselectgData(params) {
+	var result;
+	if(typeof(params) == "undefined") {
+		params = {};
+	}
+	var orgno = localStorage.getItem('orgno');
+	var urls = 'companyinfo/selectlist/'
+	var loading = layer.msg('正在查询...', {
+		icon: 16,
+		shade: 0.2,
+		time: false
+	});
+
+	$.ajax({
+		type: "get",
+		url: BaseUrl + urls,
+		data: params,
+		async: false,
+		success: function(data) {
+			layer.close(loading);
+			result = data;
+		},
+		error: function(data) {
+			layer.msg('程序错误!');
+			layer.close(loading);
+		}
+
+	});
+	
+	return result;
+}
+
+
+
+
+
+//获取指定的页码数据，如果是条件查询，请传入data参数
+function getPageData(page, data) {
+		debugger;
+	if(typeof(data)=="undefined"){
+		data={};
+	}
+	var urls = 'grjbxx/list/' + page + '/' + pageSize;
+	var loading = layer.msg('正在查询...', {
+		icon: 16,
+		shade: 0.2,
+		time: false
+	});
+	var result;
+	$.ajax({
+		type: "get",
+		url: BaseUrl + urls,
+		async: true,
+		data:data,
+		success: function(data) {
+			if(data.success) {
+				result = data.queryResult.list;
+				setdata(result);
+			} else {
+				layer.msg(data.message);
+			}
+			layer.close(loading);
+		},
+		error: function(data) {
+			layer.msg('程序错误');
+			layer.close(loading);
+		}
+	});
+}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>血常规报告</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="detailrow">
+			<div class="projectText">血常规检测报告单</div>
+			<div class="projectInfo">
+				<span><font>姓名:</font><i id="name"></i></span>
+				<span><font>性别:</font><i id="sex"></i></span>
+				<span><font>年龄:</font><i id="age"></i></span>
+				<span><font>样本编号:</font><i id="tmh"></i></span>
+			</div>
+			<table class="layui-table jianyandan">
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>检查结果</th>
+						<th>单位</th>
+						<th>参考范围</th>
+						<th>异常提示</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>血红蛋白</td>
+						<td id="xhdb"></td>
+						<td>g/L </td>
+						<td>110-160 </td>
+						<td id="xhdbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>白细胞计数</td>
+						<td id="bxbjs"></td>
+						<td>10^9/L </td>
+						<td>4-10</td>
+						<td id="bxbjsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>红细胞计数</td>
+						<td id="hxbjs"></td>
+						<td>10^12/L</td>
+						<td>3.5-5.5</td>
+						<td id="hxbjsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>红细胞压积</td>
+						<td id="hxbyj"></td>
+						<td>%</td>
+						<td>35-50</td>
+						<td id="hxbyjyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>淋巴细胞百分比</td>
+						<td id="lbxbbfb"></td>
+						<td>%</td>
+						<td>20-40</td>
+						<td id="lbxbbfbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>中间细胞百分比</td>
+						<td id="zjxbbfb"></td>
+						<td>%</td>
+						<td>1.0-15.0</td>
+						<td id="zjxbbfbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>中性粒细胞百分比</td>
+						<td id="zxlxbbfb"></td>
+						<td>%</td>
+						<td>50-70</td>
+						<td id="zxlxbbfbyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>平均红细胞血红蛋白浓度</td>
+						<td id="pjhxbxhdbnd"></td>
+						<td>g/L</td>
+						<td>320-360</td>
+						<td id="pjhxbxhdbndyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>平均红细胞体积</td>
+						<td id="pjhxbtj"> </td>
+						<td>fL </td>
+						<td>82-99</td>
+						<td id="pjhxbtjyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>平均红细胞血红蛋白含量</td>
+						<td id="pjhxbxhdbhl"></td>
+						<td>pg </td>
+						<td>27-31</td>
+						<td id="pjhxbxhdbhlyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>红细胞分布宽度标准差</td>
+						<td id="hxbfbkdbzc"></td>
+						<td>fl </td>
+						<td>33-50</td>
+						<td id="hxbfbkdbzcyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>血小板分布宽度</td>
+						<td id="xxbfbkd"> </td>
+						<td>fl </td>
+						<td>10-18</td>
+						<td id="xxbfbkdyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>血小板计数</td>
+						<td id="xxbjs"> </td>
+						<td>10^9/L </td>
+						<td>100-315</td>
+						<td id="xxbjsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>红细胞分布宽度变异系数</td>
+						<td id="hxbfbkdbyxs"> </td>
+						<td>% </td>
+						<td>11.5-17.5</td>
+						<td id="hxbfbkdbyxsyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>平均血小板体积</td>
+						<td id="pjxxbtj"></td>
+						<td>fL </td>
+						<td>6.5-12.5</td>
+						<td id="pjxxbtjyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>血小板压积</td>
+						<td id="xxbyj"></td>
+						<td>% </td>
+						<td>0.1-0.3</td>
+						<td id="xxbyjyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>淋巴细胞绝对值</td>
+						<td id="lbxbjdz"> </td>
+						<td>G/L </td>
+						<td>0.8-4.0</td>
+						<td id="lbxbjdzyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>中间细胞绝对值</td>
+						<td id="zjxbjdz"></td>
+						<td>G/L </td>
+						<td>0.1-1.8</td>
+						<td id="zjxbjdzyc">
+
+						</td>
+					</tr>
+					<tr>
+						<td>中性粒细胞绝对值</td>
+						<td id="zxlxbjdz"></td>
+						<td>G/L </td>
+						<td>2.0-7.0</td>
+						<td id="zxlxbjdzyc">
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="doctorFont">
+				<span class="fl qianzi">检查医生:<img src="" id="ysqm" style="display: none;">
+					<input type="text" readonly="" value="" id="ysqmtext" style="display: none;">
+				</span>
+				<span class="fr projectDate">检验时间:<i id="jcsj"></i></span>
+			</div>
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zjDetails/xcgbg.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+
+</html>

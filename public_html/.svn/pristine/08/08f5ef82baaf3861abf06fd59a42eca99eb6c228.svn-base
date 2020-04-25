@@ -1,0 +1,652 @@
+var isadd = true;
+$(function() {
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#tjrq',
+			format: 'yyyy-MM-dd',
+			value: new Date()
+		});
+		laydate.render({
+			elem: '#createtime',
+		});
+		$('#sstmh').focus();
+		$('#sstmh').bind('input propertychange', function () {
+			  var tmh=$(this).val();
+			  if(tmh.length==8){
+				  $('#searchBtn').trigger('click');
+			  }
+		});
+		var a = getCurrentDate();
+		$('#createtime').val(a);
+		form.on('checkbox(chiliezc)', function(data) {
+			if(data.elem.checked) {
+				$('input[name="cl"]:not(:first)').each(function() {
+					$(this).prop('checked', false);
+					$('.chilieyc').hide();
+					$('.chilieyc input').each(function() {
+						$(this).val('');
+					})
+					form.render();
+				})
+			}
+		});
+
+		/* //初次请求
+		var companycode = localStorage.getItem('companycode');
+		$("#tjrq").val(getCurrentDate());
+		$('.leftTiJian p').eq('1').trigger('click');
+		$('.leftTiJian p').eq('0').trigger('click'); */
+		//体检日期时间框赋值为今日
+		$("#tjrq").val(getCurrentDate());
+		//初次请求左侧已体检和未体检人数
+		var a = getCurrentDate();
+		//已体检人数接口获取数据
+		var params = {
+			tjrq: a,
+			Tjflag: "1",
+		}
+		var ytjdata = isChecked(params);
+		var ytjhtml = ytjdata.html;
+		var ytjtotal = ytjdata.total;
+		//未体检人数接口获取数据
+		var params = {
+			tjrq: a,
+			tjflag: "0",
+		}
+		var wtjdata = isChecked(params);
+		var wtjhtml = wtjdata.html;
+		var wtjtotal = wtjdata.total;
+
+		$('#ytjrs').html(ytjtotal);
+		$('#wtjrs').html(wtjtotal);
+		$('.leftTiJian ul').eq(0).html(wtjhtml);
+		$('.leftTiJian ul').eq(1).html(ytjhtml);
+
+        var userLogin = eval('(' + window.localStorage.getItem('userLogin') + ')');
+
+        $('#selectMuban').click(function () {
+            var ysxx = userLogin.yhbh;
+            if (ysxx.trim() == '') {
+                layer.msg('请先登录');
+                $('#ysqz').focus();
+                return false;
+            }
+            var params = {ysxx: ysxx}
+            var loading = layer.msg('正在查询...', {
+                icon: 16,
+                shade: 0.2,
+                time: false
+            });
+
+            setTimeout(function () {
+                $.ajax({
+                    type: "get",
+                    url: BaseUrl + 'template/all',
+                    async: false,
+                    data: params,
+                    success: function (data) {
+                        layer.close(loading);
+                        if (data.success) {
+                            var html = '';
+
+
+                            for (var i = 0; i < data.queryResult.list.length; i++) {
+                                html += `
+                        			<div class='textarea-block'>
+										<input name="desc" value="${data.queryResult.list[i].mbxx}" class="layui-input textarea-item fl addInput" type="text" placeholder="请输入值">
+										<span class="btnOk fl ml20 iconfont">&#xe627;</span>
+										<span class="deletemb fl ml20 iconfont">&#xe608;</span>
+										<div class="textarea-count">
+											<span class="textareaInput">0</span>/<span class="textareaTotal">100</span>
+										</div>
+									</div>`;
+                            }
+                            $('#mubanList').html(html);
+
+                        }
+                    },
+                    error: function (data) {
+                        layer.close(loading);
+                        layer.msg(data.message);
+                    }
+                })
+            })
+        })
+
+        $('#savemuban').click(function () {
+            var loading = layer.msg('正在保存...', {
+                icon: 16,
+                shade: 0.2,
+                time: false
+            });
+
+
+            $('.addInput').each(function () {
+                var mbxx = $(this).val();
+                var ysxx = userLogin.yhbh;
+                var params = {ysxx: ysxx, mbxx: mbxx}
+                $.ajax({
+                    type: "post",
+                    url: BaseUrl + '/template/add',
+                    async: true,
+                    data: JSON.stringify(params),
+                    processData: false,
+                    contentType: "application/json",
+                    success: function (data) {
+                        layer.close(loading);
+                        if (data.success) {
+                            layer.alert('保存成功', {
+                                skin: 'layui-layer-lan',
+                                closeBtn: 0,
+                                anim: 4 //动画类型
+                            }, function (tc, layero) {
+                                window.location.reload();
+
+                            });
+                        } else {
+                            layer.msg(data.message);
+                        }
+                    },
+                    error: function (data) {
+                        layer.close(loading);
+                        layer.msg(data.message);
+                    }
+                });
+            })
+        })
+
+
+
+		$('#searchBtn').click(function() {
+			//执行未体检人数查询
+			//var companycode=$('input[name="companycode"]').val();
+			var tmh = $('#sstmh').val();
+			var tjrq = $('#tjrq').val();
+			if(tmh.trim() == '') {
+				layer.msg('条码号不能为空');
+				$('#sstmh').focus();
+				return false;
+			}
+			checkItem(tmh);
+			var params = {
+				tmh: tmh,
+				tjrq: tjrq,
+			}
+			var loading = layer.msg('正在查询...', {
+				icon: 16,
+				shade: 0.2,
+				time: false
+			});
+			//是否执行赋值操作
+			var isComing = false;
+			setTimeout(function() {
+				$.ajax({
+					type: "get",
+					url: BaseUrl + 'grjbxx/list/1/' + pageSize,
+					async: false,
+					data: params,
+					success: function(data) {
+
+						layer.close(loading);
+						if(data.success) {
+							var list = data.queryResult.list;
+							if(list.length > 0) {
+								var data = list[0];
+								localStorage.setItem('companycode', data.companycode);
+								$('input[name="companycode"]').val(data.companycode);
+								$('input[name="companyname"]').val(data.companyname);
+								$('input[name="tmh"]').val(data.tmh);
+								$('input[name="xm"]').val(data.name);
+								$('input[name="sfz"]').val(data.sfz);
+								$('input[name="gzgw"]').val(data.gzgw);
+								//var companycode=$('input[name="companycode"]').val();
+								//已体检人数接口获取数据
+								var params = {
+									tjrq:tjrq,
+									companycode: data.companycode,
+									tjflag: "1",
+								}
+								var ytjdata = isChecked(params);
+								var ytjhtml = ytjdata.html;
+								var ytjtotal = ytjdata.total;
+								//未体检人数接口获取数据
+								var params = {
+									tjrq:tjrq,
+									companycode: data.companycode,
+									tjflag: "0",
+								}
+
+								var wtjdata = isChecked(params);
+								var wtjhtml = wtjdata.html;
+								var wtjtotal = wtjdata.total;
+
+								$('#ytjrs').html(ytjtotal);
+								$('#wtjrs').html(wtjtotal);
+								$('.leftTiJian ul').eq(0).html(wtjhtml);
+								$('.leftTiJian ul').eq(1).html(ytjhtml);
+
+								var ssh = $('#sstmh').val();
+
+								var params = {
+									tmh: $('#sstmh').val(),
+								}
+								var urls = 'InquiryWgk/list/1/' + pageSize;
+								$.ajax({
+									type: "get",
+									url: BaseUrl + urls,
+									async: true,
+									data: params,
+									success: function(data) {
+										layer.close(loading);
+										if(data.success) {
+											var list = data.queryResult.list;
+											if(list.length > 0) {
+												//请求之前先置空一下表单
+												zhikong('layui-table');
+												form.render();
+												isadd = false;
+												var data = list[0];
+												$('input[name="id"]').val(data.id);
+												$('input[name="zysl"]').val(data.zysl);
+												$('input[name="yysl"]').val(data.yysl);
+												$('input[name="zyjzsl"]').val(data.zyjzsl);
+												$('input[name="yyjzsl"]').val(data.yyjzsl);
+												$('input[name="slbz"]').val(data.slbz);
+												intRadio('wy', data.wy);
+												$('input[name="wyms"]').val(data.wyms);
+												$('input[name="wybz"]').val(data.wybz);
+												intRadio('jt', data.jt);
+												$('input[name="jtms"]').val(data.jtms);
+												$('input[name="jtbz"]').val(data.jtbz);
+												intRadio('sjrt', data.sjrt);
+												$('input[name="sjrtms"]').val(data.sjrtms);
+												$('input[name="ydbz"]').val(data.ydbz);
+												intRadio('swmxg', data.swmxg);
+												$('input[name="swmxgms"]').val(data.swmxgms);
+												intRadio('hbq', data.hbq);
+												$('input[name="hbqms"]').val(data.hbqms);
+												intRadio('ek', data.ek);
+												$('input[name="ekms"]').val(data.ekms);
+												$('input[name="webz"]').val(data.webz);
+												intRadio('wed', data.wed);
+												$('input[name="wedms"]').val(data.wedms);
+												intRadio('ztl', data.ztl);
+												intRadio('ytl', data.ytl);
+												$('input[name="tlbz"]').val(data.tlbz);
+												intRadio('bwx', data.bwx);
+												intRadio('bzg', data.bzg);
+												intRadio('bqnm', data.bqnm);
+												intRadio('bdqyt', data.bdqyt);
+												intRadio('kc', data.kc);
+												//齿列多选框
+												if(data.cl != null) {
+													var cl = data.cl.split(',');
+													intCheckbox('cl', cl);
+												}
+												intRadio('kqyb', data.kqyb);
+												intRadio('yhyb', data.yhyb);
+												intRadio('btt', data.btt);
+												intRadio('kyb', data.kyb);
+												$('input[name="bwxms"]').val(data.bwxms);
+												$('input[name="bbz"]').val(data.bbz);
+												$('input[name="bzgms"]').val(data.bzgms);
+												$('input[name="bdqytms"]').val(data.bdqytms);
+												$('input[name="kqbz"]').val(data.kqbz);
+												$('input[name="yhybms"]').val(data.yhybms);
+												$('input[name="bttms"]').val(data.bttms);
+												$('input[name="kybms"]').val(data.kybms);
+												$('input[name="ysqz"]').val(data.ysqz);
+												$('input[name="createtime"]').val(getDate(data.tjrq));
+												$('input[name="qczs"]').val(data.qczs);
+												$('input[name="qczx"]').val(data.qczx);
+												$('input[name="qcys"]').val(data.qcys);
+												$('input[name="qcyx"]').val(data.qcyx);
+												$('input[name="yczs"]').val(data.yczs);
+												$('input[name="yczx"]').val(data.yczx);
+												$('input[name="ycys"]').val(data.ycys);
+												$('input[name="ycyx"]').val(data.ycyx);
+												$('input[name="jczs"]').val(data.jczs);
+												$('input[name="jczx"]').val(data.jczx);
+												$('input[name="jcys"]').val(data.jcys);
+												$('input[name="jcyx"]').val(data.jcyx);
+												$('input[name="yhbz"]').val(data.yhbz);
+												$('input[name="bqnmms"]').val(data.bqnmms);
+												$('input[name="res1"]').val(data.res1);
+												if(data.cl.indexOf('缺齿') >= 0) {
+													$('.chilieyc').show();
+													$('#qcdoms').show();
+												}
+
+												if(data.cl.indexOf('龋齿') >= 0) {
+													$('.chilieyc').show();
+													$('#jcdoms').show();
+												}
+												if(data.cl.indexOf('义齿') >= 0) {
+													$('.chilieyc').show();
+													$('#ycdoms').show();
+												}
+												form.render();
+											} else {
+												layer.msg('暂未查询到相关数据');
+												intValue();
+												form.render();
+											}
+										} else {
+											layer.msg(data.message);
+										}
+									},
+									error: function(data) {
+										layer.close(loading);
+										layer.msg(data.message);
+									}
+
+								});
+
+							} else {
+								layer.msg('暂无该人员相关信息,请先进行登记');
+								zhikong('xinXiDetail');
+								intValue();
+								form.render();
+								//刷新左侧列表
+								//未体检人数接口获取数据
+								var params = {
+									tjflag: "0",
+									tjrq: tjrq,
+								}
+								var wtjdata = isChecked(params);
+								var wtjhtml = wtjdata.html;
+								var wtjtotal = wtjdata.total;
+								$('#wtjrs').html(wtjtotal);
+								$('.leftTiJian ul').eq(0).html(wtjhtml);
+
+								//已体检人数接口获取数据
+								var params = {
+									tjflag: "1",
+									tjrq: tjrq,
+								}
+								var ytjdata = isChecked(params);
+								var ytjhtml = ytjdata.html;
+								var ytjtotal = ytjdata.total;
+								$('#ytjrs').html(ytjtotal);
+								$('.leftTiJian ul').eq(1).html(ytjhtml);
+
+							}
+						}
+					},
+					error: function(data) {
+						layer.close(loading);
+						layer.msg(data.message);
+					}
+				});
+			}, 100)
+
+		})
+
+		$('.saveTijian').click(function() {
+			if($('input[name="tmh"]').val() == '') {
+				layer.msg('条码号不能为空');
+				return false;
+			}
+			if($('input[name="sfz"]').val() == '') {
+				layer.msg('身份证不能为空');
+				return false;
+			}
+			var loading = layer.msg('正在保存...', {
+				icon: 16,
+				shade: 0.2,
+				time: false
+			});
+
+			var id = $('input[name="id"]').val();
+			var params = {
+				id: id,
+				tmh: $('input[name="sstmh"]').val(),
+				xm: $('input[name="xm"]').val(),
+				sfz: $('input[name="sfz"]').val(),
+				zysl: $('input[name="zysl"]').val(),
+				yysl: $('input[name="yysl"]').val(),
+				zyjzsl: $('input[name="zyjzsl"]').val(),
+				yyjzsl: $('input[name="yyjzsl"]').val(),
+				slbz: $('input[name="slbz"]').val(),
+				wy: $('input[name="wy"]:checked').val(),
+				wyms: $('input[name="wyms"]').val(),
+				wybz: $('input[name="wybz"]').val(),
+				jt: $('input[name="jt"]:checked').val(),
+				jtms: $('input[name="jtms"]').val(),
+				jtbz: $('input[name="jtbz"]').val(),
+				sjrt: $('input[name="sjrt"]:checked').val(),
+				sjrtms: $('input[name="sjrtms"]').val(),
+				ydbz: $('input[name="ydbz"]').val(),
+				swmxg: $('input[name="swmxg"]:checked').val(),
+				swmxgms: $('input[name="swmxgms"]').val(),
+				hbq: $('input[name="hbq"]:checked').val(),
+				hbqms: $('input[name="hbqms"]').val(),
+				ek: $('input[name="ek"]:checked').val(),
+				ekms: $('input[name="ekms"]').val(),
+				webz: $('input[name="webz"]').val(),
+				wed: $('input[name="wed"]:checked').val(),
+				wedms: $('input[name="wedms"]').val(),
+				ztl: $('input[name="ztl"]:checked').val(),
+				ytl: $('input[name="ytl"]:checked').val(),
+				tlbz: $('input[name="tlbz"]').val(),
+				bwx: $('input[name="bwx"]:checked').val(),
+				bzg: $('input[name="bzg"]:checked').val(),
+				bqnm: $('input[name="bqnm"]:checked').val(),
+				bqnmms: $('input[name="bqnmms"]').val(),
+				bdqyt: $('input[name="bdqyt"]:checked').val(),
+				kc: $('input[name="kc"]:checked').val(),
+				cl: getCheckArry('cl'),
+				kqyb: $('input[name="kqyb"]:checked').val(),
+				yhyb: $('input[name="yhyb"]:checked').val(),
+				btt: $('input[name="btt"]:checked').val(),
+				kyb: $('input[name="kyb"]:checked').val(),
+				bwxms: $('input[name="bwxms"]').val(),
+				bbz: $('input[name="bbz"]').val(),
+				bzgms: $('input[name="bzgms"]').val(),
+				bdqytms: $('input[name="bdqytms"]').val(),
+				kqbz: $('input[name="kqbz"]').val(),
+				yhybms: $('input[name="yhybms"]').val(),
+				bttms: $('input[name="bttms"]').val(),
+				kybms: $('input[name="kybms"]').val(),
+				yhbz: $('input[name="yhbz"]').val(),
+				ysqz: $('input[name="ysqz"]').val(),
+				createtime: $('input[name="createtime"]').val(),
+				qczs: $('input[name="qczs"]').val(),
+				qczx: $('input[name="qczx"]').val(),
+				qcys: $('input[name="qcys"]').val(),
+				qcyx: $('input[name="qcyx"]').val(),
+				yczs: $('input[name="yczs"]').val(),
+				yczx: $('input[name="yczx"]').val(),
+				ycys: $('input[name="ycys"]').val(),
+				ycyx: $('input[name="ycyx"]').val(),
+				jczs: $('input[name="jczs"]').val(),
+				jczx: $('input[name="jczx"]').val(),
+				jcys: $('input[name="jcys"]').val(),
+				jcyx: $('input[name="jcyx"]').val(),
+				res1: $('input[name="res1"]').val(),
+			}
+
+			if(isadd) {
+				$.ajax({
+					type: "post",
+					url: BaseUrl + '/InquiryWgk/add',
+					async: true,
+					data: JSON.stringify(params),
+					processData: false,
+					contentType: "application/json",
+					success: function(data) {
+						layer.close(loading);
+						debugger;
+						if(data.success) {
+							layer.alert('保存成功', {
+								skin: 'layui-layer-lan',
+								closeBtn: 0,
+								anim: 4 //动画类型
+							}, function(tc, layero) {
+								window.location.reload();
+							});
+						} else {
+							layer.msg(data.message);
+						}
+					},
+					error: function(data) {
+						layer.close(loading);
+						layer.msg(data.message);
+					}
+				});
+			} else {
+				$.ajax({
+					type: "put",
+					url: BaseUrl + 'InquiryWgk/edit/' + id,
+					async: true,
+					data: JSON.stringify(params),
+					contentType: "application/json",
+					processData: false,
+					success: function(data) {
+						layer.close(loading);
+						if(data.success) {
+							layer.alert('保存成功', {
+								skin: 'layui-layer-lan',
+								closeBtn: 0,
+								anim: 4 //动画类型
+							})
+						} else {
+							layer.msg(data.message);
+						}
+					},
+					error: function(data) {
+						layer.msg('程序错误!');
+						layer.close(loading);
+					}
+				});
+
+			}
+            var id = $('input[name="id"]').val();
+            //身份证
+            var sfz = $('#sfz').val();
+            //姓名
+            var xm = $('#xm').val();
+            //体检日期
+            var tjrq = $('#tjrq').val();
+            //条码号
+            var tmh = $('#sstmh').val();
+            var brdh = $('#brdh').val();
+            //工作单位
+            var companyname = $('#companyname').val();
+            //单位编号
+            var companycode = $('#companycode').val();
+            //保存进度
+            var params2 = {
+                id: id,
+                sfz: sfz,
+                xm: xm,
+                tjrq: tjrq,
+                tmh: tmh,
+                brdh: brdh,
+                companycode: companycode,
+                companyname: companyname
+            }
+
+            $.ajax({
+                type: "post",
+                url: BaseUrl + '/progress/add?flag=wgk',
+                async: true,
+                data: JSON.stringify(params2),
+                processData: false,
+                contentType: "application/json",
+                success: function(data) {
+                    layer.close(loading);
+
+                    if(data.success) {
+                        layer.alert('保存成功', {
+                            skin: 'layui-layer-lan',
+                            closeBtn: 0,
+                            anim: 4 //动画类型
+                        }, function(tc, layero) {
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.msg(data.message);
+                    }
+                },
+                error: function(data) {
+                    layer.close(loading);
+                    layer.msg(data.message);
+                }
+            });
+
+		})
+
+		//展示既往史的选项
+		form.on('checkbox(chilie)', function(data) {
+			if(data.elem.checked) {
+				$('input[name="cl"]').eq(0).prop('checked', false);
+			}
+			if(data.value.indexOf('缺齿') >= 0 && data.elem.checked) {
+				$('.chilieyc').show();
+				$('#qcdoms').show();
+			} else if(data.value.indexOf('缺齿') >= 0 && !(data.elem.checked)) {
+				$('#qcdoms').hide();
+			}
+			if(data.value.indexOf('龋齿') >= 0 && data.elem.checked) {
+				$('.chilieyc').show();
+				$('#jcdoms').show();
+			} else if(data.value.indexOf('龋齿') >= 0 && !(data.elem.checked)) {
+				$('#jcdoms').hide();
+			}
+
+			if(data.value.indexOf('义齿（假牙）') >= 0 && data.elem.checked) {
+				$('.chilieyc').show();
+				$('#ycdoms').show();
+			} else if(data.value.indexOf('义齿（假牙）') >= 0 && !(data.elem.checked)) {
+				$('#ycdoms').hide();
+			}
+			form.render();
+		});
+	});
+	// 选项卡
+	$('.leftTiJian ul').hide();
+	$('.leftTiJian ul').eq(0).show();
+	$('.leftTiJian p').click(function() {
+		id = $(this).index();
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		$('.leftTiJian ul').hide();
+		$('.leftTiJian ul').eq(id).show();
+		var companycode = localStorage.getItem('companycode');
+		var tjrq = $("#tjrq").val();
+/*		if(tjrq.trim() == ''){
+			tjrq = getCurrentDate();
+		}*/
+		if(id == 0) {
+			//未体检人数接口获取数据
+			var params = {
+				companycode: companycode,
+				tjflag: "0",
+				tjrq:tjrq,
+			}
+			var wtjdata = isChecked(params);
+			var wtjhtml = wtjdata.html;
+			var wtjtotal = wtjdata.total;
+			$('#wtjrs').html(wtjtotal);
+			$('.leftTiJian ul').eq(0).html(wtjhtml);
+
+		} else if(id == 1) {
+			//已体检人数接口获取数据
+			var params = {
+				companycode: companycode,
+				tjflag: "1",
+				tjrq:tjrq,
+			}
+			var ytjdata = isChecked(params);
+			var ytjhtml = ytjdata.html;
+			var ytjtotal = ytjdata.total;
+			$('#ytjrs').html(ytjtotal);
+			$('.leftTiJian ul').eq(1).html(ytjhtml);
+		}
+	})
+})

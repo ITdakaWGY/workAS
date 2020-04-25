@@ -1,0 +1,54 @@
+package com.as.occupationaldseases.controller;
+
+import com.as.occupationaldseases.api.GrjbxxFcApi;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.common.response.ResponseResult;
+import com.as.occupationaldseases.domain.grjbxx_fc.Grjbxx_fc;
+import com.as.occupationaldseases.domain.grjbxx_fc.Grjbxx_fczj;
+import com.as.occupationaldseases.domain.grjbxx_fc.responce.FcResult;
+import com.as.occupationaldseases.service.GrjbxxFcService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/grjbxxfc")
+public class GrjbxxFcController implements GrjbxxFcApi {
+    @Autowired
+    GrjbxxFcService grjbxxFcService;
+
+    @Override
+    @PostMapping("/add")
+    public FcResult add(@RequestBody Grjbxx_fc grjbxxFc) {
+        return grjbxxFcService.add(grjbxxFc);
+    }
+
+    @Override
+    @PutMapping("/edit/{id}")
+    public FcResult edit(@PathVariable("id")Integer id, @RequestBody Grjbxx_fc grjbxxFc) {
+        return grjbxxFcService.update(id, grjbxxFc);
+    }
+
+    @Override
+    @DeleteMapping("/del/{id}")
+    public ResponseResult delete(@PathVariable("id") Integer id) {
+        return grjbxxFcService.delete(id);
+    }
+
+    @Override
+    @GetMapping("/list/{page}/{size}")
+    public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size") int size, Grjbxx_fc grjbxxFc) {
+
+        System.out.println("具体参数："+grjbxxFc.toString());
+
+        return grjbxxFcService.findList(page,size,grjbxxFc);
+    }
+
+    @Override
+    @GetMapping("/inspectionlist/{page}/{size}")
+    public QueryResponseResult inspectionList(@PathVariable("page") int page, @PathVariable("size") int size, Grjbxx_fczj grjbxx_fczj) {
+        return grjbxxFcService.inspectionList(page,size,grjbxx_fczj);
+    }
+
+
+}

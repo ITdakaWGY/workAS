@@ -1,0 +1,210 @@
+﻿var urlType;
+//判断 ，如果直接进入首页，跳转菜单界面，如果没有登录，菜单界面会直接跳转登录界面
+if(window.location.href.indexOf('?')>=0){
+	 urlType = window.location.href.split('?')[1].split('=')[1];	
+}else{
+	window.location.href="welcome.html";
+}
+var navs = [];
+if(urlType == 1) {
+	navs = [{
+		"title": "基础信息管理",
+		"icon": "&#xe61c;",
+		"href": "",
+		"spread": true,
+		"children": [{
+				"title": "用人单位信息管理",
+				"icon": "&#xe631;",
+				"href": "page/yrdwxx/yrdwxxglList.html",
+				"spread": true
+			},
+			{
+				"title": "体检项目信息管理",
+				"icon": "&#xe631;",
+				"href": "page/tjxmxx/tjxmList.html",
+				"spread": false
+			},
+			{
+				"title": "职业病危害因素管理",
+				"icon": "&#xe631;",
+				"href": "page/tjxmxx/zybwhysList.html",
+				"spread": false
+			},
+			{
+				"title": "职工岗位信息管理",
+				"icon": "&#xe631;",
+				"href": "page/gwxxgl/gwxxglList.html",
+				"spread": false
+			},
+			{
+				"title": "签约管理",
+				"icon": "&#xe631;",
+				"href": "page/tjqy/tjqylList.html",
+				"spread": false
+			},
+		]
+	},
+	{
+		"title": "系统信息管理",
+		"icon": "&#xe61c;",
+		"href": "",
+		"spread": true,
+		"children": [{
+				"title": "机构管理",
+				"icon": "&#xe631;",
+				"href": "page/sysorg/sysOrgList.html",
+				"spread": true
+		    },
+			{
+				"title": "用户管理",
+				"icon": "&#xe631;",
+				"href": "page/yhgl/yhgl.html",
+				"spread": false
+			},
+			{
+				"title": "角色管理",
+				"icon": "&#xe631;",
+				"href": "page/jsgl/jsglList.html",
+				"spread": false
+			},
+			{
+				"title": "菜单管理",
+				"icon": "&#xe631;",
+				"href": "page/cdgl/cdglList.html",
+				"spread": false
+			}
+		]
+	}
+	]
+} else if(urlType == 2) {
+	navs = [
+		{
+			"title": "体检服务管理",
+			"icon": "&#xe61c;",
+			"href": "",
+			"spread": true,
+			"children": [{
+					"title": "体检签约管理",
+					"icon": "&#xe61c;",
+					"href": "page/tjqy/tjqylList.html",
+					"spread": false
+				}, {
+					"title": "现场体检登记管理",
+					"icon": "&#xe631;",
+					"href": "page/tjgl/todaytj.html",
+					"spread": false
+				},
+				{
+					"title": "基本信息采集管理",
+					"icon": "&#xe631;",
+					"href": "page/tjgl/jbxxcj.html",
+					"spread": false
+				},
+				{
+					"title": "职工症状采集管理",
+					"icon": "&#xe631;",
+					"href": "page/tjgl/zzxxcj.html",
+					"spread": false
+				},{
+					"title": "内科检查",
+					"icon": "&#xe631;",
+					"href": "page/wzgl/nkwz.html",
+					"spread": false
+				},
+				{
+					"title": "外科检查",
+					"icon": "&#xe631;",
+					"href": "page/wzgl/wkwz.html",
+					"spread": false
+				},
+				{
+					"title": "五官科检查",
+					"icon": "&#xe631;",
+					"href": "page/wzgl/wgkwz.html",
+					"spread": false
+				},
+				{
+					"title": "神经科检查",
+					"icon": "&#xe631;",
+					"href": "page/wzgl/sjkwz.html",
+					"spread": false
+				}
+
+			]
+		},
+	]
+} else if(urlType == 3) {
+	navs = [{
+		"title": "医生总检管理",
+		"icon": "&#xe61c;",
+		"href": "",
+		"spread": true,
+		"children": [{
+				"title": "主检医生总检管理",
+				"icon": "&#xe631;",
+				"href": "page/zjgl/zjglList.html",
+				"spread": false
+		    },
+		    ]
+	}
+	]
+} else if(urlType == 4) {
+	navs = [
+		{
+			"title": "反馈信息管理",
+			"icon": "&#xe61c;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "职业检查表管理",
+					"icon": "&#xe61c;",
+					"href": "page/zjgl/tjjgList.html",
+					"spread": false
+				},
+				{
+					"title": "复查通知管理",
+					"icon": "&#xe631;",
+					"href": "page/tjfk/jyfcList.html",
+					"spread": false
+				},
+				{
+					"title": "疑似职业病通知管理",
+					"icon": "&#xe631;",
+					"href": "page/tjfk/yszybList.html",
+					"spread": false
+				},
+				{
+					"title": "职业禁忌证通知管理",
+					"icon": "&#xe631;",
+					"href": "page/tjfk/zyjjzList.html",
+					"spread": false
+				}
+
+			]
+		}
+	]
+} else if(urlType == 5) {
+	navs = [{
+			"title": "体检进度查看",
+			"icon": "&#xe61c;",
+			"href": "",
+			"spread": true,
+			"children": [{
+					"title": "企业检查进度查看",
+					"icon": "&#xe631;",
+					"href": "page/jindu/qiye.html",
+					"spread": false
+				},
+				{
+					"title": "个人检查进度查看",
+					"icon": "&#xe631;",
+					"href": "page/jindu/geren.html",
+					"spread": false
+				},
+
+			]
+		}
+
+	]
+}

@@ -1,0 +1,32 @@
+package com.as.occupationaldseases.api;
+
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.domain.userLogin.UserLogin;
+import com.as.occupationaldseases.domain.userLogin.responce.UserLoginResult;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
+
+public interface UserLoginApi {
+    @ApiOperation("用户的新增")
+    public UserLoginResult add(UserLogin userLogin);
+    @ApiOperation("用户的修改")
+    public UserLoginResult update(Long id, UserLogin userLogin);
+    @ApiOperation("用户的删除")
+    public UserLoginResult delete(Long id);
+    @ApiModelProperty("用户查询")
+    public UserLoginResult select(UserLogin userLogin);
+    @ApiModelProperty("头像上传")
+    public String upload(MultipartFile file);
+    @ApiModelProperty("修改密码")
+    public UserLoginResult updatePassword(String yhbh,String usedPassword,String newPassword);
+
+    @ApiOperation("分页查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="page",value = "页码",required=true,paramType="path",dataType="int"),
+            @ApiImplicitParam(name="size",value = "每页记录数",required=true,paramType="path",dataType="int")
+    })
+    public QueryResponseResult findList(int page, int size, UserLogin userLogin);
+}

@@ -1,0 +1,29 @@
+package com.as.occupationaldseases.domain.grjbxx;
+
+
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
+
+@Data
+@ToString
+public class GrjbxxWhole {
+
+    private Grjbxx grjbxx;
+    private List<Grjbxx_jzs> grjbxxJzs;
+    private List<Grjbxx_jbs> grjbxxJbs;
+    private List<Grjbxx_ws> grjbxxWs;
+    private List<Grjbxx_sx> grjbxxSx;
+    private List<Grjbxx_ss> grjbxxSs;
+    private List<Grjbxx_zys> grjbxxZys;
+    private List<Grjbxx_xm> grjbxxXm;
+    private Grjbxx_jzs jbxxJzs;
+    private Grjbxx_jbs jbxxJbs;
+    private Grjbxx_ws jbxxWs;
+    private Grjbxx_sx jbxxSx;
+    private Grjbxx_ss jbxxSs;
+    private Grjbxx_zys jbxxZys;
+    private Grjbxx_xm jbxxXm;
+
+}

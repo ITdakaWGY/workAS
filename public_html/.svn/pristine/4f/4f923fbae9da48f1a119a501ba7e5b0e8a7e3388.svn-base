@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>建议复查信息管理</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '">');
+		</script>
+		<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+		<script src="../../js/jquery.pagination.min.js"></script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="rightZTop">
+			<div class="layui-row">
+				<div class="line-shai">
+					<a name="card">筛选条件</a>
+				</div>
+				<p class="clear"></p>
+				<div class="layui-row layui-form layui-flex">
+					<div class="layui-form-item inputWrap1">
+						<input required lay-verify="required" placeholder="体检年份" autocomplete="off" class="layui-input" name="tjnf" id="tjnf" readonly="">
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<select name="danwei" lay-verify="required" lay-search  id="danwei">
+						
+						</select>
+					</div>
+					<div class="layui-form-item inputWrap1">
+						<div class="layui-input-block" id="jigou">
+							<select name="city" lay-verify="required">
+								<option value="">是否打印</option>
+								<option value="0">已打印</option>
+								<option value="0">未打印</option>
+							</select>
+						</div>
+					</div>
+<div class="layui-form-item inputWrap1">
+						<span class="layui-btn chaxunBtn" id="searchBtn">查询</span>
+					</div>
+				</div>
+				<!-- <div class="line5"></div>
+				<div class="btnAll layui-form-item">
+					
+				</div> -->
+				<div class="tableTop">
+					<table class="layui-table">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>用人单位名称</th>
+								<th>体检日期</th>
+								<th>姓名</th>
+								<th>复查原因</th>
+								<th>复查地点</th>
+								<th>复查日期</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+
+						</tbody>
+					</table>
+				</div>
+				<div class="box">
+					<div id="pagination3" class="page fl"></div>
+					<div class="info fl" style="display:none;">
+						<p>当前页数：<span id="current3">4</span></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="../../js/yewu/tjfk/jyfcList.js"></script>
+	</body>
+
+</html>

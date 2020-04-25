@@ -1,0 +1,54 @@
+$(function() {//一般直接写在一个js文件中
+layui.use(['layer', 'form', 'laydate'], function() {
+	var layer = layui.layer,
+		form = layui.form;
+	var laydate = layui.laydate;
+
+
+	var frameId = window.location.href.split('?')[1].split('=')[1];
+	//监听其他
+
+	$('.saveTijian').click(function() {
+		$('#FormVerification').bootstrapValidator('validate'); 
+  		var flag = $("#FormVerification").data('bootstrapValidator').isValid(); 
+  		if(!flag){
+  			layer.alert("填写有误，请重新填写！"); 
+  			return false;
+  		}
+		var params = {
+		orgname: $('#orgname').val(),
+		phone: $('#phone').val(),
+		address: $('#address').val(),
+		state: $('#state').val(),
+			
+		};
+		$.ajax({
+			type: "post",
+			url: BaseUrl + '/sysOrg/add',
+			async: true,
+			data: JSON.stringify(params),
+			processData: false,
+			contentType: "application/json",
+			success: function(data) {
+				debugger;
+				if(data.success) {
+					layer.alert('保存成功', {
+						skin: 'layui-layer-lan',
+						closeBtn: 0,
+						anim: 4 //动画类型
+					}, function(tc, layero) {
+						parent.layer.closeAll();
+						var dom=$(top.window.document.getElementsByName(frameId)[0].contentWindow.document.getElementById('intSearch'));
+						var newpage=parseInt(dom.attr('data-page'));
+						top.window.document.getElementsByName(frameId)[0].contentWindow.getPageData(newpage);
+					});
+
+				} else {
+					layer.msg(data.message);
+				}
+			}
+
+		});
+	})
+
+});})

@@ -1,0 +1,50 @@
+$(function() {
+	$('.textarea-item').each(function() {
+		var lenInput = $(this).val().length;
+		if(lenInput > 0 && lenInput <= 100) {
+			$(this).siblings('.textarea-count').find('.textareaInput').html(lenInput);
+		}
+	})
+
+	//监听键盘事件获取输入文字数目统计
+	$('body').on('keyup', '.textarea-item', function() {
+		var lenInput = $(this).val().length;
+		if(lenInput > 0 && lenInput <= 100) {
+			$(this).siblings('.textarea-count').find('.textareaInput').html(lenInput);
+		}
+	})
+	//监听获取焦点获取输入文字数目统计
+	$('body').on('focus', '.textarea-item', function() {
+		var lenInput = $(this).val().length;
+		if(lenInput > 0 && lenInput <= 100) {
+			$(this).siblings('.textarea-count').find('.textareaInput').html(lenInput);
+		}
+	})
+	$('.selectmuban').click(function() {
+		layer.open({
+			type: 1,
+			title: false,
+			area: ['900px', '55%'],
+			shadeClose: true,
+			skin: 'yourclass',
+			content: $('.muban')
+		});
+	})
+	$('#xinzengMuban').click(function() {
+
+		var html = `
+						<div class='textarea-block'>
+							<input  placeholder="请输入值" class="layui-input textarea-item fl addInput" name="desc" type="text">
+							<span class="btnOk fl ml20 iconfont">&#xe627;</span>
+							<span class="deletemb fl ml20 iconfont">&#xe608;</span>
+							<div class="textarea-count">
+								<span class="textareaInput">0</span>/<span class="textareaTotal">100</span>
+							</div>
+						</div>`;
+		$('#mubanList').append(html);
+	})
+
+	$('body').on('click', '.deletemb', function() {
+		$(this).parent().remove();
+	})
+})

@@ -1,0 +1,36 @@
+package com.as.occupationaldseases.controller;
+
+import com.as.occupationaldseases.api.GrjbxxXmApi;
+import com.as.occupationaldseases.common.response.QueryResponseResult;
+import com.as.occupationaldseases.domain.grjbxx.Grjbxx_xm;
+import com.as.occupationaldseases.domain.grjbxx.responce.GrjbxxXmResult;
+import com.as.occupationaldseases.service.GrjbxxXmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/grjbxxXm")
+public class GrjbxxXmController implements GrjbxxXmApi {
+
+    @Autowired
+    GrjbxxXmService grjbxxXmService;
+
+    @Override
+    @PostMapping("/add")
+    public GrjbxxXmResult add(@RequestBody Grjbxx_xm grjbxxXm) {
+        return grjbxxXmService.add(grjbxxXm);
+    }
+
+    @Override
+    @PostMapping("/select")
+    public QueryResponseResult select(@RequestBody Grjbxx_xm grjbxxXm) {
+        return grjbxxXmService.select(grjbxxXm);
+    }
+
+    @Override
+    @GetMapping("/selectlist")
+    public QueryResponseResult selectList(Grjbxx_xm grjbxxXm) {
+        return grjbxxXmService.selectList(grjbxxXm);
+    }
+}

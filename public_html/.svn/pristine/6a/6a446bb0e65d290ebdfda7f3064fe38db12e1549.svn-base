@@ -1,0 +1,113 @@
+var navId='';
+$(function() {
+	//一般直接写在一个js文件中
+	layui.use(['layer', 'form', 'laydate'], function() {
+		var layer = layui.layer,
+			form = layui.form;
+		var laydate = layui.laydate;
+		//关联菜单
+		var setting = {
+			callback: {
+				onClick: zTreeOnClick
+			}
+		};
+		var zNodes = [{
+			name: "系统根菜单",
+			open: true,
+			children: [{
+					name: "父节点11 - 折叠",
+					id: 10,
+					open: true,
+					children: [{
+							name: "叶子节点111",
+							id: 101,
+							pid: 10,
+						},
+						{
+							name: "叶子节点112",
+							id: 102,
+							pid: 10,
+						},
+						{
+							name: "叶子节点113",
+							id: 103,
+							pid: 10,
+						},
+						{
+							name: "叶子节点114",
+							id: 104,
+							pid: 10,
+						}
+					]
+				},
+				{
+					name: "父节点12 - 折叠",
+					id: 11,
+					children: [{
+							name: "叶子节点121",
+							id: 101,
+							pid: 11,
+						},
+						{
+							name: "叶子节点122",
+							id: 101,
+							pid: 11,
+						},
+						{
+							name: "叶子节点123",
+							id: 101,
+							pid: 11,
+						},
+						{
+							name: "叶子节点124",
+							id: 101,
+							pid: 11,
+						}
+					]
+				},
+				{
+					name: "父节点13 - 没有子节点",
+					isParent: true
+				}
+			]
+		}, ];
+
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+		function zTreeOnClick(event, treeId, treeNode) {
+			navId=treeNode.id;
+		};
+		
+		$('.addBtn').click(function(){
+			if(navId==''){
+				layer.msg('请选择一个菜单进行操作');
+				return false;
+			}
+			
+			top.layer.open({
+				type: 2,
+				title: '新增角色',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['40%', '40%'],
+				content: 'page/cdgl/cdglAdd.html?id='+navId,
+			});
+		})
+		
+		$('.editBtn').click(function(){
+			if(navId==''){
+				layer.msg('请选择一个菜单进行操作');
+				return false;
+			}
+			top.layer.open({
+				type: 2,
+				title: '修改角色',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['40%', '40%'],
+				content: 'page/cdgl/cdglEdit.html?id'+navId,
+			});
+		})
+
+	});
+})

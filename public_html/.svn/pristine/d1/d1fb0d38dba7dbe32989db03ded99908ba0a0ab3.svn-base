@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用人单位基本信息修改</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/newWrap.css" />
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+	<body>
+		<div class="x-body">
+			<table class="layui-table layui-form">
+			<tr>
+					<td width="150">危害类型</td>
+					<td>
+						<select class="hazardType" lay-filter="hazardType">
+							<option value="粉尘" selected>粉尘</option>
+							<option value="化学因素">化学因素</option>
+							<option value="物理因素">物理因素</option>
+							<option value="生物因素">生物因素</option>
+							<option value="特殊作业">特殊作业</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>危害名称</td>
+					<td colspan="3" class="whList">
+						<div class="hazard_fc whysParent">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="游离二氧化硅粉尘"  title="游离二氧化硅粉尘">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="煤尘"  title="煤尘">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="石棉粉尘"  title="石棉粉尘">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="其他无机粉尘"  title="其他无机粉尘">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="棉尘（亚麻、软大麻、黄麻粉尘）"  title="棉尘（亚麻、软大麻、黄麻粉尘）">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="有机粉尘"  title="有机粉尘">
+						</div>
+						<div class="hazard_hx none whysParent">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="铅及其无机化合物"  title="铅及其无机化合物">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="汞及其无机化合物"  title="汞及其无机化合物">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="锰及其无机化合物"  title="锰及其无机化合物">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="其他"  title="其他">
+						</div>
+						<div class="hazard_wl none whysParent">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="噪声"  title="噪声">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="手传振动"  title="手传振动">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="高温"  title="高温">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="高气压"  title="高气压">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="紫外辐射"  title="紫外辐射">							
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="微波"  title="微波">
+						</div>
+						<div class="hazard_sw none whysParent">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="布鲁菌属"  title="布鲁菌属">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="炭疽芽胞杆菌"  title="炭疽芽胞杆菌">
+						</div>
+						<div class="hazard_ts none whysParent">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="电工作业"  title="电工作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="高处作业"  title="高处作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="压力容器作业"  title="压力容器作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="结核病防治工作"  title="结核病防治工作">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="肝炎病防治工作"  title="肝炎病防治工作">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="职业机动车驾驶作业"  title="职业机动车驾驶作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="视屏作业"  title="视屏作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="高原作业"  title="高原作业">
+							<input type="checkbox" lay-skin="primary" name="hazardName" value="航空作业"  title="航空作业">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>用人单位名称</td>
+					<td colspan="3">
+						<select name="companycode"  id="companycode" lay-search>
+						</select>
+					</td>
+					
+				</tr>
+				
+				
+				
+			</table>
+			<input type="button" class="layui-btn saveTijian" value="保存" >
+			
+		</div>
+		<script>
+			document.write('<script src="../../js/yewu/zybwh/editzybwh.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</body>
+</html>

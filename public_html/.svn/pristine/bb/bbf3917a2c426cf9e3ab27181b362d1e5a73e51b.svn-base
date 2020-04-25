@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>肺功能检测</title>
+		<script src="../../js/jquery-3.2.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<link href="../../layui/css/layui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<script>
+			document.write('<link rel="stylesheet" type="text/css" href="../../css/newWrap.css?v=' + Math.random() + '" />');
+		</script>
+		<script>
+			document.write('<script src="../../js/wrap.js?v=' + Math.random() + '"><\/script>');
+		</script>
+	</head>
+
+	<body>
+		<div class="detailrow">
+			<div class="projectText">肺功能检测</div>
+			
+			<table class="layui-table " border="1px" style="width:400px; margin: 0 auto;">
+				<tr>
+					<td>检测内容</td>
+					<td>检测数据</td>
+				</tr>
+				<tr>
+					<td>用力肺活量（FVC%）</td>
+					<td>222</td>
+				</tr>
+				<tr>
+					<td>第一秒用力呼气容积（FEV1%）</td>
+					<td>222</td>
+				</tr>
+				<tr>
+					<td>一秒率（FEV1/FVC）</td>
+					<td>222</td>
+				</tr>
+				
+
+			</table>
+			<div class="doctorFont">
+				<span class="fl qianzi">检查医生:<img src="" id="ysqm" style="display: none;">
+					<input type="text" readonly="" value="" id="ysqmtext" style="display: none;">
+				</span>
+				<span class="fr projectDate">检验时间:<i id="jcsj"></i></span>
+			</div>
+		</div>
+		<!-- <script>
+			document.write('<script src="../../js/yewu/zjDetails/dctbg.js?v=' + Math.random() + '"><\/script>');
+		</script> -->
+	</body>
+
+</html>
